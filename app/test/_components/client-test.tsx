@@ -14,5 +14,5 @@ interface ClientTestProps {
 }
 
 export function ClientTest({ children }: ClientTestProps) {
-  return <Container>children: {children} test</Container>
+  return <Container>children: {children} test2</Container>
 }
