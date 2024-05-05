@@ -4,6 +4,9 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
   DISCORD_WEBHOOK_ID: ${{ secrets.DISCORD_WEBHOOK_ID }}
   DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+  NODE_VERSION: '20.x'
+  NPM_REGISTRY_URL: 'https://registry.npmjs.org'
+  PNPM_CACHE_FOLDER: .pnpm-store
 
 on:
   push:
@@ -13,11 +16,27 @@ on:
 jobs:
   deploy-production:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Git checkout@v3
+        uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        id: pnpm-install
+        with:
+          version: 9.0.6
+          run_install: false
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          registry-url: ${{ env.NPM_REGISTRY_URL }}
+          cache: 'pnpm'
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@canary
+        run: pnpm install vercel
 
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
