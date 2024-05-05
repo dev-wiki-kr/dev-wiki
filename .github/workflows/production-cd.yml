@@ -73,6 +73,7 @@ jobs:
           DISCORD_TITLE: '배포에 성공하였습니다. 🎉'
           DISCORD_COLOR: 0x0d6efd
           DISCORD_IMAGE: 'https://github.com/dev-wiki-kr/dev-wiki/assets/85891751/50cbc9f4-c22c-4a91-a24a-84e90f246fdc'
+          REPOSITORY_URL: ${{ github.repository.url }}
 
       - name: notify-discord-bot
         if: ${{ failure() }}
@@ -81,3 +82,4 @@ jobs:
           DISCORD_TITLE: '배포에 실패하였습니다. ❌'
           DISCORD_COLOR: 0xff4545
           DISCORD_IMAGE: 'https://github.com/dev-wiki-kr/dev-wiki/assets/85891751/50cbc9f4-c22c-4a91-a24a-84e90f246fdc'
+          REPOSITORY_URL: ${{ github.repository.url }}
