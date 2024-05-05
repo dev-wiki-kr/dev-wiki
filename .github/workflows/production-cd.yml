@@ -1,0 +1,45 @@
+name: Vercel Production Deployment
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  DISCORD_WEBHOOK_ID: ${{ secrets.DISCORD_WEBHOOK_ID }}
+  DISCORD_WEBHOOK_TOKEN: ${{ secrets.DISCORD_WEBHOOK_TOKEN }}
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-production:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@canary
+
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: notify-discord-bot
+        if: ${{ success() }}
+        run: npx @dev-wiki-kr/gha-tools notify-discord-bot
+        env:
+          DISCORD_TITLE: '배포에 성공하였습니다. 🎉'
+          DISCORD_COLOR: '#0d6efd'
+          DISCORD_IMAGE: 'https://github.com/dev-wiki-kr/dev-wiki/assets/85891751/50cbc9f4-c22c-4a91-a24a-84e90f246fdc'
+
+      - name: notify-discord-bot
+        if: ${{ failure() }}
+        run: npx @dev-wiki-kr/gha-tools notify-discord-bot
+        env:
+          DISCORD_TITLE: '배포에 실패하였습니다. ❌'
+          DISCORD_COLOR: '#ff4545	'
+          DISCORD_IMAGE: 'https://github.com/dev-wiki-kr/dev-wiki/assets/85891751/50cbc9f4-c22c-4a91-a24a-84e90f246fdc'
