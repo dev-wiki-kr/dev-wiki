@@ -35,6 +35,11 @@ jobs:
           registry-url: ${{ env.NPM_REGISTRY_URL }}
           cache: 'pnpm'
 
+      - name: Setup npmrc
+        run: |
+          echo "@dev-wiki-kr:registry=https://npm.pkg.github.com"  >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> .npmrc
+
       - name: Install Vercel CLI
         run: pnpm install vercel
 
