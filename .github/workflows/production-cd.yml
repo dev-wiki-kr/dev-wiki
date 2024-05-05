@@ -14,8 +14,22 @@ on:
       - main
 
 jobs:
+  set-output:
+    runs-on: ubuntu-latest
+    outputs:
+      short_sha: ${{ steps.vars.outputs.short_sha }}
+    steps:
+      - name: Set Outputs
+        id: vars
+        run: |
+          echo "short_sha=${GITHUB_SHA::6} >> $GITHUB_OUTPUT"
+
   deploy-production:
     runs-on: ubuntu-latest
+
+    needs: [set-output]
+    env:
+      SHORT_SHA: ${{ needs.set-output.outputs.short_sha }}
 
     steps:
       - name: Git checkout@v3
