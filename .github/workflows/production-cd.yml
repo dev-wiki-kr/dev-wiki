@@ -57,7 +57,7 @@ jobs:
         run: npx @dev-wiki-kr/gha-tools notify-discord-bot
         env:
           DISCORD_TITLE: '배포에 성공하였습니다. 🎉'
-          DISCORD_COLOR: '#0d6efd'
+          DISCORD_COLOR: 0x0d6efd
           DISCORD_IMAGE: 'https://github.com/dev-wiki-kr/dev-wiki/assets/85891751/50cbc9f4-c22c-4a91-a24a-84e90f246fdc'
 
       - name: notify-discord-bot
@@ -65,5 +65,5 @@ jobs:
         run: npx @dev-wiki-kr/gha-tools notify-discord-bot
         env:
           DISCORD_TITLE: '배포에 실패하였습니다. ❌'
-          DISCORD_COLOR: '#ff4545	'
+          DISCORD_COLOR: 0xff4545
           DISCORD_IMAGE: 'https://github.com/dev-wiki-kr/dev-wiki/assets/85891751/50cbc9f4-c22c-4a91-a24a-84e90f246fdc'
