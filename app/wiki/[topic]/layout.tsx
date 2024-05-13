@@ -6,7 +6,6 @@ interface LayoutProps {
 
 type GenerateMetadataProps = {
   params: { topic: string }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
