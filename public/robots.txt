@@ -1,0 +1,3 @@
+User-Agent: *
+Allow: /
+Sitemap: https://dewiki.vercel.app/sitemap.xml
