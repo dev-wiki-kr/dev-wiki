@@ -8,5 +8,5 @@ const StyledLink = styled(Link)`
 `
 
 export function LinkToTest() {
-  return <StyledLink href={'/test'}>테스트 페이지로 이동하기</StyledLink>
+  return <StyledLink href={'/wiki/Next.js'}>Next.js 위키로 이동하기</StyledLink>
 }
