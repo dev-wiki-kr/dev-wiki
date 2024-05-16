@@ -1,4 +1,5 @@
 import { ReadonlyURLSearchParams } from 'next/navigation'
+import { TopicClient } from '../../_components/topic'
 
 export const dynamicParams = false
 
@@ -16,5 +17,5 @@ interface TopicProps {
 export default function Topic({ params: { topic }, searchParams }: TopicProps) {
   console.log({ topic, searchParams })
 
-  return <div>{topic}</div>
+  return <TopicClient topic={topic} />
 }
