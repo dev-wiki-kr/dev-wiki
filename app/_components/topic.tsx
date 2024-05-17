@@ -10,7 +10,7 @@ interface TopicInterface {
 
 const Container = styled.div`
   width: 768px;
-  margin: 0 auto;
+  margin: 100px auto;
 `
 
 const Image = styled.img`
