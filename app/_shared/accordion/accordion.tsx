@@ -10,6 +10,10 @@ const SummaryContainer = styled.div`
   margin-bottom: 12px;
 `
 
+const Container = styled.div`
+  margin-top: 40px;
+`
+
 export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
   { children: accordionChildren },
   ref,
@@ -22,11 +26,11 @@ export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Acc
   }
 
   return (
-    <div ref={ref}>
+    <Container ref={ref}>
       <AccordionProvider expand={!!expanded}>
         <SummaryContainer onClick={handleChange}>{summary}</SummaryContainer>
       </AccordionProvider>
       {expanded ? <div>{children}</div> : null}
-    </div>
+    </Container>
   )
 })
