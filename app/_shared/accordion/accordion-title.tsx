@@ -13,10 +13,16 @@ const AccordionRoot = styled.div`
   cursor: pointer;
 `
 
-const AccordionTitleContainer = styled.div`
+const AccordionTitleContainer = styled.div<{ expand: boolean }>`
   height: 30px;
   line-height: 1.5;
   margin-left: 3px;
+
+  ${({ expand }) =>
+    !expand &&
+    css`
+      opacity: 0.5;
+    `}
 `
 
 const Icon = styled.img<{ expand: boolean }>`
@@ -33,7 +39,7 @@ export function AccordionTitle({ children }: AccordionTitleProps) {
   return (
     <AccordionRoot>
       <Icon src="/icons/caret-down.svg" expand={expand} />
-      <AccordionTitleContainer>{children}</AccordionTitleContainer>
+      <AccordionTitleContainer expand={expand}>{children}</AccordionTitleContainer>
     </AccordionRoot>
   )
 }
