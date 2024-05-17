@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components'
 
 const Heading = css`
   font-weight: 700;
+  margin: 0;
+  line-height: 33px;
 `
 
 export const H1 = styled.h1`
