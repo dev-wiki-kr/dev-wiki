@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: 'https://dewiki.vercel.app/wiki/Next.js',
+      url: 'https://dewiki.vercel.app/wiki/Three.js',
       lastModified: new Date(),
     },
     {

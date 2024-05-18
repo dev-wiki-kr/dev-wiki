@@ -4,7 +4,7 @@ import { TopicClient } from '../../_components/topic'
 export const dynamicParams = false
 
 export function generateStaticParams() {
-  return [{ topic: 'Next.js' }, { topic: 'Typescript' }, { topic: 'react-query' }]
+  return [{ topic: 'Three.js' }, { topic: 'Typescript' }, { topic: 'react-query' }]
 }
 
 interface TopicProps {
