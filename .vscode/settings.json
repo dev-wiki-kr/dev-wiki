@@ -10,5 +10,6 @@
     "(route)": "Routes",
     "_styles": "Css",
     "_external": "Plugin"
-  }
+  },
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
