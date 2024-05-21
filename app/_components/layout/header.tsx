@@ -11,12 +11,17 @@ const StyledHeader = styled.header`
   padding: 18px 0;
 `
 
+const StyledLink = styled(Link)`
+  font-weight: 700;
+  margin: 0;
+  line-height: 33px;
+  font-size: 24px;
+`
+
 export function Header() {
   return (
     <StyledHeader>
-      <Link href={'/'}>
-        <H2>DevWiki</H2>
-      </Link>
+      <StyledLink href={'/'}>DevWiki</StyledLink>
     </StyledHeader>
   )
 }

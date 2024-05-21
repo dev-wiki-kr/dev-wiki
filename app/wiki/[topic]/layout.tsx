@@ -25,10 +25,5 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 //QUESTION: 위키피디아 형식에서는 어떤 json-ld 구조화형식이 맞을지..? 아니면 안해도 될지
 
 export default function TopicLayout({ children }: LayoutProps) {
-  return (
-    <html>
-      <head></head>
-      <body>{children}</body>
-    </html>
-  )
+  return <div>{children}</div>
 }
