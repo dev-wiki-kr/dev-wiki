@@ -3,6 +3,7 @@
 import { styled } from 'styled-components'
 import { H2 } from '../../_shared/heading'
 import Link from 'next/link'
+import { media } from '../../_styles/media'
 
 const StyledHeader = styled.header`
   width: 768px;
@@ -16,6 +17,10 @@ const StyledLink = styled(Link)`
   margin: 0;
   line-height: 33px;
   font-size: 24px;
+
+  ${media.phone`
+   font-size: 32px;
+  `}
 `
 
 export function Header() {
