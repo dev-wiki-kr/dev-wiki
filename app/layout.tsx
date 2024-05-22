@@ -1,3 +1,4 @@
+import { Header } from './_components/layout/header'
 import { StyledComponentsRegistry } from './_external/styled-components'
 import { GlobalStyle } from './_styles/global-style'
 import { Metadata } from 'next'
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps) {
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
+          <Header />
           {children}
         </StyledComponentsRegistry>
       </body>
