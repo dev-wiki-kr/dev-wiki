@@ -1,6 +1,7 @@
 'use client'
 
 import { createGlobalStyle } from 'styled-components'
+import { media } from './media'
 
 export const GlobalStyle = createGlobalStyle`
     *,
@@ -92,4 +93,10 @@ export const GlobalStyle = createGlobalStyle`
     :target {
         scroll-margin-block: 5ex;
     }
+    /* 반응형 영역 구현입니다. */
+    ${media.phone`
+    body{
+        width: 100%;
+    }
+    `}
 `
