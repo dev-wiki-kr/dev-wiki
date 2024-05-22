@@ -3,20 +3,26 @@
 import styled from 'styled-components'
 import { Accordion, AccordionDescription, AccordionTitle } from '../_shared/accordion'
 import { H1, H2, H3 } from '../_shared/heading'
+import { media } from '../_styles/media'
 
 interface TopicInterface {
   topic: string
 }
 
 const Container = styled.div`
-  width: 768px;
+  width: 100%;
   margin: 100px auto;
+  max-width: 768px;
+  padding: 0 20px;
 `
 
 const Image = styled.img`
   margin: 40px 0;
   width: 100%;
   height: 530px;
+  ${media.phone`
+  height: 250px;
+  `}
 `
 
 export function TopicClient({ topic }: TopicInterface) {
