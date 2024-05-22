@@ -1,10 +1,8 @@
 import { css, CSSObject, Interpolation } from 'styled-components'
 
-type DeviceType = 'desktop' | 'tablet' | 'phone'
+type DeviceType = 'phone'
 
 const sizes: Record<DeviceType, number> = {
-  desktop: 1200,
-  tablet: 768,
   phone: 768,
 }
 

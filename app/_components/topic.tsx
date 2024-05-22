@@ -13,15 +13,19 @@ const Container = styled.div`
   width: 100%;
   margin: 100px auto;
   max-width: 768px;
-  padding: 0 20px;
+
+  ${media.phone`
+    padding: 0 20px;
+  `}
 `
 
 const Image = styled.img`
   margin: 40px 0;
   width: 100%;
   height: 530px;
+
   ${media.phone`
-  height: 250px;
+    height: 250px;
   `}
 `
 

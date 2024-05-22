@@ -11,9 +11,10 @@ const StyledHeader = styled.header`
   margin: 0 auto;
   padding: 18px 0;
   max-width: 768px;
+
   ${media.phone`
-  height: 48px;
-  padding : 18px 20px;
+    height: 48px;
+    padding : 18px 20px;
  `}
 `
 
