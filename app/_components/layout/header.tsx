@@ -6,10 +6,15 @@ import Link from 'next/link'
 import { media } from '../../_styles/media'
 
 const StyledHeader = styled.header`
-  width: 768px;
+  width: 100%;
   height: 60px;
   margin: 0 auto;
   padding: 18px 0;
+  max-width: 768px;
+  ${media.phone`
+  height: 48px;
+  padding : 18px 20px;
+ `}
 `
 
 const StyledLink = styled(Link)`
