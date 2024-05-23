@@ -2,6 +2,7 @@ import { Header } from './_components/layout/header'
 import { StyledComponentsRegistry } from './_external/styled-components'
 import { GlobalStyle } from './_styles/global-style'
 import { Metadata } from 'next'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 interface LayoutProps {
   children: React.ReactNode
@@ -26,7 +27,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps) {
   return (
     <html>
-      <head></head>
+      <head>
+        <GoogleAnalytics gaId="G-MTBJ5VNE9S" />
+      </head>
       <body>
         <StyledComponentsRegistry>
           <GlobalStyle />
