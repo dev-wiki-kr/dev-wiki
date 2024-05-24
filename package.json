@@ -2,6 +2,7 @@
   "name": "dev-wiki",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -11,8 +12,14 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@mdx-js/loader": "^3.0.1",
+    "@mdx-js/react": "^3.0.1",
+    "@next/mdx": "^14.2.3",
     "@next/third-parties": "^14.2.3",
+    "@types/mdx": "^2.0.13",
+    "gray-matter": "^4.0.3",
     "next": "14.2.3",
+    "next-mdx-remote": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
     "styled-components": "^6.1.9"
@@ -36,6 +43,11 @@
     "eslint-config-next": "14.2.3",
     "eslint-plugin-storybook": "^0.8.0",
     "prettier": "^3.2.5",
+    "rehype-autolink-headings": "^7.1.0",
+    "rehype-pretty-code": "^0.13.2",
+    "rehype-slug": "^6.0.0",
+    "remark-breaks": "^4.0.0",
+    "remark-gfm": "^4.0.0",
     "storybook": "^8.1.1",
     "tsconfig-paths-webpack-plugin": "^4.1.0",
     "typescript": "^5"
