@@ -7,22 +7,4 @@ module.exports = {
   compiler: {
     styledComponents: true,
   },
-  async redirects() {
-    return [
-      //www to non www redirect
-      {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.dewiki.vercel.app' }],
-        destination: 'https://dewiki.vercel.app/:path*',
-        permanent: true,
-        statusCode: 301,
-      },
-      {
-        source: '/wiki',
-        destination: '/',
-        permanent: true,
-        statusCode: 301,
-      },
-    ]
-  },
 }
