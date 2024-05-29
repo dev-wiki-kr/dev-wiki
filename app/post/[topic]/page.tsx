@@ -17,5 +17,5 @@ interface TopicProps {
 export default async function Post({ params: { topic } }: TopicProps) {
   const { content } = await getPostBySlug(topic)
 
-  return <PostBody>{content}</PostBody>
+  return <PostBody source={content} />
 }
