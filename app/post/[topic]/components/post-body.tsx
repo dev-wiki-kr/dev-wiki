@@ -1,16 +1,16 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import { mdxComponents } from './markdown-components'
 
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
+import { mdxComponents } from './mdx-components'
 
-export function PostBody({ children }: { children: string }) {
+export function PostBody({ source }: { source: string }) {
   return (
     <MDXRemote
-      source={children}
+      source={source}
       options={{
         mdxOptions: {
           remarkPlugins: [remarkGfm, remarkBreaks],
