@@ -1,14 +1,58 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState, ReactNode } from 'react'
 
-export const AccordionContext = createContext<{ expand: boolean } | null>(null)
-
-interface AccordionProviderProps {
-  expand: boolean
-  children: React.ReactNode
+interface AccordionContextValue {
+  expand: Record<string, boolean>
+  toggle: (key: string) => void
+  initialize: (key: string) => void
 }
 
-export function AccordionProvider({ expand, children }: AccordionProviderProps) {
-  return <AccordionContext.Provider value={{ expand }}>{children}</AccordionContext.Provider>
+export const AccordionContext = createContext<AccordionContextValue | null>(null)
+
+interface AccordionProviderProps {
+  children: ReactNode
+}
+
+export function AccordionProvider({ children }: AccordionProviderProps) {
+  const [expand, setExpand] = useState<Record<string, boolean>>({})
+
+  const toggle = (key: string) => {
+    setExpand((prevState) => {
+      const isOpen = !prevState[key]
+      const newState = { ...prevState, [key]: isOpen }
+
+      if (isOpen) {
+        // 하위 아코디언 열기
+        Object.keys(prevState).forEach((childKey) => {
+          console.log('childKey:', childKey, 'key:', key)
+          if (childKey.startsWith(key + '.') && childKey !== key) {
+            newState[childKey] = true
+          }
+        })
+      } else {
+        // 하위 아코디언 닫기
+        Object.keys(prevState).forEach((childKey) => {
+          if (childKey.startsWith(key + '.') && childKey !== key) {
+            newState[childKey] = false
+          }
+        })
+      }
+
+      return newState
+    })
+  }
+
+  const initialize = (key: string) => {
+    setExpand((prevState) => ({
+      ...prevState,
+      [key]: prevState[key] || true,
+    }))
+  }
+
+  return (
+    <AccordionContext.Provider value={{ expand, toggle, initialize }}>
+      {children}
+    </AccordionContext.Provider>
+  )
 }
 
 export function useAccordionContext() {

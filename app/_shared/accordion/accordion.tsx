@@ -1,36 +1,42 @@
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef, ReactNode, useEffect } from 'react'
 import styled from 'styled-components'
-import { AccordionProvider } from './context'
+import { useAccordionContext } from './context'
 
-interface AccordionProps {
-  children: React.ReactNode
+interface AccordionChildProps {
+  id: string
+  isExpand: boolean
 }
 
-const SummaryContainer = styled.div`
-  margin-bottom: 12px;
-`
+interface AccordionProps {
+  children: ReactNode
+  id: string
+}
 
 const Container = styled.div`
   margin-top: 40px;
 `
 
 export const Accordion = forwardRef<HTMLDivElement, AccordionProps>(function Accordion(
-  { children: accordionChildren },
+  { children, id },
   ref,
 ) {
-  const [expanded, setExpanded] = useState(true)
-  const [summary, ...children] = React.Children.toArray(accordionChildren)
+  const { expand, initialize } = useAccordionContext()
 
-  const handleChange = () => {
-    setExpanded(!expanded)
-  }
+  useEffect(() => {
+    initialize(id)
+  }, [id])
 
   return (
     <Container ref={ref}>
-      <AccordionProvider expand={!!expanded}>
-        <SummaryContainer onClick={handleChange}>{summary}</SummaryContainer>
-      </AccordionProvider>
-      {expanded ? <div>{children}</div> : null}
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement<AccordionChildProps>(child)) {
+          return React.cloneElement(child, {
+            id,
+            isExpand: expand[id],
+          })
+        }
+        return child
+      })}
     </Container>
   )
 })
