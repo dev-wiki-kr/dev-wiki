@@ -3,6 +3,7 @@ import { Accordion } from './accordion'
 import { AccordionTitle } from './accordion-title'
 import { AccordionDescription } from './accordion-description'
 import { H2 } from '../heading'
+import { AccordionProvider } from './context'
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
@@ -19,14 +20,17 @@ type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
   render: () => (
-    <Accordion>
-      <AccordionTitle>
-        <H2>1. 개요</H2>
-      </AccordionTitle>
-      <AccordionDescription>테스트입니다.</AccordionDescription>
-    </Accordion>
+    <AccordionProvider>
+      <Accordion id="1">
+        <AccordionTitle>
+          <H2>1. 개요</H2>
+        </AccordionTitle>
+        <AccordionDescription>테스트입니다.</AccordionDescription>
+      </Accordion>
+    </AccordionProvider>
   ),
   args: {
     children: <></>,
+    id: '1',
   },
 }
