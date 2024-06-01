@@ -1,10 +1,10 @@
-'use client'
-
 import styled, { css } from 'styled-components'
 import { useAccordionContext } from './context'
 
 interface AccordionTitleProps {
   children: React.ReactNode
+  id?: string
+  isExpand?: boolean
 }
 
 const AccordionRoot = styled.div`
@@ -13,7 +13,7 @@ const AccordionRoot = styled.div`
   cursor: pointer;
 `
 
-const AccordionTitleContainer = styled.div<{ expand: boolean }>`
+const AccordionTitleContainer = styled.div<{ expand?: boolean }>`
   height: 30px;
   line-height: 1.5;
   margin-left: 3px;
@@ -25,7 +25,7 @@ const AccordionTitleContainer = styled.div<{ expand: boolean }>`
     `}
 `
 
-const Icon = styled.img<{ expand: boolean }>`
+const Icon = styled.img<{ expand?: boolean }>`
   ${({ expand }) =>
     !expand &&
     css`
@@ -33,13 +33,13 @@ const Icon = styled.img<{ expand: boolean }>`
     `}
 `
 
-export function AccordionTitle({ children }: AccordionTitleProps) {
-  const { expand } = useAccordionContext()
+export function AccordionTitle({ children, id, isExpand }: AccordionTitleProps) {
+  const { toggle } = useAccordionContext()
 
   return (
-    <AccordionRoot>
-      <Icon src="/icons/caret-down.svg" expand={expand} />
-      <AccordionTitleContainer expand={expand}>{children}</AccordionTitleContainer>
+    <AccordionRoot onClick={() => toggle(id ?? '')}>
+      <Icon src="/icons/caret-down.svg" expand={isExpand} />
+      <AccordionTitleContainer expand={isExpand}>{children}</AccordionTitleContainer>
     </AccordionRoot>
   )
 }
