@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
 
+import localFont from 'next/font/local'
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -22,12 +23,17 @@ export const metadata: Metadata = {
     canonical: 'https://dewiki.vercel.app',
   },
 }
-
+const pretendard = localFont({
+  src: '../public/font/PretendardVariable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
+})
 //QUESTION: 위키피디아 형식에서는 어떤 json-ld 구조화형식이 맞을지..? 아니면 안해도 될지
 
 export default function RootLayout({ children }: LayoutProps) {
   return (
-    <html>
+    <html lang="kr" className={pretendard.className}>
       <head>
         <GoogleAnalytics gaId="G-MTBJ5VNE9S" />
         <Script id="clarity-script" strategy="afterInteractive">
