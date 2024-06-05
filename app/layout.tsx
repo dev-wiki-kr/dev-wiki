@@ -7,7 +7,7 @@ import Script from 'next/script'
 
 import localFont from 'next/font/local'
 import { GlobalFont } from '../public/font/global-font'
-// import localFont from 'next/font/local'
+import localFont from 'next/font/local'
 interface LayoutProps {
   children: React.ReactNode
 }
