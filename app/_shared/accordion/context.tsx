@@ -23,7 +23,6 @@ export function AccordionProvider({ children }: AccordionProviderProps) {
       if (isOpen) {
         // 하위 아코디언 열기
         Object.keys(prevState).forEach((childKey) => {
-          console.log('childKey:', childKey, 'key:', key)
           if (childKey.startsWith(key + '.') && childKey !== key) {
             newState[childKey] = true
           }
