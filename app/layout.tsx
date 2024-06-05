@@ -6,8 +6,6 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
 
 import localFont from 'next/font/local'
-import { GlobalFont } from '../public/font/global-font'
-import localFont from 'next/font/local'
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -31,6 +29,7 @@ const pretendard = localFont({
   weight: '45 920',
   variable: '--font-pretendard',
 })
+
 //QUESTION: 위키피디아 형식에서는 어떤 json-ld 구조화형식이 맞을지..? 아니면 안해도 될지
 
 export default function RootLayout({ children }: LayoutProps) {
@@ -48,9 +47,8 @@ export default function RootLayout({ children }: LayoutProps) {
           `}
         </Script>
       </head>
-      <body>
+      <body className={pretendard.className}>
         <StyledComponentsRegistry>
-          <GlobalFont />
           <GlobalStyle />
           <Header />
           {children}
