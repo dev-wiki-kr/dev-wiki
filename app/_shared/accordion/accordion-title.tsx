@@ -13,7 +13,9 @@ const AccordionRoot = styled.div`
   cursor: pointer;
 `
 
-const AccordionTitleContainer = styled.div<{ expand?: boolean }>`
+const AccordionTitleContainer = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'expand',
+})<{ expand?: boolean }>`
   height: 30px;
   line-height: 1.5;
   margin-left: 3px;
@@ -25,7 +27,9 @@ const AccordionTitleContainer = styled.div<{ expand?: boolean }>`
     `}
 `
 
-const Icon = styled.img<{ expand?: boolean }>`
+const Icon = styled.img.withConfig({
+  shouldForwardProp: (prop) => prop !== 'expand',
+})<{ expand?: boolean }>`
   ${({ expand }) =>
     !expand &&
     css`
