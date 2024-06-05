@@ -6,7 +6,7 @@ import {
   AccordionTitle,
 } from '../../../_shared/accordion'
 import { H1, H2, H3 } from '../../../_shared/heading'
-import NextLink from './next-link'
+import { NextLink } from './next-link'
 
 export const mdxComponents: MDXComponents = {
   a: NextLink,
