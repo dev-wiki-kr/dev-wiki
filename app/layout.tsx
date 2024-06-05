@@ -25,12 +25,12 @@ export const metadata: Metadata = {
     canonical: 'https://dewiki.vercel.app',
   },
 }
-// const pretendard = localFont({
-//   src: '../public/font/PretendardVariable.woff2',
-//   display: 'swap',
-//   weight: '45 920',
-//   variable: '--font-pretendard',
-// })
+const pretendard = localFont({
+  src: '../public/font/PretendardVariableSubset.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-pretendard',
+})
 //QUESTION: 위키피디아 형식에서는 어떤 json-ld 구조화형식이 맞을지..? 아니면 안해도 될지
 
 export default function RootLayout({ children }: LayoutProps) {
