@@ -5,7 +5,9 @@ interface AccordionDescriptionProps {
   isExpand?: boolean
 }
 
-const AccordionDescriptionRoot = styled.div<{ expand?: boolean }>`
+const AccordionDescriptionRoot = styled.div.withConfig({
+  shouldForwardProp: (prop) => prop !== 'expand',
+})<{ expand?: boolean }>`
   line-height: 1.5;
   max-height: 100%;
 
