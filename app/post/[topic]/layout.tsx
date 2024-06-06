@@ -12,6 +12,9 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
   return {
     title: frontMatter.title,
     description: frontMatter.description,
+    alternates: {
+      canonical: `https://dewiki.vercel.app/post/${params.topic}`,
+    },
   }
 }
 
