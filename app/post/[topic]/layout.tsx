@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import type { PropsWithChildren } from 'react'
-import { getPostBySlug } from '../../lib/get-posts'
 import { Container } from './components/container'
 
 type GenerateMetadataProps = {
@@ -8,10 +7,11 @@ type GenerateMetadataProps = {
 }
 
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
-  const { frontMatter } = await getPostBySlug(params.topic)
+  //TODO: 추후에 article의 기본형태를 mdx 형태로 변경해서 올릴 수 있도록 하자.
+
   return {
-    title: frontMatter.title,
-    description: frontMatter.description,
+    title: `${params.topic} - 데브위키`,
+    description: '테스트입니다.',
     alternates: {
       canonical: `https://devwiki.co.kr/post/${params.topic}`,
     },

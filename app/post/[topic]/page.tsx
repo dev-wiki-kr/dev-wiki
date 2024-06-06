@@ -1,10 +1,12 @@
-import { getPostBySlug, getPostSlugs } from '../../lib/get-posts'
+import { notFound } from 'next/navigation'
+import { getAllPostTitle, getPostByTitle } from '../../_service/post'
 import { PostBody } from './components/post-body'
 
 export async function generateStaticParams() {
-  const slugs = getPostSlugs()
-  return slugs.map((slug) => ({
-    topic: slug.replace('.mdx', ''),
+  const data = await getAllPostTitle()
+
+  return data.map((datum) => ({
+    topic: datum.title,
   }))
 }
 
@@ -15,7 +17,11 @@ interface TopicProps {
 }
 
 export default async function Post({ params: { topic } }: TopicProps) {
-  const { content } = await getPostBySlug(topic)
+  const post = await getPostByTitle(topic)
 
-  return <PostBody source={content} />
+  if (!post) {
+    notFound()
+  }
+
+  return <PostBody source={post.content} />
 }
