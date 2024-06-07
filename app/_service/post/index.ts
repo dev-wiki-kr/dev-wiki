@@ -7,14 +7,32 @@ interface Post {
   updatedAt: Date
 }
 
+interface PostError {
+  message: string
+  error: string
+  statusCode: number
+}
+
+type PostResponse = Post | PostError
+
+function isPostGetError(postResponse: PostResponse): postResponse is PostError {
+  return (
+    'error' in postResponse || ('statusCode' in postResponse && postResponse.statusCode !== 200)
+  )
+}
+
 export async function getPostByTitle(title: string) {
   try {
     //TODO: env 처리 추가
     const res = await fetch(`https://devwiki.co.kr/api/post/${title}`, {
-      next: { revalidate: 100 },
+      next: { revalidate: 86400 },
     })
 
-    const data = (await res.json()) as Post
+    const data = (await res.json()) as PostResponse
+
+    if (isPostGetError(data)) {
+      throw new Error('게시물을 찾지 못했습니다.')
+    }
 
     return data
   } catch (err) {
@@ -23,12 +41,14 @@ export async function getPostByTitle(title: string) {
   }
 }
 
-type AllTitleResponse = { title: string }[]
+type AllTitleResponse = { shortTitle: string }[]
 
 export async function getAllPostTitle() {
   try {
     //TODO: env 처리 추가
-    const res = await fetch(`https://devwiki.co.kr/api/post/titles`, { next: { revalidate: 100 } })
+    const res = await fetch(`https://devwiki.co.kr/api/post/titles`, {
+      next: { revalidate: 86400 },
+    })
 
     const data = (await res.json()) as AllTitleResponse
 
