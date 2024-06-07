@@ -9,5 +9,5 @@ const Link = styled.a`
 `
 
 export function LoginLink() {
-  return <Link href="http://localhost:8080/api/oauth">로그인</Link>
+  return <Link href="https://devwiki.co.kr/api/oauth">로그인</Link>
 }
