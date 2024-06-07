@@ -4,6 +4,7 @@ import { GlobalStyle } from './_styles/global-style'
 import { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
+import { QueryClientProvider, client } from './_external/react-query'
 
 import localFont from 'next/font/local'
 interface LayoutProps {
@@ -48,11 +49,13 @@ export default function RootLayout({ children }: LayoutProps) {
         </Script>
       </head>
       <body className={pretendard.className}>
-        <StyledComponentsRegistry>
-          <GlobalStyle />
-          <Header />
-          {children}
-        </StyledComponentsRegistry>
+        <QueryClientProvider client={client}>
+          <StyledComponentsRegistry>
+            <GlobalStyle />
+            <Header />
+            {children}
+          </StyledComponentsRegistry>
+        </QueryClientProvider>
       </body>
     </html>
   )
