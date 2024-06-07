@@ -6,7 +6,7 @@ export async function generateStaticParams() {
   const data = await getAllPostTitle()
 
   return data.map((datum) => ({
-    topic: datum.title,
+    topic: datum.shortTitle,
   }))
 }
 
