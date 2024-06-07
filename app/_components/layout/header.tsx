@@ -1,9 +1,9 @@
 'use client'
 
 import { styled } from 'styled-components'
-import { H2 } from '../../_shared/heading'
 import Link from 'next/link'
 import { media } from '../../_styles/media'
+import { UserAccountMenu } from '../auth/user-account-menu'
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -11,6 +11,10 @@ const StyledHeader = styled.header`
   margin: 0 auto;
   padding: 18px 0;
   max-width: 768px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 
   ${media.phone`
     height: 48px;
@@ -33,6 +37,7 @@ export function Header() {
   return (
     <StyledHeader>
       <StyledLink href={'/'}>DevWiki</StyledLink>
+      <UserAccountMenu />
     </StyledHeader>
   )
 }
