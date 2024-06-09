@@ -93,6 +93,9 @@ importers:
       eslint-plugin-storybook:
         specifier: ^0.8.0
         version: 0.8.0(eslint@8.57.0)(typescript@5.4.5)
+      github-slugger:
+        specifier: ^2.0.0
+        version: 2.0.0
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
