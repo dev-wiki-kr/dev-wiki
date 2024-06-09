@@ -20,5 +20,5 @@ const AccordionDescriptionRoot = styled.div.withConfig({
 `
 
 export function AccordionDescription({ children, isExpand }: AccordionDescriptionProps) {
-  return <AccordionDescriptionRoot expand={isExpand}>{children}</AccordionDescriptionRoot>
+  return <AccordionDescriptionRoot expand={isExpand ?? true}>{children}</AccordionDescriptionRoot>
 }
