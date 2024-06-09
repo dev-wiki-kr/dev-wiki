@@ -20,9 +20,10 @@ export const autoLinkHeadings = () => {
         if (numberTag && text) {
           const anchorLink = createAnchorLink(node, numberTag)
           const spanElement = createSpanElement(text)
+          const spaceNode = createSpaceNode()
 
           // 원래 텍스트 노드를 anchorLink와 spanElement로 대체
-          node.children = [anchorLink, spanElement]
+          node.children = [anchorLink, spaceNode, spanElement]
         }
         // 하위 노드 순회하지 않음
         return SKIP
@@ -46,6 +47,13 @@ const createSpanElement = (text: string): Element => {
     tagName: 'span',
     properties: {},
     children: [{ type: 'text', value: text }],
+  }
+}
+
+const createSpaceNode = (): Text => {
+  return {
+    type: 'text',
+    value: ' ',
   }
 }
 
