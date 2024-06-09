@@ -1,4 +1,7 @@
+import { TocSide } from '../../_shared/toc'
 import { getPostBySlug, getPostSlugs } from '../../lib/get-posts'
+import { parseHeadersForTOC } from '../../lib/get-toc'
+import { Container } from './components/container'
 import { PostBody } from './components/post-body'
 
 export async function generateStaticParams() {
@@ -16,6 +19,14 @@ interface TopicProps {
 
 export default async function Post({ params: { topic } }: TopicProps) {
   const { content } = await getPostBySlug(topic)
+  const tableOfContents = parseHeadersForTOC(content)
 
-  return <PostBody source={content} />
+  return (
+    <Container>
+      <article style={{ position: 'relative' }}>
+        <TocSide tableOfContents={tableOfContents} />
+        <PostBody source={content} />
+      </article>
+    </Container>
+  )
 }
