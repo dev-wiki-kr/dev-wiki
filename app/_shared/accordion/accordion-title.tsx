@@ -51,7 +51,7 @@ export function AccordionTitle({ children, id, isExpand }: AccordionTitleProps) 
   return (
     <AccordionRoot onClick={handleAccordionClick}>
       <Icon src="/icons/caret-down.svg" expand={isExpand} />
-      <AccordionTitleContainer expand={isExpand}>{children}</AccordionTitleContainer>
+      <AccordionTitleContainer expand={isExpand ?? true}>{children}</AccordionTitleContainer>
     </AccordionRoot>
   )
 }
