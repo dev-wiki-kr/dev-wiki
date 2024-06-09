@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         -moz-text-size-adjust: none;
         -webkit-text-size-adjust: none;
         text-size-adjust: none;
+        scroll-behavior: smooth;
     }
 
     /* 기본 여백을 제거하여 작성된 CSS를 더 잘 제어할 수 있습니다. */
