@@ -1,5 +1,8 @@
 import { notFound } from 'next/navigation'
 import { getAllPostTitle, getPostByTitle } from '../../_service/post'
+import { parseHeadersForTOC } from '../../lib/get-toc'
+import { TocSide } from '../../_shared/toc'
+import { Container } from './components/container'
 import { PostBody } from './components/post-body'
 
 export async function generateStaticParams() {
@@ -23,5 +26,14 @@ export default async function Post({ params: { topic } }: TopicProps) {
     notFound()
   }
 
-  return <PostBody source={post.content} />
+  const tableOfContents = parseHeadersForTOC(post.content)
+
+  return (
+    <Container>
+      <article style={{ position: 'relative' }}>
+        <TocSide tableOfContents={tableOfContents} />
+        <PostBody source={post.content} />
+      </article>
+    </Container>
+  )
 }
