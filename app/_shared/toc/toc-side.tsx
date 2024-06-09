@@ -72,14 +72,11 @@ export const TocSide = ({ tableOfContents }: TocSideProps) => {
       const scrollTop = getScrollTop()
       if (!headingTops || headingTops.length === 0) return
 
-      // 첫 번째 헤딩의 top 위치를 기준으로 활성화 여부 결정
       const firstHeadingTop = headingTops[0].top
-
       if (scrollTop < firstHeadingTop) {
-        // 스크롤 위치가 첫 번째 헤딩의 top 보다 작거나 같으면 첫 번째 헤딩 활성화
+        // 스크롤 위치가 첫 번째 헤딩의 스크롤 위치 보다 작거나 같으면 첫 번째 헤딩 활성화
         setActiveToc(headingTops[0].slug)
       } else {
-        // 그 외의 경우, 가장 가까운 헤딩 찾기
         const currentHeading = headingTops
           .slice()
           .reverse()
@@ -152,22 +149,12 @@ const useHeadingPositions = (tableOfContents: Toc[]) => {
 
   useEffect(() => {
     settingHeadingTops()
-    let prevScrollHeight = document.body.scrollHeight
-    let timeoutId: ReturnType<typeof setTimeout> | null = null
 
-    const trackScrollHeight = () => {
-      const scrollHeight = document.body.scrollHeight
-      if (prevScrollHeight !== scrollHeight) {
-        settingHeadingTops()
-      }
-      prevScrollHeight = scrollHeight
-      timeoutId = setTimeout(trackScrollHeight, 250)
-    }
-
-    timeoutId = setTimeout(trackScrollHeight, 250)
+    // TODO: 디바운스 적용해보기
+    window.addEventListener('resize', settingHeadingTops)
 
     return () => {
-      timeoutId && clearTimeout(timeoutId)
+      window.removeEventListener('resize', settingHeadingTops)
     }
   }, [settingHeadingTops])
 
