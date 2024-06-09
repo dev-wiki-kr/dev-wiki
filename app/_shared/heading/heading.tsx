@@ -5,10 +5,20 @@ const Heading = css`
   font-weight: 700;
   margin: 0;
   line-height: 33px;
+  color: #222;
+
+  & > a.anchor {
+    color: #007cee;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+  transition: color 0.05s ease-in;
 `
 
 export const H1 = styled.h1`
-  ${Heading}
+  ${Heading};
   font-size: 48px;
 
   ${media.phone`
@@ -16,7 +26,7 @@ export const H1 = styled.h1`
   `}
 `
 export const H2 = styled.h2`
-  ${Heading}
+  ${Heading};
   font-size: 24px;
 
   ${media.phone`
@@ -24,7 +34,7 @@ export const H2 = styled.h2`
   `}
 `
 export const H3 = styled.h3`
-  ${Heading}
+  ${Heading};
   font-size: 20px;
 
   ${media.phone`
@@ -32,7 +42,7 @@ export const H3 = styled.h3`
   `}
 `
 export const H4 = styled.h4`
-  ${Heading}
+  ${Heading};
   font-size: 20px;
 
   ${media.phone`
