@@ -40,8 +40,16 @@ const Icon = styled.img.withConfig({
 export function AccordionTitle({ children, id, isExpand }: AccordionTitleProps) {
   const { toggle } = useAccordionContext()
 
+  const handleAccordionClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    if ((event.target as HTMLElement).closest('a')) {
+      // 앵커 태그가 클릭된 경우, 아코디언 토글 방지
+      return
+    }
+    toggle(id ?? '')
+  }
+
   return (
-    <AccordionRoot onClick={() => toggle(id ?? '')}>
+    <AccordionRoot onClick={handleAccordionClick}>
       <Icon src="/icons/caret-down.svg" expand={isExpand} />
       <AccordionTitleContainer expand={isExpand}>{children}</AccordionTitleContainer>
     </AccordionRoot>
