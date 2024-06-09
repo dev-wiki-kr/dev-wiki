@@ -36,11 +36,13 @@ const TocItem = styled.li.withConfig({
   font-size: 14px;
   font-weight: 500;
   color: #777777;
+  transform: scale(1);
   padding-left: ${({ level }) => (level > 1 ? `${(level - 1) * 8}px` : '0')};
 
   &.active {
     font-weight: 600;
     color: #007cee;
+    transform: scale(1.05);
   }
 
   &:hover {
@@ -48,9 +50,7 @@ const TocItem = styled.li.withConfig({
     color: #222222;
   }
 
-  transition:
-    color 0.125s ease-in 0s,
-    font-weight 0.125s ease-in 0s;
+  transition: all 0.125s ease-in-out 0s;
 `
 
 const Text = styled.span`
@@ -83,7 +83,7 @@ export const TocSide = ({ tableOfContents }: TocSideProps) => {
         const currentHeading = headingTops
           .slice()
           .reverse()
-          .find((headingTop) => scrollTop >= headingTop.top - 4)
+          .find((headingTop) => scrollTop >= headingTop.top - 10)
 
         if (currentHeading) {
           setActiveToc(currentHeading.slug)
