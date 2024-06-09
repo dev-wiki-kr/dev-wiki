@@ -19,5 +19,5 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 }
 
 export default function PostLayout({ children }: PropsWithChildren) {
-  return <Container>{children}</Container>
+  return <>{children}</>
 }
