@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
 import type { PropsWithChildren } from 'react'
 import { Container } from './components/container'
+import { Metadata } from 'next'
 
 type GenerateMetadataProps = {
   params: { topic: string }
