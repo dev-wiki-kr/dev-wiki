@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { type Toc } from '../../lib/get-toc'
+import { media } from '../../_styles/media'
 
 const TocContainer = styled.aside`
   max-width: 240px;
@@ -10,6 +11,10 @@ const TocContainer = styled.aside`
   height: 100%;
   right: 100%;
   margin-right: 2.5rem;
+
+  ${media.laptop`
+    display: none;
+  `}
 `
 
 const TocWrapper = styled.div`
