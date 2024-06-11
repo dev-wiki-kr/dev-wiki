@@ -5,8 +5,6 @@ import matter from 'gray-matter'
 export interface PostMatter {
   title: string
   date: Date
-  dateString: string
-  thumbnail: string
   description: string
   lastModified: string
 }
