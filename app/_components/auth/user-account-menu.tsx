@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { getUserInfo } from '../_service/auth'
+import { getUserInfo } from '../../_service/auth'
 import { UserProfile } from './user-profile'
 import { LoginLink } from './login-link'
 
