@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   authors: [{ name: 'Devwiki team' }],
   keywords: ['Devwiki'],
   alternates: {
-    canonical: 'https://dewiki.vercel.app',
+    canonical: 'https://devwiki.co.kr',
   },
 }
 const pretendard = localFont({
