@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
     // api에서 topic에 대한 description도 같이 받아야함.
     description: `테스트입니다. - ${topic}`,
     alternates: {
-      canonical: `https://dewiki.vercel.app/wiki/${topic}`,
+      canonical: `https://devwiki.co.kr/wiki/${topic}`,
     },
   }
 }
