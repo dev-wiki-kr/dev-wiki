@@ -1,3 +1,13 @@
+interface User {
+  id: number
+  githubId: string
+  username: string
+  displayName: string
+  profileUrl: string
+  avartarUrl: string
+  role: 'author' | 'editor'
+}
+
 interface Post {
   id: number
   shortTitle: string
@@ -5,6 +15,7 @@ interface Post {
   content: string
   createdAt: Date
   updatedAt: Date
+  user: User[]
 }
 
 interface PostError {
