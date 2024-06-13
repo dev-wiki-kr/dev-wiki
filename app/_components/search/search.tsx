@@ -15,7 +15,6 @@ const SearchCon = styled.div`
   &:hover {
     border: #b5b5b5 solid;
   }
-  ,
   &:focus-within {
     border: #b5b5b5 solid;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
@@ -56,6 +55,7 @@ const StyledSearchResultCon = styled.div`
   width: 420px;
   height: 240px;
   padding: 12px;
+  background: white;
   border: #b5b5b5 solid;
   border-top: none;
   border-radius: 0px 0px 8px 8px;
@@ -68,6 +68,7 @@ const StyledResultCon = styled.div`
   display: flex;
   font-size: 16px;
   align-items: center;
+  background: white;
 `
 
 const mockup = [
@@ -93,7 +94,12 @@ export function Search() {
         <Input placeholder="검색어를 입력해 주세요." />
         <XIcon src="images/X-mark copy.svg" />
       </SearchCon>
-      <Modal>
+      <Modal
+        isOpen={handleModal}
+        handlemodal={toggleModal}
+        layercolor="0"
+        position={{ top: 136, left: 0 }}
+      >
         <StyledSearchResultCon>
           {searchData.map((data, index) => (
             <StyledResultCon key={index}>
