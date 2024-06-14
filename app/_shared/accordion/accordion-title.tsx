@@ -41,10 +41,12 @@ export function AccordionTitle({ children, id, isExpand }: AccordionTitleProps) 
   const { toggle } = useAccordionContext()
 
   const handleAccordionClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if ((event.target as HTMLElement).closest('a')) {
-      // 앵커 태그가 클릭된 경우, 아코디언 토글 방지
+    // 앵커 태그가 클릭된 경우, 아코디언 토글 방지
+    const target = event.target as HTMLElement
+    if (target.dataset.id === 'accordionAnchor') {
       return
     }
+
     toggle(id ?? '')
   }
 
