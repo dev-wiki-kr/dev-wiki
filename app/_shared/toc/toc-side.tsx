@@ -90,7 +90,7 @@ export function TocSide({ tableOfContents }: TocSideProps) {
       setActiveToc(currentHeading ? currentHeading.slug : '')
     }
     onScroll()
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', onScroll)
