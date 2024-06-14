@@ -70,24 +70,24 @@ export function TocSide({ tableOfContents }: TocSideProps) {
   useEffect(() => {
     const onScroll = () => {
       const scrollTop = getScrollTop()
-      if (!headingTops || headingTops.length === 0) return
+
+      if (!headingTops || headingTops.length === 0) {
+        return
+      }
 
       const firstHeadingTop = headingTops[0].top
       if (scrollTop < firstHeadingTop) {
         // 스크롤 위치가 첫 번째 헤딩의 스크롤 위치 보다 작거나 같으면 첫 번째 헤딩 활성화
         setActiveToc(headingTops[0].slug)
-      } else {
-        const currentHeading = headingTops
-          .slice()
-          .reverse()
-          .find((headingTop) => scrollTop >= headingTop.top - 10)
-
-        if (currentHeading) {
-          setActiveToc(currentHeading.slug)
-        } else {
-          setActiveToc('')
-        }
+        return
       }
+
+      const currentHeading = headingTops
+        .slice()
+        .reverse()
+        .find((headingTop) => scrollTop >= headingTop.top - 10)
+
+      setActiveToc(currentHeading ? currentHeading.slug : '')
     }
     onScroll()
     window.addEventListener('scroll', onScroll)
