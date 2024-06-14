@@ -63,7 +63,7 @@ interface TocSideProps {
   tableOfContents: Toc[]
 }
 
-export const TocSide = ({ tableOfContents }: TocSideProps) => {
+export function TocSide({ tableOfContents }: TocSideProps) {
   const headingTops = useHeadingPositions(tableOfContents)
   const [activeToc, setActiveToc] = useState('')
 
@@ -121,8 +121,6 @@ export const TocSide = ({ tableOfContents }: TocSideProps) => {
     </TocContainer>
   )
 }
-
-export default TocSide
 
 const getScrollTop = () => {
   if (!document.body) return 0
