@@ -7,9 +7,8 @@ export interface Toc {
 }
 
 export const parseHeadersForTOC = (raw: string) => {
-  const calculateHeaderLevels = (arr: Array<number>) => {
-    const sorted = [...arr].sort((a, b) => a - b)
-    const min = sorted[0]
+  const calculateHeaderLevels = (arr: number[]) => {
+    const min = Math.min(...arr)
     const adjusted = arr.map((value) => value - min + 1)
     return adjusted
   }
@@ -17,9 +16,11 @@ export const parseHeadersForTOC = (raw: string) => {
   const regex = /(?:^|\n)(?<flag>#{1,6})\s+(?<text>.+)/g
   const headerMatches = Array.from(raw.matchAll(regex))
 
-  const headerLevels = calculateHeaderLevels(
-    headerMatches.map((match) => match.groups?.flag.length!),
-  ) as Array<1 | 2 | 3 | 4 | 5 | 6>
+  const headerLevels: number[] = calculateHeaderLevels(
+    headerMatches
+      .map((match) => match.groups?.flag.length)
+      .filter((flag): flag is number => flag !== undefined),
+  )
 
   const slugger = new GithubSlugger()
 
