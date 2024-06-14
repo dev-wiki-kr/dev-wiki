@@ -36,7 +36,11 @@ const createAnchorLink = (node: Element, numberTag: string): Element => {
   return {
     type: 'element',
     tagName: 'a',
-    properties: { href: `#${node.properties.id}`, className: ['anchor'] },
+    properties: {
+      href: `#${node.properties.id}`,
+      dataId: 'accordionAnchor',
+      className: ['anchor'],
+    },
     children: [{ type: 'text', value: numberTag }],
   }
 }
