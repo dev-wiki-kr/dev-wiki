@@ -8,7 +8,5 @@ export function Container({ children }: { children: React.ReactNode }) {
 
 const StyledContainer = styled.div`
   max-width: 768px;
-  margin-top: 5.5rem;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 5.5rem auto 0 auto;
 `
