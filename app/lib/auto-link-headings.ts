@@ -4,7 +4,7 @@ import { headingRank } from 'hast-util-heading-rank'
 import type { Element, ElementContent, Root, Text } from 'hast'
 
 export const autoLinkHeadings = () => {
-  return function (tree: Root) {
+  return (tree: Root) => {
     if (!tree || !tree.children) {
       console.error('DOM tree 초기화에 실패했습니다.')
       return
