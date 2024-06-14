@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import { type Toc } from '../../lib/get-toc'
@@ -67,35 +67,34 @@ export function TocSide({ tableOfContents }: TocSideProps) {
   const headingTops = useHeadingPositions(tableOfContents)
   const [activeToc, setActiveToc] = useState('')
 
-  useEffect(() => {
-    const onScroll = () => {
-      const scrollTop = getScrollTop()
+  const onScroll = useCallback(() => {
+    const scrollTop = getScrollTop()
 
-      if (!headingTops || headingTops.length === 0) {
-        return
-      }
-
-      const firstHeadingTop = headingTops[0].top
-      if (scrollTop < firstHeadingTop) {
-        // 스크롤 위치가 첫 번째 헤딩의 스크롤 위치 보다 작거나 같으면 첫 번째 헤딩 활성화
-        setActiveToc(headingTops[0].slug)
-        return
-      }
-
-      const currentHeading = headingTops
-        .slice()
-        .reverse()
-        .find((headingTop) => scrollTop >= headingTop.top - 10)
-
-      setActiveToc(currentHeading ? currentHeading.slug : '')
+    if (!headingTops || headingTops.length === 0) {
+      return
     }
-    onScroll()
+
+    const firstHeadingTop = headingTops[0].top
+    if (scrollTop < firstHeadingTop) {
+      setActiveToc(headingTops[0].slug)
+      return
+    }
+
+    const currentHeading = headingTops
+      .slice()
+      .reverse()
+      .find((headingTop) => scrollTop >= headingTop.top - 10)
+
+    setActiveToc(currentHeading ? currentHeading.slug : '')
+  }, [headingTops])
+
+  useEffect(() => {
     window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
       window.removeEventListener('scroll', onScroll)
     }
-  }, [headingTops])
+  }, [onScroll])
 
   return (
     <TocContainer>
@@ -108,7 +107,6 @@ export function TocSide({ tableOfContents }: TocSideProps) {
                 <TocItem
                   key={i}
                   level={toc.level}
-                  data-level={toc.level}
                   className={`${activeToc === toc.slug ? 'active' : ''}`}
                 >
                   <Link href={`#${toc.slug}`}>{toc.text}</Link>
@@ -123,38 +121,40 @@ export function TocSide({ tableOfContents }: TocSideProps) {
 }
 
 const getScrollTop = () => {
-  if (!document.body) return 0
+  if (!document.body) {
+    return 0
+  }
   return document.documentElement?.scrollTop || document.body.scrollTop
 }
 
-interface IHeadingTops {
+interface HeadingTops {
   slug: string
   top: number
 }
 
 const useHeadingPositions = (tableOfContents: Toc[]) => {
-  const [headingTops, setHeadingTops] = useState<null | IHeadingTops[]>([])
+  const [headings, setHeadings] = useState<null | HeadingTops[]>([])
 
-  const settingHeadingTops = useCallback(() => {
+  const setHeadingTops = useCallback(() => {
     const scrollTop = getScrollTop()
     const tops = tableOfContents.map(({ slug }) => {
       const element = document.getElementById(slug)
       const top = element ? element.getBoundingClientRect().top + scrollTop : Infinity
       return { slug, top }
     })
-    setHeadingTops(tops)
+    setHeadings(tops)
   }, [tableOfContents])
 
   useEffect(() => {
-    settingHeadingTops()
+    setHeadingTops()
 
     // TODO: 디바운스 적용해보기
-    window.addEventListener('resize', settingHeadingTops)
+    window.addEventListener('resize', setHeadingTops)
 
     return () => {
-      window.removeEventListener('resize', settingHeadingTops)
+      window.removeEventListener('resize', setHeadingTops)
     }
-  }, [settingHeadingTops])
+  }, [setHeadingTops])
 
-  return headingTops
+  return headings
 }
