@@ -47,3 +47,30 @@ export const Primary: Story = {
     onOpenChange: () => {},
   },
 }
+
+export const NonHeaderText: Story = {
+  render: function Render() {
+    const [open, setOpen] = useState(false)
+    return (
+      <>
+        <button onClick={() => setOpen(true)}>열기</button>
+        <BottomSheet open={open} onOpenChange={setOpen}>
+          <BottomSheetContent>
+            <BottomSheetHeader>
+              <BottomSheetClose>닫기</BottomSheetClose>
+            </BottomSheetHeader>
+            <BottomSheetBody>
+              <BottomSheetTitle>바텀시트 제목</BottomSheetTitle>
+              <BottomSheetDescription>바텀시트 내용</BottomSheetDescription>
+            </BottomSheetBody>
+          </BottomSheetContent>
+        </BottomSheet>
+      </>
+    )
+  },
+  args: {
+    children: <></>,
+    open: false,
+    onOpenChange: () => {},
+  },
+}
