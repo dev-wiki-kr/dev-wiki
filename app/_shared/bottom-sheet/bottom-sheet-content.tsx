@@ -77,9 +77,7 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
       if (floatingContext.open) {
         setMounted(true)
       } else if (contentRef.current) {
-        console.log(contentRef.current)
         const handleAnimationEnd = () => {
-          console.log('Animation end')
           setMounted(false)
         }
 
@@ -94,8 +92,6 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
         }
       }
     }, [floatingContext.open])
-
-    console.log('isMounted', isMounted)
 
     if (!isMounted) return null
 
