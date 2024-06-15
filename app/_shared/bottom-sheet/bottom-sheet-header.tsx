@@ -1,4 +1,4 @@
-import React, { HTMLProps, forwardRef } from 'react'
+import { HTMLProps, forwardRef } from 'react'
 import { styled } from 'styled-components'
 
 const HeaderWrapper = styled.div`
