@@ -1,5 +1,5 @@
 import { HTMLProps, forwardRef } from 'react'
-import styled from 'styled-components'
+import { styled } from 'styled-components'
 
 const BodyWrapper = styled.div`
   padding: 0.5rem 0.75rem;
