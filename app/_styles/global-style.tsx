@@ -28,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     blockquote,
     dl,
     dd {
+        margin-block-start: 0;
         margin-block-end: 0;
     }
 
@@ -92,5 +93,15 @@ export const GlobalStyle = createGlobalStyle`
     /* 고정된 모든 항목에는 여분의 스크롤 여백이 있어야 합니다. */
     :target {
         scroll-margin-block: 5ex;
+    }
+
+    /* 버튼의 기본 스타일을 제거합니다. */
+    button {
+        margin: 0;
+        padding: 0;
+        background:none;
+        border:0;
+        outline: none;
+        cursor:pointer;
     }
 `
