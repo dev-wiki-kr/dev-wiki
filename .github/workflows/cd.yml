@@ -13,6 +13,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Setup npmrc
+        run: |
+          echo "@dev-wiki-kr:registry=https://npm.pkg.github.com"  >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> .npmrc
+
       - name: Export organization environment variables
         run: |
           npx @dev-wiki-kr/gha-tools@latest inject-env ./envs --env=production
