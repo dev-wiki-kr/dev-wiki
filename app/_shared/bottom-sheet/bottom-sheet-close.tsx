@@ -3,6 +3,8 @@ import { useBottomSheetContext } from './context'
 import { styled } from 'styled-components'
 
 const Button = styled.button`
+  margin-left: auto;
+
   opacity: 0.7;
 
   &:hover {
