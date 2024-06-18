@@ -2,13 +2,14 @@ import { styled } from 'styled-components'
 import { media } from '../../_styles/media'
 import { useState } from 'react'
 import { Modal } from '../../_shared/modal/modal'
+import { useModal } from '../../_shared/modal/useModal'
 
 const SearchCon = styled.div`
   width: 420px;
   height: 40px;
   border: #dddddd solid;
   border-radius: 8px;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   align-items: center;
 
   display: flex;
@@ -81,27 +82,24 @@ const mockup = [
 ]
 
 export function Search() {
-  const [searchData, setSearchData] = useState(mockup)
-  const [handleModal, setHandleModal] = useState(false)
-  const toggleModal = () => {
-    setHandleModal(!handleModal)
-  }
+  const [searchResult, setSearchResult] = useState(mockup)
+  const { isOpen, handleModal } = useModal()
 
   return (
     <div>
-      <SearchCon onClick={toggleModal}>
+      <SearchCon onClick={handleModal}>
         <SearchIcon src="images/search-icon.svg" />
         <Input placeholder="검색어를 입력해 주세요." />
         <XIcon src="images/X-mark copy.svg" />
       </SearchCon>
       <Modal
-        isOpen={handleModal}
-        handlemodal={toggleModal}
-        layercolor="0"
+        isOpen={isOpen}
+        handleModal={handleModal}
+        dimColor="none"
         position={{ top: 136, left: 0 }}
       >
         <StyledSearchResultCon>
-          {searchData.map((data, index) => (
+          {searchResult.map((data, index) => (
             <StyledResultCon key={index}>
               <DocumentIcon src="images/document-icon.svg" />
               {data}
