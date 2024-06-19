@@ -1,4 +1,4 @@
-export interface Root {
+export interface SearchAutocompliResponse {
   body: Body
   statusCode: number
   headers: Headers
@@ -111,4 +111,20 @@ export interface Headers3 {}
 export interface Roles {
   data: boolean
   ingest: boolean
+}
+
+export async function getSearchAutocomplete(keyword: string) {
+  try {
+    if (!keyword) {
+      return []
+    }
+    const res = await fetch(`https://devwiki.co.kr/wiki-api/search/autocomplete?q=${keyword}`)
+
+    const json = (await res.json()) as SearchAutocompliResponse
+
+    return json.body.suggest.autocomplete[0].options
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
