@@ -1,11 +1,13 @@
+'use client'
+
 import { styled } from 'styled-components'
 import { useEffect, useRef, useState } from 'react'
 import { Modal } from '../../_shared/modal/modal'
 import { useModal } from '../../_shared/modal/useModal'
 import { useQuery } from '@tanstack/react-query'
-import { Option } from './search-interface'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import { Option, getSearchAutocomplete } from '../_service/search'
 
 const SearchCon = styled.div`
   width: 420px;
@@ -93,75 +95,17 @@ const StyledNotFound = styled.div`
   align-items: center;
   background: white;
 `
-const mockUp: Option[] = [
-  {
-    text: '리액트 훅스',
-    _index: 'articles',
-    _id: '1',
-    _score: 0.98,
-    _source: {
-      title: '리액트 훅스 소개',
-      content: '이 기사는 리액트 훅스를 소개하고 사용법을 설명합니다.',
-    },
-  },
-  {
-    text: '타입스크립트 기초',
-    _index: 'articles',
-    _id: '2',
-    _score: 0.95,
-    _source: {
-      title: '타입스크립트 기초 이해하기',
-      content: '타입스크립트 프로그래밍 언어의 기초를 배웁니다.',
-    },
-  },
-  {
-    text: '노드제이에스 REST API',
-    _index: 'articles',
-    _id: '3',
-    _score: 0.92,
-    _source: {
-      title: '노드제이에스로 RESTful API 만들기',
-      content: '노드제이에스를 사용하여 RESTful API를 만드는 포괄적인 가이드입니다.',
-    },
-  },
-  {
-    text: '그래프큐엘 서버',
-    _index: 'articles',
-    _id: '4',
-    _score: 0.89,
-    _source: {
-      title: '그래프큐엘 서버 만들기',
-      content: 'Apollo Server로 그래프큐엘 서버를 만드는 단계별 튜토리얼입니다.',
-    },
-  },
-  {
-    text: '파이썬 데이터 분석',
-    _index: 'articles',
-    _id: '5',
-    _score: 0.85,
-    _source: {
-      title: '파이썬을 이용한 데이터 분석',
-      content: '판다스 라이브러리를 사용하여 데이터 분석 기법을 탐색합니다.',
-    },
-  },
-]
 
 export function Search() {
-  const [searchResult, setSearchResult] = useState<Option[]>(mockUp)
+  const [searchResult, setSearchResult] = useState<Option[]>([])
   const { isOpen, handleModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
   const { data, error } = useQuery({
-    queryKey: ['SearchWiki', keyword],
-    queryFn: async () => {
-      if (!keyword) return mockUp
-      const res = await fetch(`https://devwiki.co.kr/wiki-api/search/autocomplete?q=${keyword}`)
-      const json = await res.json()
-      const options = json.body.suggest.autocomplete[0].options
-      return options
-    },
+    queryKey: ['search-autocomplete', keyword],
+    queryFn: () => getSearchAutocomplete(keyword),
   })
 
   const SearchForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -170,21 +114,23 @@ export function Search() {
     }
   }
 
-  if (error) {
-    return <StyledNotFound>{keyword}에 대한 검색결과가 없습니다.</StyledNotFound>
-  }
-
   useEffect(() => {
-    if (!data) return
+    if (!data) {
+      return
+    }
     setSearchResult(data)
   }, [data])
 
   useEffect(() => {
     if (!isOpen) {
       setKeyword('')
-      setSearchResult(mockUp)
+      setSearchResult([])
     }
   }, [isOpen])
+
+  if (error) {
+    return <StyledNotFound>{keyword}에 대한 검색결과를 찾을 수 없습니다.</StyledNotFound>
+  }
 
   return (
     <div>
