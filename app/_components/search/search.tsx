@@ -1,8 +1,8 @@
 import { styled } from 'styled-components'
-import { media } from '../../_styles/media'
 import { useState } from 'react'
 import { Modal } from '../../_shared/modal/modal'
 import { useModal } from '../../_shared/modal/useModal'
+import { useQuery } from '@tanstack/react-query'
 
 const SearchCon = styled.div`
   width: 420px;
@@ -84,12 +84,27 @@ const mockup = [
 export function Search() {
   const [searchResult, setSearchResult] = useState(mockup)
   const { isOpen, handleModal } = useModal()
+  const [keyword, setKeyword] = useState('')
+
+  const { data } = useQuery({
+    queryKey: ['SearchWiki', keyword],
+    queryFn: async () => {
+      const res = await fetch(`https://devwiki.co.kr/wiki-api/search/autocomplete?q=${keyword}`)
+      return res
+    },
+    enabled: !!keyword,
+  })
 
   return (
     <div>
       <SearchCon onClick={handleModal}>
         <SearchIcon src="images/search-icon.svg" />
-        <Input placeholder="검색어를 입력해 주세요." />
+        <Input
+          onChange={(e) => {
+            setKeyword(e.target.value)
+          }}
+          placeholder="검색어를 입력해 주세요."
+        />
         <XIcon src="images/X-mark copy.svg" />
       </SearchCon>
       <Modal
