@@ -11,6 +11,11 @@ const AccordionRoot = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin: 15px 0;
+
+  p {
+    margin: 0;
+  }
 `
 
 const AccordionTitleContainer = styled.div.withConfig({
