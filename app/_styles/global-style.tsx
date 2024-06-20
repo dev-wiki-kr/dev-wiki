@@ -122,4 +122,19 @@ export const GlobalStyle = createGlobalStyle`
         margin: 20px;
     }
 
+    table, 
+    td, 
+    th {
+        border: 1px solid #d0d7de;
+        padding: 6px 10px;
+        border-collapse: collapse;
+    }
+
+    table tr:nth-child(2n) { 
+        background-color: #f6f8fa;
+     }
+
+    ul {
+        padding-left: 30px;
+    }
 `
