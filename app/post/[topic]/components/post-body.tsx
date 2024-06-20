@@ -1,23 +1,11 @@
-import { MDXRemote } from 'next-mdx-remote/rsc'
-
-import rehypePrettyCode from 'rehype-pretty-code'
-import rehypeSlug from 'rehype-slug'
-import remarkBreaks from 'remark-breaks'
-import remarkGfm from 'remark-gfm'
-import { autoLinkHeadings } from '../../../lib/auto-link-headings'
-import { mdxComponents } from './mdx-components'
+import { parseMarkdown } from '../../../_engine/parse-accordion'
+import { Container } from './container'
+import { MarkdownMainContent } from './markdown-accoridion'
 
 export function PostBody({ source }: { source: string }) {
   return (
-    <MDXRemote
-      source={source}
-      options={{
-        mdxOptions: {
-          remarkPlugins: [remarkGfm, remarkBreaks],
-          rehypePlugins: [rehypePrettyCode, rehypeSlug, autoLinkHeadings],
-        },
-      }}
-      components={mdxComponents}
-    />
+    <Container>
+      <MarkdownMainContent headers={parseMarkdown(source)} />
+    </Container>
   )
 }

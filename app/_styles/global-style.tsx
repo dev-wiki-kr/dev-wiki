@@ -110,4 +110,16 @@ export const GlobalStyle = createGlobalStyle`
         outline: none;
         cursor:pointer;
     }
+    
+    ol {
+        margin: 0;
+    }
+
+    blockquote {
+        padding-left: 1em;
+        border-left: 4px rgb(141, 150, 160) solid;
+        color: rgb(141, 150, 160);
+        margin: 20px;
+    }
+
 `
