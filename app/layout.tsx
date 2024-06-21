@@ -7,6 +7,7 @@ import Script from 'next/script'
 import { QueryClientProvider, client } from './_external/react-query'
 
 import localFont from 'next/font/local'
+import { Footer } from './_components/layout/footer'
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps) {
             <GlobalStyle />
             <Header />
             {children}
+            <Footer />
           </StyledComponentsRegistry>
         </QueryClientProvider>
       </body>
