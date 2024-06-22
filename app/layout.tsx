@@ -54,7 +54,7 @@ export default function RootLayout({ children }: LayoutProps) {
           <StyledComponentsRegistry>
             <GlobalStyle />
             <Header />
-            {children}
+            <div id="wrapper">{children}</div>
             <Footer />
           </StyledComponentsRegistry>
         </QueryClientProvider>
