@@ -92,4 +92,10 @@ export const GlobalStyle = createGlobalStyle`
     :target {
         scroll-margin-block: 5ex;
     }
+
+    /* Foote를 하단에 고정시키기 위해 (Root)Layout.tsx에서 Wrapper Div로 컨텐츠를 감쌌습니다. */
+    #wrapper {
+        height: auto;
+        min-height: calc(100vh - 440px);
+    }
 `
