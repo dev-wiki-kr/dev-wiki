@@ -6,10 +6,10 @@ import { media } from '../../_styles/media'
 
 const StyledFooter = styled.footer`
   width: 100%;
-  height: 300px;
+  min-height: 400px;
   max-width: 768px;
   margin: 0 auto;
-  padding: 40px 0;
+  padding: 40px 0 0 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
