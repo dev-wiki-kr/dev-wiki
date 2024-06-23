@@ -113,6 +113,7 @@ export const GlobalStyle = createGlobalStyle`
     
     ol {
         margin: 0;
+        padding: 0;
     }
 
     blockquote {

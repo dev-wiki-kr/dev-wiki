@@ -21,7 +21,6 @@ const AccordionRoot = styled.div`
 const AccordionTitleContainer = styled.div.withConfig({
   shouldForwardProp: (prop) => prop !== 'expand',
 })<{ expand?: boolean }>`
-  height: 30px;
   line-height: 1.5;
   margin-left: 3px;
 
@@ -58,7 +57,9 @@ export function AccordionTitle({ children, id, isExpand }: AccordionTitleProps) 
   return (
     <AccordionRoot onClick={handleAccordionClick}>
       <Icon src="/icons/caret-down.svg" expand={isExpand} />
-      <AccordionTitleContainer expand={isExpand ?? true}>{children}</AccordionTitleContainer>
+      <AccordionTitleContainer expand={isExpand ?? true} id={id}>
+        {children}
+      </AccordionTitleContainer>
     </AccordionRoot>
   )
 }
