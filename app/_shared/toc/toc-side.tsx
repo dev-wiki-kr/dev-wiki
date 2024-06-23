@@ -5,6 +5,10 @@ import { styled } from 'styled-components'
 import { debounce, throttle } from 'lodash-es'
 
 import { type Toc } from '../../lib/get-toc'
+import Markdown, { type Components } from 'react-markdown'
+import remarkBreaks from 'remark-breaks'
+import remarkGfm from 'remark-gfm'
+import { MarkdownSection, ParsedMarkdown } from '../../_engine/parse-accordion'
 
 const TocContainer = styled.aside`
   max-width: 240px;
@@ -13,6 +17,10 @@ const TocContainer = styled.aside`
   height: 100%;
   right: 100%;
   margin-right: 2.5rem;
+
+  p {
+    margin: 0;
+  }
 `
 
 const TocWrapper = styled.div`
@@ -63,7 +71,13 @@ const Text = styled.span`
 `
 
 interface TocSideProps {
-  tableOfContents: Toc[]
+  tableOfContents: ParsedMarkdown[]
+}
+
+const components = {
+  a({ children }: { children: React.ReactNode }) {
+    return <>{children}</>
+  },
 }
 
 export function TocSide({ tableOfContents }: TocSideProps) {
@@ -81,7 +95,7 @@ export function TocSide({ tableOfContents }: TocSideProps) {
       const firstHeadingTop = headingTops[0].top
       if (scrollTop < firstHeadingTop) {
         // 스크롤 위치가 첫 번째 헤딩의 스크롤 위치 보다 작거나 같으면 첫 번째 헤딩 활성화
-        setActiveToc(headingTops[0].slug)
+        setActiveToc(headingTops[0].id)
         return
       }
 
@@ -90,8 +104,8 @@ export function TocSide({ tableOfContents }: TocSideProps) {
         .reverse()
         .find((headingTop) => scrollTop >= headingTop.top - 10)
 
-      setActiveToc(currentHeading ? currentHeading.slug : '')
-    }, 300)
+      setActiveToc(currentHeading ? currentHeading.id : '')
+    }, 100)
 
     onScroll()
 
@@ -101,6 +115,8 @@ export function TocSide({ tableOfContents }: TocSideProps) {
       window.removeEventListener('scroll', onScroll)
     }
   }, [headingTops])
+
+  console.log({ tableOfContents })
 
   return (
     <TocContainer>
@@ -113,9 +129,16 @@ export function TocSide({ tableOfContents }: TocSideProps) {
                 <TocItem
                   key={i}
                   level={toc.level}
-                  className={`${activeToc === toc.slug ? 'active' : ''}`}
+                  className={`${activeToc === toc.id ? 'active' : ''}`}
                 >
-                  <Link href={`#${toc.slug}`}>{toc.text}</Link>
+                  <Link href={`#${toc.id}`}>
+                    <Markdown
+                      remarkPlugins={[remarkGfm, remarkBreaks]}
+                      components={components as Components}
+                    >
+                      {toc.text}
+                    </Markdown>
+                  </Link>
                 </TocItem>
               ))}
             </TocList>
@@ -134,21 +157,21 @@ const getScrollTop = () => {
 }
 
 interface HeadingTops {
-  slug: string
+  id: string
   top: number
 }
 
-const useHeadingPositions = (tableOfContents: Toc[]) => {
+const useHeadingPositions = (tableOfContents: ParsedMarkdown[]) => {
   const [headings, setHeadings] = useState<null | HeadingTops[]>([])
 
   useEffect(() => {
     const setHeadingTops = debounce(() => {
       const scrollTop = getScrollTop()
 
-      const tops = tableOfContents.map(({ slug }) => {
-        const element = document.getElementById(slug)
+      const tops = tableOfContents.map(({ id }) => {
+        const element = document.getElementById(id)
         const top = element ? element.getBoundingClientRect().top + scrollTop : Infinity
-        return { slug, top }
+        return { id, top }
       })
       setHeadings(tops)
     }, 2000)

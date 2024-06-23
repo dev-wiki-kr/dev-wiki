@@ -1,11 +1,9 @@
 import { notFound } from 'next/navigation'
 import { getAllPostTitle, getPostByTitle } from '../../_service/post'
-import { parseHeadersForTOC } from '../../lib/get-toc'
 import { TocSide } from '../../_shared/toc'
 import { Container } from './components/container'
-import { getPostBySlug, getPostSlugs } from '../../lib/get-posts'
 import { PostBody } from './components/post-body'
-import { getUserInfoByUserName } from '../../_service/auth'
+import { flattenMarkdown, parseMarkdown } from '../../_engine/parse-accordion'
 
 export async function generateStaticParams() {
   const data = await getAllPostTitle()
@@ -28,7 +26,7 @@ export default async function Post({ params: { topic } }: TopicProps) {
     notFound()
   }
 
-  const tableOfContents = parseHeadersForTOC(post.content)
+  const tableOfContents = flattenMarkdown(parseMarkdown(post.content))
 
   return (
     <Container>

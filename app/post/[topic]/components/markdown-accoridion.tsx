@@ -14,6 +14,8 @@ import { CodeBlock, InlineCode } from './markdown-code-syntax'
 import { CustomHeading } from '../../../_shared/heading'
 import { ExternalLink } from '../../../_shared/link/external-link'
 import { InternalLink } from '../../../_shared/link/internal-link'
+import { autoLinkHeadings } from '../../../lib/auto-link-headings'
+import { Ol } from '../../../_shared/ol/ol'
 
 const components = {
   code({
@@ -42,9 +44,13 @@ const components = {
 
     return <ExternalLink href={href}>{children}</ExternalLink>
   },
+  ol({ children, start }: { children: React.ReactNode; start: number }) {
+    return <Ol start={start}>{children}</Ol>
+  },
 }
 
 export function MarkdownMainContent({ headers }: { headers: MarkdownSection[] }) {
+  console.log(headers)
   return (
     <>
       {headers.map((header) => (
@@ -54,6 +60,7 @@ export function MarkdownMainContent({ headers }: { headers: MarkdownSection[] })
               <CustomHeading level={header.level}>
                 <Markdown
                   remarkPlugins={[remarkGfm, remarkBreaks]}
+                  rehypePlugins={[autoLinkHeadings]}
                   components={components as Components}
                 >
                   {header.text}
@@ -65,6 +72,7 @@ export function MarkdownMainContent({ headers }: { headers: MarkdownSection[] })
                 children={header.content}
                 components={components as Components}
                 remarkPlugins={[remarkGfm, remarkBreaks]}
+                rehypePlugins={[autoLinkHeadings]}
               />
             </AccordionDescription>
           </Accordion>

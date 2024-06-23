@@ -6,6 +6,8 @@ export interface MarkdownSection {
   children: MarkdownSection[]
 }
 
+export type ParsedMarkdown = Omit<MarkdownSection, 'children'>
+
 export function parseMarkdown(markdownText: string) {
   const lines = markdownText.split('\n')
   const sections: MarkdownSection[] = []
@@ -62,4 +64,26 @@ export function parseMarkdown(markdownText: string) {
   })
 
   return root
+}
+
+export function flattenMarkdown(markdownSections: MarkdownSection[]) {
+  const result: ParsedMarkdown[] = []
+
+  function flatten(markdown: MarkdownSection) {
+    if (markdown.text) {
+      result.push({
+        id: markdown.id,
+        level: markdown.level,
+        text: markdown.text,
+        content: markdown.content,
+      })
+    }
+    if (markdown.children) {
+      markdown.children.forEach((child) => flatten(child))
+    }
+  }
+
+  markdownSections.forEach((markdown) => flatten(markdown))
+
+  return result
 }
