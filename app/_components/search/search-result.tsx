@@ -11,8 +11,8 @@ const DocumentIcon = styled.img`
   margin-right: 8px;
 `
 
-const StyledSearchResultCon = styled.div`
-  width: 420px;
+const StyledSearchResultCon = styled.div<{ $width?: number }>`
+  width: ${(props) => props.$width || 420}px;
   height: fit-content;
   max-height: 240px;
   padding: 12px;
@@ -66,9 +66,18 @@ interface SearchResultProps {
   isOpen: boolean
   handleModal: () => void
   setKeyword: React.Dispatch<React.SetStateAction<string>>
+  searchConRef: { top: number; left: number }
+  resultWidth: number
 }
 
-export function SearchResult({ keyword, isOpen, handleModal, setKeyword }: SearchResultProps) {
+export function SearchResult({
+  keyword,
+  isOpen,
+  handleModal,
+  setKeyword,
+  searchConRef,
+  resultWidth,
+}: SearchResultProps) {
   const [searchResult, setSearchResult] = useState<Option[]>([])
 
   const { data } = useQuery({
@@ -95,9 +104,9 @@ export function SearchResult({ keyword, isOpen, handleModal, setKeyword }: Searc
       isOpen={isOpen}
       handleModal={handleModal}
       dimColor="rgba(255, 255, 255, 0.8)"
-      position={{ top: 136, left: 0 }}
+      position={searchConRef}
     >
-      <StyledSearchResultCon>
+      <StyledSearchResultCon $width={resultWidth}>
         {searchResult && searchResult.length > 0 ? (
           searchResult.map((data) => (
             <StyledResultCon href={`/post/${data._id}`} key={data._id}>
