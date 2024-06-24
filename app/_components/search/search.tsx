@@ -1,13 +1,10 @@
 'use client'
 
 import { styled } from 'styled-components'
-import { useEffect, useRef, useState } from 'react'
-import { Modal } from '../../_shared/modal/modal'
+import { useRef, useState } from 'react'
 import { useModal } from '../../_shared/modal/useModal'
-import { useQuery } from '@tanstack/react-query'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Option, getSearchAutocomplete } from '../_service/search'
+import { SearchResult } from './search-result'
 
 const SearchCon = styled.div`
   width: 420px;
@@ -56,99 +53,16 @@ const XIcon = styled.img`
   z-index: 1;
 `
 
-const DocumentIcon = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-`
-
-const StyledSearchResultCon = styled.div`
-  width: 420px;
-  height: fit-content;
-  max-height: 240px;
-  padding: 12px;
-  background: white;
-
-  border: #b5b5b5 solid;
-  border-top: none;
-  border-radius: 0px 0px 8px 8px;
-
-  overflow-x: hidden;
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    width: 5px;
-  }
-  &::-webkit-scrollbar-track {
-    background: none;
-  }
-  &::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-`
-
-const StyledResultCon = styled(Link)`
-  width: 396px;
-  height: 36px;
-  padding: 6px 4px;
-  display: flex;
-  font-size: 16px;
-  align-items: center;
-  background: white;
-
-  &:hover {
-    background: #f2f2f2;
-    border-radius: 6px;
-  }
-`
-const StyledNotFound = styled.div`
-  width: 392px;
-  height: 36px;
-  padding: 6px 4px;
-  display: flex;
-  font-size: 16px;
-  color: #777777;
-  align-items: center;
-  background: white;
-`
-
 export function Search() {
-  const [searchResult, setSearchResult] = useState<Option[]>([])
   const { isOpen, handleModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
 
-  const { data, error } = useQuery({
-    queryKey: ['search-autocomplete', keyword],
-    queryFn: () => getSearchAutocomplete(keyword),
-  })
-
   const SearchForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      router.push(`/post/${searchResult[0]._id}`)
+      // router.push(`/post/${searchResult[0]._id}`)
     }
-  }
-
-  useEffect(() => {
-    if (!data) {
-      return
-    }
-    setSearchResult(data)
-  }, [data])
-
-  useEffect(() => {
-    if (!isOpen) {
-      setKeyword('')
-      setSearchResult([])
-    }
-  }, [isOpen])
-
-  if (error) {
-    return <StyledNotFound>{keyword}에 대한 검색결과를 찾을 수 없습니다.</StyledNotFound>
   }
 
   return (
@@ -175,25 +89,12 @@ export function Search() {
           />
         )}
       </SearchCon>
-      <Modal
+      <SearchResult
+        keyword={keyword}
         isOpen={isOpen}
         handleModal={handleModal}
-        dimColor="rgba(255, 255, 255, 0.8)"
-        position={{ top: 136, left: 0 }}
-      >
-        <StyledSearchResultCon>
-          {searchResult && searchResult.length > 0 ? (
-            searchResult.map((data) => (
-              <StyledResultCon href={`/post/${data._id}`} key={data._id}>
-                <DocumentIcon src="images/document-icon.svg" />
-                {data.text}
-              </StyledResultCon>
-            ))
-          ) : (
-            <StyledNotFound>{keyword}에 대한 검색결과가 없습니다.</StyledNotFound>
-          )}
-        </StyledSearchResultCon>
-      </Modal>
+        setKeyword={setKeyword}
+      />
     </div>
   )
 }
