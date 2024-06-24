@@ -4,6 +4,7 @@ import { styled } from 'styled-components'
 import Link from 'next/link'
 import { media } from '../../_styles/media'
 import { UserAccountMenu } from '../auth/user-account-menu'
+import { Search } from '../search/search'
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -32,12 +33,21 @@ const StyledLink = styled(Link)`
    font-size: 32px;
   `}
 `
+const Container = styled.div`
+  width: 306px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+`
 
 export function Header() {
   return (
     <StyledHeader>
       <StyledLink href={'/'}>DevWiki</StyledLink>
-      <UserAccountMenu />
+      <Container>
+        <Search width={240} height={40} />
+        <UserAccountMenu />
+      </Container>
     </StyledHeader>
   )
 }

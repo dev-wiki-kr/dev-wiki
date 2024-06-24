@@ -6,9 +6,13 @@ import { useModal } from '../../_shared/modal/useModal'
 import { useRouter } from 'next/navigation'
 import { SearchResult } from './search-result'
 
-const SearchCon = styled.div`
-  width: 420px;
-  height: 40px;
+const Container = styled.div`
+  position: relative;
+`
+
+const SearchCon = styled.div<{ $width?: number; $height?: number }>`
+  width: ${(props) => props.$width || 420}px;
+  height: ${(props) => props.$height || 40}px;
   border: #dddddd solid;
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
@@ -52,12 +56,23 @@ const XIcon = styled.img`
   position: relative;
   z-index: 1;
 `
+interface SearchProps {
+  width?: number
+  height?: number
+}
 
-export function Search() {
+export function Search({ width = 420, height = 40 }: SearchProps) {
   const { isOpen, handleModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   const router = useRouter()
+  const searchConRef = useRef<HTMLDivElement>(null) // useRef 생성
+
+  const getModalPosition = () => {
+    if (!searchConRef.current) return { top: 0, left: 0 }
+    const { top, left } = searchConRef.current.getBoundingClientRect()
+    return { top: top + searchConRef.current.offsetHeight, left }
+  }
 
   const SearchForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -66,8 +81,8 @@ export function Search() {
   }
 
   return (
-    <div>
-      <SearchCon onClick={handleModal}>
+    <Container>
+      <SearchCon ref={searchConRef} onClick={handleModal} $width={width} $height={height}>
         <SearchIcon src="images/search-icon.svg" />
         <Input
           value={keyword}
@@ -95,6 +110,8 @@ export function Search() {
         handleModal={handleModal}
         dimColor="rgba(255, 255, 255, 0.8)"
         position={{ top: 136, left: 0 }}
+        searchConRef={getModalPosition()}
+        resultWidth={width}
       >
         <StyledSearchResultCon>
           {searchResult && searchResult.length > 0 ? (
