@@ -68,9 +68,26 @@ const StyledSearchResultCon = styled.div`
   max-height: 240px;
   padding: 12px;
   background: white;
+
   border: #b5b5b5 solid;
   border-top: none;
   border-radius: 0px 0px 8px 8px;
+
+  overflow-x: hidden;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    background: none;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 `
 
 const StyledResultCon = styled(Link)`
