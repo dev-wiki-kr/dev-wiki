@@ -15,6 +15,8 @@ const SearchCon = styled.div`
   border: #dddddd solid;
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
   align-items: center;
 
   display: flex;
@@ -159,7 +161,7 @@ export function Search() {
       <Modal
         isOpen={isOpen}
         handleModal={handleModal}
-        dimColor="transparent"
+        dimColor="rgba(255, 255, 255, 0.8)"
         position={{ top: 136, left: 0 }}
       >
         <StyledSearchResultCon>
