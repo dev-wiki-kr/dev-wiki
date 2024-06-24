@@ -3,14 +3,14 @@
 import { styled } from 'styled-components'
 import { useRef, useState } from 'react'
 import { useModal } from '../../_shared/modal/useModal'
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/dist/client/router'
 import { SearchResult } from './search-result'
 
 const Container = styled.div`
   position: relative;
 `
 
-const SearchCon = styled.div<{ $width?: number; $height?: number }>`
+const SearchCon = styled.div<{ $width?: number; $height?: number; $isOpen: boolean }>`
   width: ${(props) => props.$width || 420}px;
   height: ${(props) => props.$height || 40}px;
   border: #dddddd solid;
@@ -19,20 +19,22 @@ const SearchCon = styled.div<{ $width?: number; $height?: number }>`
   position: relative;
   z-index: 1;
   align-items: center;
-
   display: flex;
+
   &:hover {
     border: #b5b5b5 solid;
   }
-  &:focus-within {
-    border: #b5b5b5 solid;
+  ${(props) =>
+    props.$isOpen &&
+    `
+  border: #b5b5b5 solid;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
     border-radius: 8px 8px 0px 0px;
-  }
+  `}
 `
 
 const Input = styled.input`
-  width: 356px;
+  width: 80%;
   height: 24px;
   margin: 8px 0px;
   margin-right: 16px;
@@ -65,7 +67,7 @@ export function Search({ width = 420, height = 40 }: SearchProps) {
   const { isOpen, handleModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
-  const router = useRouter()
+  // const router = useRouter()
   const searchConRef = useRef<HTMLDivElement>(null) // useRef 생성
 
   const getModalPosition = () => {
@@ -82,7 +84,13 @@ export function Search({ width = 420, height = 40 }: SearchProps) {
 
   return (
     <Container>
-      <SearchCon ref={searchConRef} onClick={handleModal} $width={width} $height={height}>
+      <SearchCon
+        ref={searchConRef}
+        onClick={handleModal}
+        $width={width}
+        $height={height}
+        $isOpen={isOpen}
+      >
         <SearchIcon src="images/search-icon.svg" />
         <Input
           value={keyword}
