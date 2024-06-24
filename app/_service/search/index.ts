@@ -1,4 +1,4 @@
-export interface SearchAutocompliResponse {
+export interface SearchAutocompleteResponse {
   body: Body
   statusCode: number
   headers: Headers
@@ -120,7 +120,7 @@ export async function getSearchAutocomplete(keyword: string) {
     }
     const res = await fetch(`https://devwiki.co.kr/wiki-api/search/autocomplete?q=${keyword}`)
 
-    const json = (await res.json()) as SearchAutocompliResponse
+    const json = (await res.json()) as SearchAutocompleteResponse
 
     return json.body.suggest.autocomplete[0].options
   } catch (error) {

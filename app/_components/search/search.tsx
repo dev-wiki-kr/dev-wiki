@@ -93,8 +93,22 @@ export function Search() {
         keyword={keyword}
         isOpen={isOpen}
         handleModal={handleModal}
-        setKeyword={setKeyword}
-      />
+        dimColor="transparent"
+        position={{ top: 357, left: 495.5 }}
+      >
+        <StyledSearchResultCon>
+          {searchResult && searchResult.length > 0 ? (
+            searchResult.map((data) => (
+              <StyledResultCon href={`/post/${data._id}`} key={data._id}>
+                <DocumentIcon src="images/document-icon.svg" />
+                {data.text}
+              </StyledResultCon>
+            ))
+          ) : (
+            <StyledNotFound>{keyword}에 대한 검색결과가 없습니다.</StyledNotFound>
+          )}
+        </StyledSearchResultCon>
+      </Modal>
     </div>
   )
 }
