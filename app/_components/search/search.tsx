@@ -93,8 +93,8 @@ export function Search() {
         keyword={keyword}
         isOpen={isOpen}
         handleModal={handleModal}
-        dimColor="transparent"
-        position={{ top: 357, left: 495.5 }}
+        dimColor="rgba(255, 255, 255, 0.8)"
+        position={{ top: 136, left: 0 }}
       >
         <StyledSearchResultCon>
           {searchResult && searchResult.length > 0 ? (
