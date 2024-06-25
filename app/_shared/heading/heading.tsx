@@ -6,14 +6,21 @@ const Heading = css`
   margin: 0;
   line-height: 33px;
   color: #222;
+  white-space: break-spaces;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   & > a.anchor {
     color: #007cee;
 
-    &:hover {
+    &:hover,
+    &:active {
       color: #0056b3;
     }
   }
+
   transition: color 0.05s ease-in;
 `
 
