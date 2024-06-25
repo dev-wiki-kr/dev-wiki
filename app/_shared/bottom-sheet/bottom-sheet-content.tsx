@@ -93,7 +93,9 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
       }
     }, [floatingContext.open])
 
-    if (!isMounted) return null
+    if (!isMounted) {
+      return null
+    }
 
     return (
       <FloatingPortal>
