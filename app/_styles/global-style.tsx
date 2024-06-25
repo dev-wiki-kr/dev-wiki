@@ -123,7 +123,15 @@ export const GlobalStyle = createGlobalStyle`
         margin: 20px;
     }
 
-    table, 
+    table {
+        max-width: 100%;
+        width: max-content;
+        overflow: auto;
+        display: block;
+        padding: 0;
+        border-collapse: collapse;
+    }
+
     td, 
     th {
         border: 1px solid #d0d7de;
@@ -138,4 +146,6 @@ export const GlobalStyle = createGlobalStyle`
     ul {
         padding-left: 30px;
     }
+
+    
 `
