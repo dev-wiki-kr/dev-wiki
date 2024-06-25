@@ -15,7 +15,7 @@ import { CustomHeading } from '../../../_shared/heading'
 import { ExternalLink } from '../../../_shared/link/external-link'
 import { InternalLink } from '../../../_shared/link/internal-link'
 import { autoLinkHeadings } from '../../../lib/auto-link-headings'
-import { Ol } from '../../../_shared/ol/ol'
+import Link from 'next/link'
 
 const components = {
   code({
@@ -44,41 +44,74 @@ const components = {
 
     return <ExternalLink href={href}>{children}</ExternalLink>
   },
-  ol({ children, start }: { children: React.ReactNode; start: number }) {
-    return <Ol start={start}>{children}</Ol>
+}
+
+const headersComponents = {
+  ...components,
+  ol({ children, start = 1 }: { children: React.ReactNode; start: number }) {
+    return (
+      <>
+        {start}.{children}
+      </>
+    )
+  },
+  p({ children, start }: { children: React.ReactNode; start: number }) {
+    return <>{children}</>
+  },
+  li({ children, start }: { children: React.ReactNode; start: number }) {
+    return <>{children}</>
   },
 }
 
 export function MarkdownMainContent({ headers }: { headers: MarkdownSection[] }) {
-  console.log(headers)
   return (
     <>
-      {headers.map((header) => (
-        <AccordionProvider key={header.id}>
-          <Accordion key={header.id} id={header.id}>
-            <AccordionTitle>
-              <CustomHeading level={header.level}>
+      {headers.map((header) => {
+        const { section, title } = splitMarkdownTitle(header.text)
+
+        return (
+          <AccordionProvider key={header.id}>
+            <Accordion key={header.id} id={header.id}>
+              <AccordionTitle>
+                <CustomHeading level={header.level}>
+                  <Link
+                    href={`#${header.id}`}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
+                    className="anchor"
+                  >
+                    {section}
+                  </Link>{' '}
+                  <Markdown
+                    remarkPlugins={[remarkGfm, remarkBreaks]}
+                    rehypePlugins={[autoLinkHeadings]}
+                    components={headersComponents as Components}
+                  >
+                    {title}
+                  </Markdown>
+                </CustomHeading>
+              </AccordionTitle>
+              <AccordionDescription>
                 <Markdown
+                  children={header.content}
+                  components={components as Components}
                   remarkPlugins={[remarkGfm, remarkBreaks]}
                   rehypePlugins={[autoLinkHeadings]}
-                  components={components as Components}
-                >
-                  {header.text}
-                </Markdown>
-              </CustomHeading>
-            </AccordionTitle>
-            <AccordionDescription>
-              <Markdown
-                children={header.content}
-                components={components as Components}
-                remarkPlugins={[remarkGfm, remarkBreaks]}
-                rehypePlugins={[autoLinkHeadings]}
-              />
-            </AccordionDescription>
-          </Accordion>
-          {header.children.length > 0 ? <MarkdownMainContent headers={header.children} /> : ''}
-        </AccordionProvider>
-      ))}
+                />
+              </AccordionDescription>
+            </Accordion>
+            {header.children.length > 0 ? <MarkdownMainContent headers={header.children} /> : ''}
+          </AccordionProvider>
+        )
+      })}
     </>
   )
+}
+
+function splitMarkdownTitle(text: string) {
+  const section = text.split(' ')[0].replace(/[^0-9.]/g, '')
+  const title = text.split(' ').slice(1).join(' ')
+
+  return { section, title }
 }
