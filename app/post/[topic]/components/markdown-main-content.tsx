@@ -94,11 +94,12 @@ export function MarkdownMainContent({ headers }: { headers: MarkdownSection[] })
               </AccordionTitle>
               <AccordionDescription>
                 <Markdown
-                  children={header.content}
                   components={components as Components}
                   remarkPlugins={[remarkGfm, remarkBreaks]}
                   rehypePlugins={[autoLinkHeadings]}
-                />
+                >
+                  {header.content}
+                </Markdown>
               </AccordionDescription>
             </Accordion>
             {header.children.length > 0 ? <MarkdownMainContent headers={header.children} /> : ''}
