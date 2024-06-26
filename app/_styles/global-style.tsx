@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         -moz-text-size-adjust: none;
         -webkit-text-size-adjust: none;
         text-size-adjust: none;
+        scroll-behavior: smooth;
     }
 
     /* 기본 여백을 제거하여 작성된 CSS를 더 잘 제어할 수 있습니다. */
@@ -27,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     blockquote,
     dl,
     dd {
+        margin-block-start: 0;
         margin-block-end: 0;
     }
 
@@ -97,5 +99,15 @@ export const GlobalStyle = createGlobalStyle`
     #wrapper {
         height: auto;
         min-height: calc(100vh - 440px);
+    }
+
+    /* 버튼의 기본 스타일을 제거합니다. */
+    button {
+        margin: 0;
+        padding: 0;
+        background:none;
+        border:0;
+        outline: none;
+        cursor:pointer;
     }
 `

@@ -1,10 +1,10 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
 
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypePrettyCode from 'rehype-pretty-code'
 import rehypeSlug from 'rehype-slug'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
+import { autoLinkHeadings } from '../../../lib/auto-link-headings'
 import { mdxComponents } from './mdx-components'
 
 export function PostBody({ source }: { source: string }) {
@@ -14,7 +14,7 @@ export function PostBody({ source }: { source: string }) {
       options={{
         mdxOptions: {
           remarkPlugins: [remarkGfm, remarkBreaks],
-          rehypePlugins: [rehypePrettyCode, rehypeSlug, rehypeAutolinkHeadings],
+          rehypePlugins: [rehypePrettyCode, rehypeSlug, autoLinkHeadings],
         },
       }}
       components={mdxComponents}
