@@ -116,24 +116,10 @@ export function Search({ width = 420, height = 40 }: SearchProps) {
         keyword={keyword}
         isOpen={isOpen}
         handleModal={handleModal}
-        dimColor="rgba(255, 255, 255, 0.8)"
-        position={{ top: 136, left: 0 }}
         searchConRef={getModalPosition()}
         resultWidth={width}
-      >
-        <StyledSearchResultCon>
-          {searchResult && searchResult.length > 0 ? (
-            searchResult.map((data) => (
-              <StyledResultCon href={`/post/${data._id}`} key={data._id}>
-                <DocumentIcon src="images/document-icon.svg" />
-                {data.text}
-              </StyledResultCon>
-            ))
-          ) : (
-            <StyledNotFound>{keyword}에 대한 검색결과가 없습니다.</StyledNotFound>
-          )}
-        </StyledSearchResultCon>
-      </Modal>
-    </div>
+        setKeyword={setKeyword}
+      />
+    </Container>
   )
 }
