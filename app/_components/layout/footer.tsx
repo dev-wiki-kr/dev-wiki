@@ -56,6 +56,13 @@ const GithubIcon = styled.img`
   margin-right: 4px;
 `
 
+const StyledLicenseLink = styled.a.attrs({
+  target: '_blank',
+  rel: 'noopener noreferrer',
+})`
+  text-decoration: underline;
+`
+
 export function Footer() {
   return (
     <StyledFooter>
@@ -63,14 +70,9 @@ export function Footer() {
       <TextContainer>
         <Text>
           모든 문서는&nbsp;
-          <a
-            href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ textDecoration: 'underline' }}
-          >
+          <StyledLicenseLink href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.ko">
             크리에이티브 커먼즈 저작자표시-비영리-동일조건변경허락 4.0 국제 (CC BY-NC-SA 4.0)
-          </a>
+          </StyledLicenseLink>
           &nbsp;에 따라 사용할 수 있으며, 추가적인 조건이 적용될 수 있습니다. 작성한 문서의 저작권은
           작성자에게 있습니다. 기여자는 기여하신 부분의 저작권을 갖습니다.
         </Text>
