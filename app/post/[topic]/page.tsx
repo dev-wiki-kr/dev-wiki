@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getAllPostTitle, getPostByTitle } from '../../_service/post'
-import { TocSide } from '../../_shared/toc'
+import { TocSide, TocTop } from '../../_shared/toc'
+import { parseHeadersForTOC } from '../../lib/get-toc'
 import { Container } from './components/container'
 import { PostBody } from './components/post-body'
 import { flattenMarkdown, parseMarkdown } from '../../_engine/parse-accordion'
