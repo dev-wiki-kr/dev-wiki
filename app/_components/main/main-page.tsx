@@ -22,6 +22,7 @@ const StyledTitleCon = styled.div`
 
 const StyledLogo = styled.div`
   color: #007cee;
+  margin-left: 5px;
 `
 
 const StyledContentCon = styled.div`
@@ -35,7 +36,8 @@ export function MainPage() {
   return (
     <Container>
       <StyledTitleCon>
-        개발자를 위한 위키, <StyledLogo>DevWiki</StyledLogo>
+        개발자를 위한 위키,
+        <StyledLogo>DevWiki</StyledLogo>
       </StyledTitleCon>
       <Search />
       <StyledContentCon>
