@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { Option, getSearchAutocomplete } from '../_service/search'
+import { Option, getSearchAutocomplete } from '../../_service/search'
 import { useEffect, useState } from 'react'
 import { Modal } from '../../_shared/modal/modal'
 
