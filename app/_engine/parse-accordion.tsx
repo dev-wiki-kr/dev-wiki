@@ -66,6 +66,23 @@ export function parseMarkdown(markdownText: string) {
   return root
 }
 
+export function parseMarkdownTitle(markdownText: string) {
+  const lines = markdownText.split('\n')
+  const headerRegex = /^(#{1}) (.+)/
+
+  let title = ''
+
+  lines.forEach((line) => {
+    const match = line.match(headerRegex)
+
+    if (match && match[1] === '#') {
+      title = line
+    }
+  })
+
+  return title
+}
+
 export function flattenMarkdown(markdownSections: MarkdownSection[]) {
   const result: ParsedMarkdown[] = []
 

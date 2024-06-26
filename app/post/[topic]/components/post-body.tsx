@@ -1,7 +1,12 @@
-import { parseMarkdown } from '../../../_engine/parse-accordion'
-import { Container } from './container'
-import { MarkdownMainContent } from './markdown-accoridion'
+import { parseMarkdown, parseMarkdownTitle } from '../../../_engine/parse-accordion'
+import { MarkdownMainContent } from './markdown-main-content'
+import { MarkdownTitle } from './markdown-title'
 
 export function PostBody({ source }: { source: string }) {
-  return <MarkdownMainContent headers={parseMarkdown(source)} />
+  return (
+    <>
+      <MarkdownTitle title={parseMarkdownTitle(source)} />
+      <MarkdownMainContent headers={parseMarkdown(source)} />
+    </>
+  )
 }
