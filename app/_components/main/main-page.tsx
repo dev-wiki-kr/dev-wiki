@@ -1,7 +1,9 @@
+'use client'
+
 import styled from 'styled-components'
 import { MainSearch } from '../search/main-search/main-search'
 import { media } from '../../_styles/media'
-import { LatestArticleWrapper } from './latest-article-wrapper'
+import { H1, H2 } from '../../_shared/heading'
 
 const Container = styled.div`
   max-width: 768px;
@@ -41,18 +43,21 @@ const StyledContentContainer = styled.div`
   `}
 `
 
-export function MainPage() {
+interface MainpageProps {
+  children: React.ReactNode
+}
+
+export function MainPage({ children }: MainpageProps) {
   return (
     <Container>
       <StyledTitleContainer>
-        개발자를 위한 위키,
-        <StyledLogo>DevWiki</StyledLogo>
+        <H2 css={{ fontSize: 'inherit' }}>개발자를 위한 위키</H2>,
+        <H1 css={{ fontSize: 'inherit' }}>
+          <StyledLogo>DevWiki</StyledLogo>
+        </H1>
       </StyledTitleContainer>
       <MainSearch />
-      <StyledContentContainer>
-        {/* eslint-expect-error-async-server-component */}
-        <LatestArticleWrapper />
-      </StyledContentContainer>
+      <StyledContentContainer>{children}</StyledContentContainer>
     </Container>
   )
 }
