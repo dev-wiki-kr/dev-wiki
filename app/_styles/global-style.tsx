@@ -147,5 +147,9 @@ export const GlobalStyle = createGlobalStyle`
         padding-left: 30px;
     }
 
+    p {
+        margin-block: revert;
+    }
+
     
 `
