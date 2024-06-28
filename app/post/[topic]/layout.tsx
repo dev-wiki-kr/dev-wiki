@@ -2,6 +2,7 @@ import type { PropsWithChildren } from 'react'
 import { Container } from './components/container'
 import { Metadata } from 'next'
 import { getPostByTitle } from '../../_service/post'
+import { parseMarkdown } from '../../_engine/parse-accordion'
 
 type GenerateMetadataProps = {
   params: { topic: string }
@@ -10,9 +11,13 @@ type GenerateMetadataProps = {
 export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
   //TODO: 추후에 article의 기본형태를 mdx 형태로 변경해서 올릴 수 있도록 하자.
 
+  const post = await getPostByTitle(params.topic)
+
+  const firstContent = parseMarkdown(post?.content || '')[0].content
+
   return {
     title: `${params.topic} - 데브위키`,
-    description: '테스트입니다.',
+    description: firstContent,
     alternates: {
       canonical: `https://devwiki.co.kr/post/${params.topic}`,
     },
