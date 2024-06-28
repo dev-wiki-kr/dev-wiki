@@ -116,8 +116,6 @@ export function TocSide({ tableOfContents }: TocSideProps) {
     }
   }, [headingTops])
 
-  console.log({ tableOfContents })
-
   return (
     <TocContainer>
       <TocWrapper>
