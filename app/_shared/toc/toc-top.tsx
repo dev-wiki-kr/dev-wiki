@@ -1,11 +1,8 @@
-import styled from 'styled-components'
-import type { Toc } from '../../lib/get-toc'
 import Link from 'next/link'
-import { media } from '../../_styles/media'
 
-interface TocSideProps {
-  tableOfContents: Toc[]
-}
+import styled from 'styled-components'
+import { media } from '../../_styles/media'
+import type { ParsedMarkdown } from '../../_engine/parse-accordion'
 
 const TocWrapper = styled.div`
   display: none; // 기본적으로 숨김
@@ -45,7 +42,11 @@ const Text = styled.span`
   color: #222222;
 `
 
-export const TocTop = ({ tableOfContents }: TocSideProps) => {
+interface TocTopProps {
+  tableOfContents: ParsedMarkdown[]
+}
+
+export function TocTop({ tableOfContents }: TocTopProps) {
   if (tableOfContents.length === 0) {
     return null
   }
@@ -56,7 +57,7 @@ export const TocTop = ({ tableOfContents }: TocSideProps) => {
         <Text>목차</Text>
         {tableOfContents.map((toc, i) => (
           <TocItem key={i} level={toc.level} data-level={toc.level}>
-            <Link href={`#${toc.slug}`}>{toc.text}</Link>
+            <Link href={`#${toc.id}`}>{toc.text}</Link>
           </TocItem>
         ))}
       </TocList>
