@@ -152,6 +152,9 @@ export function SearchResult({
                 onChange={(e) => {
                   onChangeKeyword(e.target.value)
                 }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                }}
                 placeholder="검색어를 입력해 주세요."
               />
               {keyword && (
