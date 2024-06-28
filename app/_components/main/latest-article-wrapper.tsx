@@ -1,4 +1,4 @@
-import { getLatestArticle } from '../_service/recent-documents'
+import { getLatestArticle } from '../../_service/post/recent-documents'
 import { LatestArticle } from './latest-article'
 
 export async function LatestArticleWrapper() {
