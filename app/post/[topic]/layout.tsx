@@ -18,6 +18,21 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
   return {
     title: `${params.topic} - 데브위키`,
     description: firstContent,
+    openGraph: {
+      title: `${params.topic} - 데브위키`,
+      description: firstContent,
+      type: 'website',
+      locale: 'ko_KR',
+      siteName: 'Devwiki',
+      images: [
+        {
+          url: 'https://devwiki.co.kr/images/opengraph-image.jpg',
+          width: 800,
+          height: 600,
+          alt: 'Devwiki',
+        },
+      ],
+    },
     alternates: {
       canonical: `https://devwiki.co.kr/post/${params.topic}`,
     },
