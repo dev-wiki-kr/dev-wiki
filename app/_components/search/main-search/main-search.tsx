@@ -2,17 +2,17 @@
 
 import { styled } from 'styled-components'
 import { useRef, useState } from 'react'
-import { useModal } from '../../_shared/modal/useModal'
+import { useModal } from '../../../_shared/modal/useModal'
 import { useRouter } from 'next/dist/client/router'
-import { SearchResult } from './search-result'
+import { SearchResult } from './main-search-result'
 
 const Container = styled.div`
   position: relative;
 `
 
-const SearchCon = styled.div<{ $width?: number; $height?: number; $isOpen: boolean }>`
-  width: ${(props) => props.$width || 420}px;
-  height: ${(props) => props.$height || 40}px;
+const SearchCon = styled.div<{ $isOpen: boolean }>`
+  width: 420px;
+  height: 40px;
   border: #dddddd solid;
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
@@ -58,12 +58,8 @@ const XIcon = styled.img`
   position: relative;
   z-index: 1;
 `
-interface SearchProps {
-  width?: number
-  height?: number
-}
 
-export function Search({ width = 420, height = 40 }: SearchProps) {
+export function MainSearch() {
   const { isOpen, handleModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
@@ -84,13 +80,7 @@ export function Search({ width = 420, height = 40 }: SearchProps) {
 
   return (
     <Container>
-      <SearchCon
-        ref={searchConRef}
-        onClick={handleModal}
-        $width={width}
-        $height={height}
-        $isOpen={isOpen}
-      >
+      <SearchCon ref={searchConRef} onClick={handleModal} $isOpen={isOpen}>
         <SearchIcon src="images/search-icon.svg" />
         <Input
           value={keyword}
@@ -118,7 +108,6 @@ export function Search({ width = 420, height = 40 }: SearchProps) {
         handleModal={handleModal}
         setKeyword={setKeyword}
         searchConRef={getModalPosition()}
-        resultWidth={width}
       />
     </Container>
   )
