@@ -3,7 +3,7 @@
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import styled, { css } from 'styled-components'
-import { getSearchAutocomplete } from '../../../_service/search'
+import { SearchAutocompleteResponse, getSearchAutocomplete } from '../../../_service/search'
 import { Modal } from '../../../_shared/modal/modal'
 import { useSearchContainerPosition } from '../context'
 import React, { useEffect, useState } from 'react'
@@ -196,11 +196,18 @@ export function SearchResultPopover({
   keyword,
   onChangeKeyword,
 }: SearchResultPopoverProps) {
-  const { data } = useQuery({
+  const [prevData, setPrevData] = useState<SearchAutocompleteResponse[]>([])
+  const { data, isLoading, isSuccess } = useQuery({
     queryKey: ['search-autocomplete', keyword],
     queryFn: () => getSearchAutocomplete(keyword),
   })
   const { isMobile } = useIsMobileQuery()
+
+  useEffect(() => {
+    if (data && isSuccess) {
+      setPrevData(data)
+    }
+  }, [data, isSuccess])
 
   return (
     <SearchResult
@@ -210,17 +217,48 @@ export function SearchResultPopover({
       onChangeKeyword={onChangeKeyword}
     >
       <StyledSearchResultContainer $hasBorder={!isMobile}>
-        {data && data.length > 0 ? (
-          data.map((datum) => (
+        <SearchResultByStatus data={data} prevData={prevData} isLoading={isLoading} />
+      </StyledSearchResultContainer>
+    </SearchResult>
+  )
+}
+
+interface SearchResultByStatusProps {
+  data?: SearchAutocompleteResponse[] | null
+  prevData?: SearchAutocompleteResponse[] | null
+  isLoading: boolean
+}
+
+export function SearchResultByStatus({ data, isLoading, prevData }: SearchResultByStatusProps) {
+  if (isLoading) {
+    return (
+      <>
+        {prevData && prevData.length > 0 ? (
+          prevData.map((datum) => (
             <StyledResultContainer href={`/post/${datum.shortTitle}`} key={datum.shortTitle}>
               <DocumentIcon src="images/document-icon.svg" />
               {datum.title}
             </StyledResultContainer>
           ))
         ) : (
-          <StyledNotFound>{keyword}에 대한 검색결과가 없습니다.</StyledNotFound>
+          <StyledNotFound>검색결과가 없습니다.</StyledNotFound>
         )}
-      </StyledSearchResultContainer>
-    </SearchResult>
-  )
+      </>
+    )
+  }
+
+  if (data && data.length > 0) {
+    return (
+      <>
+        {data.map((datum) => (
+          <StyledResultContainer href={`/post/${datum.shortTitle}`} key={datum.shortTitle}>
+            <DocumentIcon src="images/document-icon.svg" />
+            {datum.title}
+          </StyledResultContainer>
+        ))}
+      </>
+    )
+  }
+
+  return <StyledNotFound>검색결과가 없습니다.</StyledNotFound>
 }

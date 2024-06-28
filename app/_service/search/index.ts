@@ -1,4 +1,4 @@
-interface SearchAutocompleteResponse {
+export interface SearchAutocompleteResponse {
   id: number
   shortTitle: string
   title: string
