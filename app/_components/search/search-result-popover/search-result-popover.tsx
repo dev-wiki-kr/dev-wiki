@@ -86,7 +86,7 @@ export function SearchResult({ isOpen, handleModal, children }: SearchResultProp
 
   if (isMobile) {
     return (
-      <BottomSheet open={isOpen} onOpenChange={handleModal}>
+      <BottomSheet open={isOpen} onOpenChange={handleModal} css={{ height: '522px' }}>
         <BottomSheetContent>
           <BottomSheetHeader>
             <BottomSheetTitle>바텀시트 제목</BottomSheetTitle>
