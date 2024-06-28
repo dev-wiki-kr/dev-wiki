@@ -60,6 +60,11 @@ const Content = styled.div.withConfig({
 
   background-color: white;
 
+  height: 80vh;
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+
   animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.5s cubic-bezier(0.32, 0.72, 0, 1)
     forwards;
 `

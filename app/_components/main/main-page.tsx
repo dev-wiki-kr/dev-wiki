@@ -50,10 +50,6 @@ export function MainPage() {
         <StyledLogo>DevWiki</StyledLogo>
       </StyledTitleContainer>
       <MainSearch />
-      <StyledContentContainer>
-        <RecentDocuments />
-        <PopualrArticels />
-      </StyledContentContainer>
     </Container>
   )
 }
