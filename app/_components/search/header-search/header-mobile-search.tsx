@@ -23,7 +23,7 @@ interface HeaderMobileSearchProps {
 export function HeaderMobileSearch({ onClick }: HeaderMobileSearchProps) {
   return (
     <Container onClick={onClick}>
-      <SearchIcon src="images/search-icon.svg" />
+      <SearchIcon src="/images/search-icon.svg" />
     </Container>
   )
 }

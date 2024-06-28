@@ -83,7 +83,7 @@ export function MainSearch() {
   return (
     <Container>
       <SearchCon ref={handleRefChange} onClick={handleModal} $isOpen={isOpen}>
-        <SearchIcon src="images/search-icon.svg" />
+        <SearchIcon src="/images/search-icon.svg" />
         <Input
           value={keyword}
           onChange={(e) => {

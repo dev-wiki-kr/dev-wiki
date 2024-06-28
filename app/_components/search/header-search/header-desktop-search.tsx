@@ -44,7 +44,7 @@ export function HeaderDesktopSearch({ onClick }: HeaderDesktopSearchProps) {
   return (
     <Container>
       <SearchContainer onClick={onClick}>
-        <SearchIcon src="images/search-icon.svg" />
+        <SearchIcon src="/images/search-icon.svg" />
         <Input placeholder="검색어를 입력해 주세요." />
       </SearchContainer>
     </Container>
