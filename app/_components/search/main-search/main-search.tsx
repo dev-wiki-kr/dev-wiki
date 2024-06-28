@@ -107,6 +107,7 @@ export function MainSearch() {
         isOpen={isOpen}
         handleModal={handleModal}
         searchConRef={getModalPosition()}
+        setKeyword={setKeyword}
       />
     </Container>
   )
