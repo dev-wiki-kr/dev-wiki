@@ -3,6 +3,19 @@
 import styled from 'styled-components'
 import { LatestArticleResponse } from '../_service/recent-documents'
 import Link from 'next/link'
+import { media } from '../../_styles/media'
+
+const Container = styled.div`
+  display: flex;
+  gap: 24px;
+  width: 100%;
+
+  ${media.phone`
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  `}
+`
 
 const StyledDocumentContainer = styled.div`
   display: flex;
@@ -18,6 +31,10 @@ const StyledDocumentLink = styled(Link)`
   margin-bottom: 10px;
   display: flex;
   align-items: center;
+
+  ${media.phone`
+    width: 320px;
+  `}
 `
 
 const DocumentIcon = styled.img`
@@ -35,7 +52,7 @@ export function LatestArticle({ data }: LatestArticleProps) {
   const secondDataCategory = data?.slice(5, 10)
 
   return (
-    <>
+    <Container>
       <StyledDocumentContainer>
         {firstDataCategory?.map((data, index) => (
           <StyledDocumentLink key={index} href={data.url}>
@@ -52,6 +69,6 @@ export function LatestArticle({ data }: LatestArticleProps) {
           </StyledDocumentLink>
         ))}
       </StyledDocumentContainer>
-    </>
+    </Container>
   )
 }
