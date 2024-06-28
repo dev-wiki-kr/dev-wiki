@@ -1,7 +1,7 @@
 'use client'
 
 import styled from 'styled-components'
-import { LatestArticleResponse } from '../_service/recent-documents'
+import { LatestArticleResponse } from '../../_service/post/recent-documents'
 import Link from 'next/link'
 import { media } from '../../_styles/media'
 
