@@ -146,7 +146,7 @@ export function SearchResult({
         <BottomSheetContent>
           <BottomSheetHeader>
             <SearchContainer onClick={handleModal}>
-              <SearchIcon src="images/search-icon.svg" />
+              <SearchIcon src="/images/search-icon.svg" />
               <Input
                 value={keyword}
                 onChange={(e) => {
@@ -209,9 +209,9 @@ export function SearchResultPopover({
       <StyledSearchResultContainer $hasBorder={!isMobile}>
         {data && data.length > 0 ? (
           data.map((datum) => (
-            <StyledResultContainer href={`/post/${datum._id}`} key={datum._id}>
+            <StyledResultContainer href={`/post/${datum.shortTitle}`} key={datum.shortTitle}>
               <DocumentIcon src="images/document-icon.svg" />
-              {datum.text}
+              {datum.title}
             </StyledResultContainer>
           ))
         ) : (
