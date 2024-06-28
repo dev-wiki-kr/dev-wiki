@@ -4,7 +4,6 @@ import { MainPage } from './_components/main/main-page'
 export default function Home() {
   return (
     <MainPage>
-      {/* @ts-expect-error-async-server-component */}
       <LatestArticleWrapper />
     </MainPage>
   )
