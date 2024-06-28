@@ -35,12 +35,16 @@ const Container = styled.div`
   margin-left: auto;
 `
 
-export function Header() {
+interface HeaderProps {
+  children: React.ReactNode
+}
+
+export function Header({ children }: HeaderProps) {
   return (
     <StyledHeader>
       <StyledLink href={'/'}>DevWiki</StyledLink>
       <Container>
-        <HeaderSearch />
+        {children}
         <UserAccountMenu />
       </Container>
     </StyledHeader>
