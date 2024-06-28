@@ -49,5 +49,9 @@ export function useSearchContainerPosition() {
     return { top: top + value.value.offsetHeight, left }
   }
 
-  return { position: getModalPosition(), handleRefChange: value.handleRefChange }
+  return {
+    position: getModalPosition(),
+    searchNode: value.value,
+    handleRefChange: value.handleRefChange,
+  }
 }

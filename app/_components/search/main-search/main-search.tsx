@@ -3,7 +3,6 @@
 import { styled } from 'styled-components'
 import { useRef, useState } from 'react'
 import { useModal } from '../../../_shared/modal/useModal'
-import { SearchResult } from './main-search-result'
 import { media } from '../../../_styles/media'
 import { useSearchContainerPosition } from '../context'
 import { SearchResultPopover } from '../search-result-popover/search-result-popover'
