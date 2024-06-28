@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   title: '홈 - 데브위키',
   description: '개발정보를 모아놓은 devwiki입니다.',
   robots: {
-    index: false,
-    follow: false,
+    index: true,
+    follow: true,
   },
   authors: [{ name: 'Devwiki team' }],
   openGraph: {
