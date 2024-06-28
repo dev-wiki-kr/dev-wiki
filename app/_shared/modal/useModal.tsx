@@ -5,11 +5,11 @@ export function useModal() {
   const handleModal = () => {
     setIsOpen((prevState) => !prevState)
   }
-  const OpenModal = () => {
+  const openModal = () => {
     setIsOpen(true)
   }
   const closeModal = () => {
     setIsOpen(false)
   }
-  return { isOpen, handleModal, OpenModal, closeModal }
+  return { isOpen, handleModal, openModal, closeModal }
 }

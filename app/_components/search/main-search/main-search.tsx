@@ -60,7 +60,7 @@ const XIcon = styled.img`
 `
 
 export function MainSearch() {
-  const { isOpen, handleModal } = useModal()
+  const { isOpen, handleModal, openModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
   // const router = useRouter()
@@ -70,6 +70,13 @@ export function MainSearch() {
     if (!searchConRef.current) return { top: 0, left: 0 }
     const { top, left } = searchConRef.current.getBoundingClientRect()
     return { top: top + searchConRef.current.offsetHeight, left }
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!isOpen) {
+      openModal()
+    }
+    setKeyword(e.target.value)
   }
 
   const SearchForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -84,9 +91,7 @@ export function MainSearch() {
         <SearchIcon src="images/search-icon.svg" />
         <Input
           value={keyword}
-          onChange={(e) => {
-            setKeyword(e.target.value)
-          }}
+          onChange={handleInputChange}
           onKeyDown={SearchForEnter}
           placeholder="검색어를 입력해 주세요."
           ref={inputRef}
