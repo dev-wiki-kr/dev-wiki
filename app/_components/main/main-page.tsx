@@ -37,6 +37,7 @@ const StyledContentContainer = styled.div`
 
   ${media.phone`
     margin-top: 40px;
+    width: 100%;
   `}
 `
 
@@ -49,6 +50,7 @@ export function MainPage() {
       </StyledTitleContainer>
       <MainSearch />
       <StyledContentContainer>
+        {/* eslint-expect-error-async-server-component */}
         <LatestArticleWrapper />
       </StyledContentContainer>
     </Container>
