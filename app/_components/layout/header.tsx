@@ -4,7 +4,7 @@ import { styled } from 'styled-components'
 import Link from 'next/link'
 import { media } from '../../_styles/media'
 import { UserAccountMenu } from '../auth/user-account-menu'
-import { Search } from '../search/search'
+import { HeaderSearch } from '../search/header-search/header-search'
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -45,7 +45,7 @@ export function Header() {
     <StyledHeader>
       <StyledLink href={'/'}>DevWiki</StyledLink>
       <Container>
-        <Search width={240} height={40} />
+        <HeaderSearch />
         <UserAccountMenu />
       </Container>
     </StyledHeader>

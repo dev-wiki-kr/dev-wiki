@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Search } from '../search/search'
+import { MainSearch } from '../search/main-search/main-search'
 import { RecentDocuments } from './recent-document'
 import { PopualrArticels } from './popular-articles'
 
@@ -39,7 +39,7 @@ export function MainPage() {
         개발자를 위한 위키,
         <StyledLogo>DevWiki</StyledLogo>
       </StyledTitleCon>
-      <Search />
+      <MainSearch />
       <StyledContentCon>
         <RecentDocuments />
         <PopualrArticels />
