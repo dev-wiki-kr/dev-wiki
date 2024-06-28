@@ -23,7 +23,7 @@ const SearchCon = styled.div<{ $isOpen: boolean }>`
   display: flex;
 
   ${media.phone`
-    width: 100%;
+    width: 330px;
   `}
 
   &:hover {
@@ -76,6 +76,10 @@ export function MainSearch() {
     }
   }
 
+  const handleChangeKeyword = (keyword: string) => {
+    setKeyword(keyword)
+  }
+
   return (
     <Container>
       <SearchCon ref={handleRefChange} onClick={handleModal} $isOpen={isOpen}>
@@ -100,7 +104,12 @@ export function MainSearch() {
           />
         )}
       </SearchCon>
-      <SearchResultPopover isOpen={isOpen} handleModal={handleModal} keyword={keyword} />
+      <SearchResultPopover
+        isOpen={isOpen}
+        handleModal={handleModal}
+        keyword={keyword}
+        onChangeKeyword={handleChangeKeyword}
+      />
     </Container>
   )
 }

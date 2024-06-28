@@ -2,20 +2,18 @@
 
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { getSearchAutocomplete } from '../../../_service/search'
 import { Modal } from '../../../_shared/modal/modal'
 import { useSearchContainerPosition } from '../context'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useIsMobileQuery } from '../../../hooks/use-media-query'
 import {
   BottomSheet,
   BottomSheetBody,
-  BottomSheetClose,
   BottomSheetContent,
   BottomSheetDescription,
   BottomSheetHeader,
-  BottomSheetTitle,
 } from '../../../_shared/bottom-sheet'
 
 const DocumentIcon = styled.img`
@@ -24,17 +22,31 @@ const DocumentIcon = styled.img`
   margin-right: 8px;
 `
 
-const StyledSearchResultContainer = styled.div`
+const StyledSearchResultContainer = styled.div<{ $hasBorder: boolean }>`
   width: 420px;
   height: fit-content;
   max-height: 240px;
   padding: 12px;
   background: white;
-  border: #b5b5b5 solid;
   border-top: none;
   border-radius: 0px 0px 8px 8px;
   overflow-x: hidden;
   overflow-y: auto;
+
+  ${({ $hasBorder }) =>
+    $hasBorder
+      ? css`
+          border: #b5b5b5 solid;
+          border-width: initial;
+          border-style: none solid solid;
+          border-right-color: rgb(181, 181, 181);
+          border-bottom-color: rgb(181, 181, 181);
+          border-left-color: rgb(181, 181, 181);
+          border-image: initial;
+          border-top-color: initial;
+        `
+      : ''}
+
   &::-webkit-scrollbar {
     width: 5px;
   }
@@ -78,9 +90,53 @@ interface SearchResultProps {
   isOpen: boolean
   handleModal: () => void
   children: React.ReactNode
+  keyword: string
+  onChangeKeyword: (keyword: string) => void
 }
 
-export function SearchResult({ isOpen, handleModal, children }: SearchResultProps) {
+const SearchContainer = styled.div`
+  width: 100%;
+  height: 40px;
+  position: relative;
+  z-index: 1;
+  align-items: center;
+  display: flex;
+`
+
+const Input = styled.input`
+  width: 100%;
+  height: 24px;
+  margin: 8px 0px;
+  margin-right: 16px;
+  border: none;
+  &:focus {
+    outline: none;
+  }
+  font-size: 16px;
+`
+
+const SearchIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin: 8px 12px;
+`
+
+const XIcon = styled.img`
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+`
+
+export function SearchResult({
+  isOpen,
+  handleModal,
+  children,
+  keyword,
+  onChangeKeyword,
+}: SearchResultProps) {
   const { position } = useSearchContainerPosition()
   const { isMobile } = useIsMobileQuery()
 
@@ -89,8 +145,25 @@ export function SearchResult({ isOpen, handleModal, children }: SearchResultProp
       <BottomSheet open={isOpen} onOpenChange={handleModal} css={{ height: '522px' }}>
         <BottomSheetContent>
           <BottomSheetHeader>
-            <BottomSheetTitle>바텀시트 제목</BottomSheetTitle>
-            <BottomSheetClose>닫기</BottomSheetClose>
+            <SearchContainer onClick={handleModal}>
+              <SearchIcon src="images/search-icon.svg" />
+              <Input
+                value={keyword}
+                onChange={(e) => {
+                  onChangeKeyword(e.target.value)
+                }}
+                placeholder="검색어를 입력해 주세요."
+              />
+              {keyword && (
+                <XIcon
+                  src="images/X-mark.svg"
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    onChangeKeyword('')
+                  }}
+                />
+              )}
+            </SearchContainer>
           </BottomSheetHeader>
           <BottomSheetBody>
             <BottomSheetDescription>{children}</BottomSheetDescription>
@@ -112,19 +185,28 @@ export function SearchResult({ isOpen, handleModal, children }: SearchResultProp
   )
 }
 
-interface SearchResultPopoverProps extends Omit<SearchResultProps, 'children'> {
-  keyword: string
-}
+interface SearchResultPopoverProps extends Omit<SearchResultProps, 'children'> {}
 
-export function SearchResultPopover({ handleModal, isOpen, keyword }: SearchResultPopoverProps) {
+export function SearchResultPopover({
+  handleModal,
+  isOpen,
+  keyword,
+  onChangeKeyword,
+}: SearchResultPopoverProps) {
   const { data } = useQuery({
     queryKey: ['search-autocomplete', keyword],
     queryFn: () => getSearchAutocomplete(keyword),
   })
+  const { isMobile } = useIsMobileQuery()
 
   return (
-    <SearchResult handleModal={handleModal} isOpen={isOpen}>
-      <StyledSearchResultContainer>
+    <SearchResult
+      handleModal={handleModal}
+      isOpen={isOpen}
+      keyword={keyword}
+      onChangeKeyword={onChangeKeyword}
+    >
+      <StyledSearchResultContainer $hasBorder={!isMobile}>
         {data && data.length > 0 ? (
           data.map((datum) => (
             <StyledResultContainer href={`/post/${datum._id}`} key={datum._id}>
