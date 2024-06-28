@@ -28,7 +28,6 @@ const components = {
     className: string
     children: string
   }) {
-    console.log({ inline, className, children, props })
     const match = /language-(\w+)/.exec(className || '')
 
     return !inline && match ? (
