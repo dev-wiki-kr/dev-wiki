@@ -4,11 +4,11 @@ import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import { debounce, throttle } from 'lodash-es'
 
-import { type Toc } from '../../lib/get-toc'
 import Markdown, { type Components } from 'react-markdown'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
-import { MarkdownSection, ParsedMarkdown } from '../../_engine/parse-accordion'
+import { ParsedMarkdown } from '../../_engine/parse-accordion'
+import { media } from '../../_styles/media'
 
 const TocContainer = styled.aside`
   max-width: 240px;
@@ -21,6 +21,12 @@ const TocContainer = styled.aside`
   p {
     margin: 0;
   }
+
+  display: block;
+
+  ${media.laptop`
+    display: none;
+  `}
 `
 
 const TocWrapper = styled.div`
