@@ -7,6 +7,7 @@ const Container = styled.a`
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  padding: 4px 8px;
 `
 
 interface UserProfileProps {

@@ -28,16 +28,11 @@ const StyledLink = styled(Link)`
   margin: 0;
   line-height: 33px;
   font-size: 24px;
-
-  ${media.phone`
-   font-size: 32px;
-  `}
 `
 const Container = styled.div`
-  width: 306px;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  margin-left: auto;
 `
 
 export function Header() {
