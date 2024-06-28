@@ -22,8 +22,6 @@ const TocContainer = styled.aside`
     margin: 0;
   }
 
-  display: block;
-
   ${media.laptop`
     display: none;
   `}
