@@ -1,24 +1,19 @@
-export async function getRecentDocuments() {
+export interface LatestArticleResponse {
+  title: string
+  url: string
+}
+
+export async function getLatestArticle() {
   try {
-    // TODO : API 개발시 주소 변경에정
-    // const res = await fetch(`https://devwiki.co.kr/wiki-api/recent`)
+    const res = await fetch(`https://devwiki.co.kr/wiki-api/post/latest?count=10`, {
+      next: { revalidate: 6000 },
+    })
 
-    // const data = await res.json()
+    const data = await res.json()
 
-    // return data
-
-    return threeJS_Topics
+    return data as LatestArticleResponse[]
   } catch (error) {
     console.log(error)
     return null
   }
 }
-
-const threeJS_Topics = [
-  'Three.js',
-  'Three.js 장단점',
-  'Three.js 전망',
-  'Three.js 예제',
-  'Three.js 강의목록',
-  'React Three Fiber',
-]

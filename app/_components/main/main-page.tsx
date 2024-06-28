@@ -1,8 +1,7 @@
 import styled from 'styled-components'
 import { MainSearch } from '../search/main-search/main-search'
-import { RecentDocuments } from './recent-document'
-import { PopualrArticels } from './popular-articles'
 import { media } from '../../_styles/media'
+import { LatestArticleWrapper } from './latest-article-wrapper'
 
 const Container = styled.div`
   max-width: 768px;
@@ -35,7 +34,6 @@ const StyledContentContainer = styled.div`
   display: flex;
   width: 420px;
   margin-top: 90px;
-  justify-content: space-between;
 
   ${media.phone`
     margin-top: 40px;
@@ -50,6 +48,9 @@ export function MainPage() {
         <StyledLogo>DevWiki</StyledLogo>
       </StyledTitleContainer>
       <MainSearch />
+      <StyledContentContainer>
+        <LatestArticleWrapper />
+      </StyledContentContainer>
     </Container>
   )
 }
