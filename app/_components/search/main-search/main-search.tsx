@@ -4,7 +4,7 @@ import { styled } from 'styled-components'
 import { useRef, useState } from 'react'
 import { useModal } from '../../../_shared/modal/useModal'
 import { useRouter } from 'next/dist/client/router'
-import { SearchResult } from './main-search-result'
+import { MainSearchResult } from './main-search-result'
 
 const Container = styled.div`
   position: relative;
@@ -17,17 +17,16 @@ const SearchCon = styled.div<{ $isOpen: boolean }>`
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 1;
   align-items: center;
   display: flex;
-
   &:hover {
     border: #b5b5b5 solid;
   }
   ${(props) =>
     props.$isOpen &&
     `
-  border: #b5b5b5 solid;
+    z-index: 100;
+    border: #b5b5b5 solid;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
     border-radius: 8px 8px 0px 0px;
   `}
@@ -107,7 +106,7 @@ export function MainSearch() {
           />
         )}
       </SearchCon>
-      <SearchResult
+      <MainSearchResult
         keyword={keyword}
         isOpen={isOpen}
         handleModal={handleModal}

@@ -11,6 +11,7 @@ const ModalOuter = styled.div<{ $dimColor?: string }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 10;
 `
 
 const ModalContent = styled.div<{ $top?: number; $left?: number }>`

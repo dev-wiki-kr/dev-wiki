@@ -69,7 +69,7 @@ interface SearchResultProps {
   searchConRef: { top: number; left: number }
 }
 
-export function SearchResult({
+export function MainSearchResult({
   keyword,
   isOpen,
   handleModal,

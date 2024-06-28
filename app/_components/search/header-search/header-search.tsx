@@ -17,7 +17,6 @@ const SearchCon = styled.div<{ $isOpen: boolean }>`
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 1;
   align-items: center;
   display: flex;
 
@@ -27,7 +26,8 @@ const SearchCon = styled.div<{ $isOpen: boolean }>`
   ${(props) =>
     props.$isOpen &&
     `
-  border: #b5b5b5 solid;
+    z-index: 100;
+    border: #b5b5b5 solid;
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
     border-radius: 8px 8px 0px 0px;
   `}
@@ -56,7 +56,7 @@ const XIcon = styled.img`
   margin-right: 8px;
   cursor: pointer;
   position: relative;
-  z-index: 1;
+  z-index: 10;
 `
 
 export function HeaderSearch() {
