@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { Option, getSearchAutocomplete } from '../../_service/search'
+import { Option, getSearchAutocomplete } from '../../../_service/search'
 import { useEffect, useState } from 'react'
-import { Modal } from '../../_shared/modal/modal'
+import { Modal } from '../../../_shared/modal/modal'
 
 const DocumentIcon = styled.img`
   width: 20px;
@@ -11,8 +11,8 @@ const DocumentIcon = styled.img`
   margin-right: 8px;
 `
 
-const StyledSearchResultCon = styled.div<{ $width?: number }>`
-  width: ${(props) => props.$width || 420}px;
+const StyledSearchResultCon = styled.div`
+  width: 420px;
   height: fit-content;
   max-height: 240px;
   padding: 12px;
@@ -67,7 +67,6 @@ interface SearchResultProps {
   handleModal: () => void
   setKeyword: React.Dispatch<React.SetStateAction<string>>
   searchConRef: { top: number; left: number }
-  resultWidth: number
 }
 
 export function SearchResult({
@@ -76,7 +75,6 @@ export function SearchResult({
   handleModal,
   setKeyword,
   searchConRef,
-  resultWidth,
 }: SearchResultProps) {
   const [searchResult, setSearchResult] = useState<Option[]>([])
 
@@ -106,7 +104,7 @@ export function SearchResult({
       dimColor="rgba(255, 255, 255, 0.8)"
       position={searchConRef}
     >
-      <StyledSearchResultCon $width={resultWidth}>
+      <StyledSearchResultCon>
         {searchResult && searchResult.length > 0 ? (
           searchResult.map((data) => (
             <StyledResultCon href={`/post/${data._id}`} key={data._id}>
