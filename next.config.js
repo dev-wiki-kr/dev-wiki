@@ -22,13 +22,13 @@ const nextConfig = {
       // www to non-www redirect
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'www.dewiki.vercel.app' }],
-        destination: 'https://dewiki.vercel.app/:path*',
+        has: [{ type: 'host', value: 'www.devwiki.co.kr' }],
+        destination: 'https://devwiki.co.kr/:path*',
         permanent: true,
         statusCode: 301,
       },
       {
-        source: '/wiki',
+        source: '/post',
         destination: '/',
         permanent: true,
         statusCode: 301,

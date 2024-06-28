@@ -1,23 +1,17 @@
 import { MetadataRoute } from 'next'
+import { getAllPostTitle, getPostByTitle } from './_service/post'
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap() {
   //TODO: https://nextjs.org/docs/app/api-reference/functions/generate-sitemaps
-  return [
-    {
-      url: 'https://dewiki.vercel.app',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://dewiki.vercel.app/wiki/Next.js',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://dewiki.vercel.app/wiki/Typescript',
-      lastModified: new Date(),
-    },
-    {
-      url: 'https://dewiki.vercel.app/wiki/react-query',
-      lastModified: new Date(),
-    },
-  ]
+
+  const titles = await getAllPostTitle()
+
+  return titles.map(async ({ shortTitle }) => {
+    const post = await getPostByTitle(shortTitle)
+
+    return {
+      url: `https://devwiki.co.kr/post/${shortTitle}`,
+      lastModified: post?.updatedAt || post?.createdAt,
+    }
+  })
 }
