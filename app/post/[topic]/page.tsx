@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation'
 import { getAllPostTitle, getPostByTitle } from '../../_service/post'
 import { TocSide, TocTop } from '../../_shared/toc'
-import { parseHeadersForTOC } from '../../lib/get-toc'
 import { Container } from './components/container'
 import { PostBody } from './components/post-body'
 import { flattenMarkdown, parseMarkdown } from '../../_engine/parse-accordion'
+import { PostHeader } from './components/post-header'
 
 export async function generateStaticParams() {
   const data = await getAllPostTitle()
@@ -31,6 +31,8 @@ export default async function Post({ params: { topic } }: TopicProps) {
 
   return (
     <Container>
+      <PostHeader title={post.title} date={post.updatedAt} />
+      <TocTop tableOfContents={tableOfContents} />
       <article style={{ position: 'relative' }}>
         <TocSide tableOfContents={tableOfContents} />
         <PostBody source={post.content} />
