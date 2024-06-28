@@ -22,6 +22,21 @@ export const metadata: Metadata = {
     follow: false,
   },
   authors: [{ name: 'Devwiki team' }],
+  openGraph: {
+    title: '홈 - 데브위키',
+    description: '개발정보를 모아놓은 devwiki입니다.',
+    type: 'website',
+    locale: 'ko_KR',
+    siteName: 'Devwiki',
+    images: [
+      {
+        url: 'https://devwiki.co.kr/images/opengraph-image.jpg',
+        width: 800,
+        height: 600,
+        alt: 'Devwiki',
+      },
+    ],
+  },
   keywords: ['Devwiki'],
   alternates: {
     canonical: 'https://devwiki.co.kr',
