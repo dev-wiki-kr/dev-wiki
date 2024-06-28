@@ -3,8 +3,10 @@
 import { styled } from 'styled-components'
 import { useRef, useState } from 'react'
 import { useModal } from '../../../_shared/modal/useModal'
-import { useRouter } from 'next/dist/client/router'
 import { SearchResult } from './main-search-result'
+import { media } from '../../../_styles/media'
+import { useSearchContainerPosition } from '../context'
+import { SearchResultPopover } from '../search-result-popover/search-result-popover'
 
 const Container = styled.div`
   position: relative;
@@ -20,6 +22,10 @@ const SearchCon = styled.div<{ $isOpen: boolean }>`
   z-index: 1;
   align-items: center;
   display: flex;
+
+  ${media.phone`
+    width: 100%;
+  `}
 
   &:hover {
     border: #b5b5b5 solid;
@@ -63,14 +69,7 @@ export function MainSearch() {
   const { isOpen, handleModal } = useModal()
   const [keyword, setKeyword] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
-  // const router = useRouter()
-  const searchConRef = useRef<HTMLDivElement>(null) // useRef 생성
-
-  const getModalPosition = () => {
-    if (!searchConRef.current) return { top: 0, left: 0 }
-    const { top, left } = searchConRef.current.getBoundingClientRect()
-    return { top: top + searchConRef.current.offsetHeight, left }
-  }
+  const { handleRefChange } = useSearchContainerPosition()
 
   const SearchForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -80,7 +79,7 @@ export function MainSearch() {
 
   return (
     <Container>
-      <SearchCon ref={searchConRef} onClick={handleModal} $isOpen={isOpen}>
+      <SearchCon ref={handleRefChange} onClick={handleModal} $isOpen={isOpen}>
         <SearchIcon src="images/search-icon.svg" />
         <Input
           value={keyword}
@@ -102,13 +101,7 @@ export function MainSearch() {
           />
         )}
       </SearchCon>
-      <SearchResult
-        keyword={keyword}
-        isOpen={isOpen}
-        handleModal={handleModal}
-        searchConRef={getModalPosition()}
-        setKeyword={setKeyword}
-      />
+      <SearchResultPopover isOpen={isOpen} handleModal={handleModal} keyword={keyword} />
     </Container>
   )
 }

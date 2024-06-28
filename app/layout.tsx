@@ -8,6 +8,7 @@ import { QueryClientProvider, client } from './_external/react-query'
 
 import localFont from 'next/font/local'
 import { Footer } from './_components/layout/footer'
+import { SearchContainerPostionProvider } from './_components/search/context'
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -51,12 +52,14 @@ export default function RootLayout({ children }: LayoutProps) {
       </head>
       <body className={pretendard.className}>
         <QueryClientProvider client={client}>
-          <StyledComponentsRegistry>
-            <GlobalStyle />
-            <Header />
-            <div id="wrapper">{children}</div>
-            <Footer />
-          </StyledComponentsRegistry>
+          <SearchContainerPostionProvider>
+            <StyledComponentsRegistry>
+              <GlobalStyle />
+              <Header />
+              <div id="wrapper">{children}</div>
+              <Footer />
+            </StyledComponentsRegistry>
+          </SearchContainerPostionProvider>
         </QueryClientProvider>
       </body>
     </html>

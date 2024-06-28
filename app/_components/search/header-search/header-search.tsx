@@ -1,10 +1,8 @@
 'use client'
 
 import { styled } from 'styled-components'
-import { useRef, useState } from 'react'
-import { useModal } from '../../../_shared/modal/useModal'
-import { useRouter } from 'next/dist/client/router'
-import { HeaderSearchResult } from './header-search-result'
+import { useHeaderSearch } from '../hook/use-header-search'
+import { SearchResultPopover } from '../search-result-popover/search-result-popover'
 
 const Container = styled.div`
   position: relative;
@@ -60,23 +58,8 @@ const XIcon = styled.img`
 `
 
 export function HeaderSearch() {
-  const { isOpen, handleModal } = useModal()
-  const [keyword, setKeyword] = useState('')
-  const inputRef = useRef<HTMLInputElement>(null)
-  // const router = useRouter()
-  const searchConRef = useRef<HTMLDivElement>(null) // useRef 생성
-
-  const getModalPosition = () => {
-    if (!searchConRef.current) return { top: 0, left: 0 }
-    const { top, left } = searchConRef.current.getBoundingClientRect()
-    return { top: top + searchConRef.current.offsetHeight, left }
-  }
-
-  const SearchForEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      // router.push(`/post/${searchResult[0]._id}`)
-    }
-  }
+  const { handleEnterKeydown, handleModal, inputRef, isOpen, keyword, searchConRef, setKeyword } =
+    useHeaderSearch()
 
   return (
     <Container>
@@ -87,7 +70,7 @@ export function HeaderSearch() {
           onChange={(e) => {
             setKeyword(e.target.value)
           }}
-          onKeyDown={SearchForEnter}
+          onKeyDown={handleEnterKeydown}
           placeholder="검색어를 입력해 주세요."
           ref={inputRef}
         />
@@ -102,13 +85,7 @@ export function HeaderSearch() {
           />
         )}
       </SearchCon>
-      <HeaderSearchResult
-        keyword={keyword}
-        isOpen={isOpen}
-        handleModal={handleModal}
-        setKeyword={setKeyword}
-        searchConRef={getModalPosition()}
-      />
+      <SearchResultPopover isOpen={isOpen} handleModal={handleModal} keyword={keyword} />
     </Container>
   )
 }
