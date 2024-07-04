@@ -6,12 +6,18 @@ export default async function sitemap() {
 
   const titles = await getAllPostTitle()
 
-  return titles.map(async ({ shortTitle }) => {
-    const post = await getPostByTitle(shortTitle)
+  const parsedSitemap = await Promise.all(
+    titles.map(async ({ shortTitle }) => {
+      const post = await getPostByTitle(shortTitle)
 
-    return {
-      url: `https://devwiki.co.kr/post/${shortTitle}`,
-      lastModified: post?.updatedAt || post?.createdAt,
-    }
-  })
+      return {
+        url: `https://devwiki.co.kr/post/${shortTitle}`,
+        lastModified: post?.updatedAt || post?.createdAt,
+      }
+    }),
+  )
+
+  console.log(parsedSitemap)
+
+  return parsedSitemap
 }
