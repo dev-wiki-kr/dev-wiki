@@ -1,6 +1,5 @@
 import { Header } from './_components/layout/header'
-import { StyledComponentsRegistry } from './_external/styled-components'
-import { GlobalStyle } from './_styles/global-style'
+import { ClientComponentContainer } from './_external/styled-components'
 import { Metadata } from 'next'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
@@ -10,8 +9,6 @@ import localFont from 'next/font/local'
 import { Footer } from './_components/layout/footer'
 import { SearchContainerPostionProvider } from './_components/search/context'
 import { HeaderSearch } from './_components/search/header-search/header-search'
-import { ThemeProvider } from 'styled-components'
-import { theme } from './_styles/theme'
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -71,16 +68,13 @@ export default function RootLayout({ children }: LayoutProps) {
       <body className={pretendard.className}>
         <QueryClientProvider client={client}>
           <SearchContainerPostionProvider>
-            <StyledComponentsRegistry>
-              <ThemeProvider theme={theme}>
-                <GlobalStyle />
-                <Header>
-                  <HeaderSearch />
-                </Header>
-                <div id="wrapper">{children}</div>
-                <Footer />
-              </ThemeProvider>
-            </StyledComponentsRegistry>
+            <ClientComponentContainer>
+              <Header>
+                <HeaderSearch />
+              </Header>
+              <div id="wrapper">{children}</div>
+              <Footer />
+            </ClientComponentContainer>
           </SearchContainerPostionProvider>
         </QueryClientProvider>
       </body>
