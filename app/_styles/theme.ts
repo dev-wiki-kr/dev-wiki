@@ -33,61 +33,51 @@ const typo = {
     fontSize: '12px',
     lineHeight: '16.8px',
     fontWeight: 600,
-    fontFamily: 'Pretendard',
   },
   body3_14: {
     fontSize: '14px',
     lineHeight: '19.6px',
     fontWeight: 500,
-    fontFamily: 'Pretendard',
   },
   body2_16: {
     fontSize: '16px',
     lineHeight: '24px',
     fontWeight: 500,
-    fontFamily: 'Pretendard',
   },
   body1_18: {
     fontSize: '18px',
     lineHeight: '27px',
     fontWeight: 500,
-    fontFamily: 'Pretendard',
   },
   h6: {
     fontSize: '20px',
     lineHeight: '26px',
     fontWeight: 700,
-    fontFamily: 'Pretendard',
   },
   h5: {
     fontSize: '20px',
     lineHeight: '26px',
     fontWeight: 700,
-    fontFamily: 'Pretendard',
   },
   h4: {
     fontSize: '20px',
     lineHeight: '26px',
     fontWeight: 700,
-    fontFamily: 'Pretendard',
   },
   h3: {
     fontSize: '22px',
     lineHeight: '26.4px',
     fontWeight: 700,
-    fontFamily: 'Pretendard',
   },
   h2: {
     fontSize: '24px',
     lineHeight: '28.8px',
     fontWeight: 700,
-    fontFamily: 'Pretendard',
   },
   h1: {
     fontSize: '48px',
     lineHeight: '57.6px',
     fontWeight: 700,
-    fontFamily: 'Pretendard',
   },
 } as const
 
