@@ -18,12 +18,19 @@ export function useModal() {
   useEffect(() => {
     const handleHashChange = () => {
       if (window.location.hash === '#modal') {
-        setIsOpen(false)
-      } else {
         setIsOpen(true)
+      } else {
+        setIsOpen(false)
       }
     }
+
     handleHashChange()
+
+    window.addEventListener('hashchange', handleHashChange)
+
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange)
+    }
   }, [pathname])
 
   return { isOpen, handleModal }
