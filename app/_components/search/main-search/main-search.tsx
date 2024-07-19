@@ -1,6 +1,6 @@
 'use client'
 
-import { styled } from 'styled-components'
+import { css, styled } from 'styled-components'
 import { useRef, useState } from 'react'
 import { useModal } from '../../../_shared/modal/useModal'
 import { media } from '../../../_styles/media'
@@ -14,7 +14,7 @@ const Container = styled.div`
 const SearchCon = styled.div<{ $isOpen: boolean }>`
   width: 420px;
   height: 40px;
-  border: #dddddd solid;
+  border: 1px ${({ theme }) => theme.colors.neutral[100]} solid;
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -27,15 +27,15 @@ const SearchCon = styled.div<{ $isOpen: boolean }>`
   `}
 
   &:hover {
-    border: #b5b5b5 solid;
+    border: 1px ${({ theme }) => theme.colors.neutral[300]} solid;
   }
   ${(props) =>
     props.$isOpen &&
-    `
-  border: #b5b5b5 solid;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 8px 8px 0px 0px;
-  `}
+    css`
+      border: 1px ${({ theme }) => theme.colors.neutral[300]} solid;
+      box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.25);
+      border-radius: 8px 8px 0px 0px;
+    `}
 `
 
 const Input = styled.input`

@@ -33,15 +33,15 @@ const StyledSearchResultContainer = styled.div<{ $hasBorder: boolean }>`
   overflow-x: hidden;
   overflow-y: auto;
 
-  ${({ $hasBorder }) =>
+  ${({ $hasBorder, theme }) =>
     $hasBorder
       ? css`
-          border: #b5b5b5 solid;
-          border-width: initial;
+          border: 1px ${theme.colors.neutral[300]} solid;
+          border-width: 1px;
           border-style: none solid solid;
-          border-right-color: rgb(181, 181, 181);
-          border-bottom-color: rgb(181, 181, 181);
-          border-left-color: rgb(181, 181, 181);
+          border-right-color: ${theme.colors.neutral[300]};
+          border-bottom-color: ${theme.colors.neutral[300]};
+          border-left-color: ${theme.colors.neutral[300]};
           border-image: initial;
           border-top-color: initial;
         `
@@ -54,11 +54,11 @@ const StyledSearchResultContainer = styled.div<{ $hasBorder: boolean }>`
     background: none;
   }
   &::-webkit-scrollbar-thumb {
-    background: #888;
+    background: ${({ theme }) => theme.colors.neutral[500]};
     border-radius: 10px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background: #555;
+    background: ${({ theme }) => theme.colors.neutral[700]};
   }
 `
 
@@ -71,7 +71,7 @@ const StyledResultContainer = styled(Link)`
   align-items: center;
   background: white;
   &:hover {
-    background: #f2f2f2;
+    background: ${({ theme }) => theme.colors.neutral[50]};
     border-radius: 6px;
   }
 `
@@ -81,7 +81,7 @@ const StyledNotFound = styled.div`
   padding: 6px 4px;
   display: flex;
   font-size: 16px;
-  color: #777777;
+  color: ${({ theme }) => theme.colors.neutral[500]};
   align-items: center;
   background: white;
 `

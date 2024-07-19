@@ -28,7 +28,7 @@ const StyledTitleContainer = styled.div`
 `
 
 const StyledLogo = styled.div`
-  color: #007cee;
+  color: ${({ theme }) => theme.colors.blue[600]};
   margin-left: 5px;
 `
 

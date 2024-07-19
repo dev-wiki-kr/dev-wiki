@@ -4,11 +4,10 @@ import { useEffect, useState } from 'react'
 import { styled } from 'styled-components'
 import { debounce, throttle } from 'lodash-es'
 
-import { type Toc } from '../../lib/get-toc'
 import Markdown, { type Components } from 'react-markdown'
 import remarkBreaks from 'remark-breaks'
 import remarkGfm from 'remark-gfm'
-import { MarkdownSection, ParsedMarkdown } from '../../_engine/parse-accordion'
+import { ParsedMarkdown } from '../../_engine/parse-accordion'
 
 const TocContainer = styled.aside`
   max-width: 240px;
@@ -46,19 +45,19 @@ const TocItem = styled.li.withConfig({
 })<{ level: number }>`
   font-size: 14px;
   font-weight: 500;
-  color: #777777;
+  color: ${({ theme }) => theme.colors.neutral[500]};
   transform: scale(1);
   padding-left: ${({ level }) => (level > 1 ? `${(level - 1) * 8}px` : '0')};
 
   &.active {
     font-weight: 600;
-    color: #007cee;
+    color: ${({ theme }) => theme.colors.blue[600]};
     transform: scale(1.05);
   }
 
   &:hover {
     font-weight: 600;
-    color: #222222;
+    color: ${({ theme }) => theme.colors.neutral[900]};
   }
 
   transition: all 0.125s ease-in-out 0s;
@@ -67,7 +66,7 @@ const TocItem = styled.li.withConfig({
 const Text = styled.span`
   font-size: 14px;
   font-weight: 600;
-  color: #222222;
+  color: ${({ theme }) => theme.colors.neutral[900]};
 `
 
 interface TocSideProps {

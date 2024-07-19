@@ -13,7 +13,7 @@ const Container = styled.button`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  border: #dddddd solid;
+  border: 1px ${({ theme }) => theme.colors.neutral[100]} solid;
 `
 
 interface HeaderMobileSearchProps {

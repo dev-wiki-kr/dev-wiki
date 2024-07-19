@@ -6,7 +6,7 @@ interface ExternalLinkProps {
 }
 
 const StyledLink = styled.a`
-  color: #007cee;
+  color: ${({ theme }) => theme.colors.blue[600]};
   display: inline-block;
   position: relative;
   padding-left: 20px;

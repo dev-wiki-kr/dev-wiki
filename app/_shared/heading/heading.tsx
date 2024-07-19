@@ -5,7 +5,7 @@ const Heading = css`
   font-weight: 700;
   margin: 0;
   line-height: 33px;
-  color: #222;
+  color: ${({ theme }) => theme.colors.neutral[900]};
   white-space: break-spaces;
 
   display: flex;
@@ -13,11 +13,11 @@ const Heading = css`
   gap: 8px;
 
   & > a.anchor {
-    color: #007cee;
+    color: ${({ theme }) => theme.colors.blue[600]};
 
     &:hover,
     &:active {
-      color: #0056b3;
+      color: ${({ theme }) => theme.colors.blue[800]};
     }
   }
 

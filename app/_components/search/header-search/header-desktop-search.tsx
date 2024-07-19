@@ -9,7 +9,7 @@ const Container = styled.div`
 const SearchContainer = styled.div`
   width: 240px;
   height: 40px;
-  border: #dddddd solid;
+  border: 1px ${({ theme }) => theme.colors.neutral[100]} solid;
   border-radius: 8px;
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.1);
   position: relative;

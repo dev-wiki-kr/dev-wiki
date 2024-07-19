@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const Link = styled.a`
   font-size: 16px;
-  color: #777;
+  color: ${({ theme }) => theme.colors.neutral[500]};
   line-height: 1.5;
   margin-left: 8px;
   padding: 4px 8px;
