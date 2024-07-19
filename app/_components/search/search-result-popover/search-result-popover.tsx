@@ -67,9 +67,12 @@ const StyledResultContainer = styled(Link)`
   height: 36px;
   padding: 6px 4px;
   display: flex;
-  font-size: 16px;
   align-items: center;
-  background: white;
+
+  ${({ theme }) => theme.typo.body2_16};
+  color: ${({ theme }) => theme.colors.neutral[900]};
+  background: ${({ theme }) => theme.colors.neutral[0]};
+
   &:hover {
     background: ${({ theme }) => theme.colors.neutral[50]};
     border-radius: 6px;
@@ -80,10 +83,11 @@ const StyledNotFound = styled.div`
   height: 36px;
   padding: 6px 4px;
   display: flex;
-  font-size: 16px;
-  color: ${({ theme }) => theme.colors.neutral[500]};
   align-items: center;
-  background: white;
+
+  ${({ theme }) => theme.typo.body2_16};
+  color: ${({ theme }) => theme.colors.neutral[500]};
+  background: ${({ theme }) => theme.colors.neutral[0]};
 `
 
 interface SearchResultProps {
@@ -112,7 +116,9 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
-  font-size: 16px;
+
+  ${({ theme }) => theme.typo.body2_16};
+  color: ${({ theme }) => theme.colors.neutral[900]};
 `
 
 const SearchIcon = styled.img`

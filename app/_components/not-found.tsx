@@ -27,11 +27,8 @@ const StyledTitle = styled.div`
 `
 
 const StyledText = styled.p`
-  font-size: 16px;
-  line-height: 1.5;
-  font-weight: 400;
-  color: ${({ theme }) => theme.colors.neutral[900]};
-
+  color: ${({ theme }) => theme.colors.neutral[700]};
+  ${({ theme }) => theme.typo.body2_16};
   text-align: center;
 `
 
@@ -40,11 +37,8 @@ const StyledLink = styled(Link)`
   border-radius: 100px;
   padding: 8px 24px;
 
-  font-size: 18px;
-  font-weight: 400;
-  line-height: 1.5;
-
   color: ${({ theme }) => theme.colors.neutral[900]};
+  ${({ theme }) => theme.typo.body1_18};
 
   & > em {
     font-style: normal;

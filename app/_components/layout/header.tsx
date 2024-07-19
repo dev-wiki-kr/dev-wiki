@@ -24,10 +24,12 @@ const StyledHeader = styled.header`
 `
 
 const StyledLink = styled(Link)`
-  font-weight: 700;
-  margin: 0;
-  line-height: 33px;
+  color: ${({ theme }) => theme.colors.neutral[900]};
   font-size: 24px;
+  font-weight: 700;
+  line-height: 33px;
+
+  margin: 0;
 `
 const Container = styled.div`
   display: flex;

@@ -25,6 +25,7 @@ const StyledFooter = styled.footer`
 const StyledLink = styled(Link)`
   font-weight: 700;
   font-size: 24px;
+  color: ${({ theme }) => theme.colors.neutral[900]};
 `
 
 const TextContainer = styled.div`
@@ -40,7 +41,11 @@ const TextContainer = styled.div`
   `}
 `
 
-const Text = styled.p`
+const BaseText = styled.p`
+  ${({ theme }) => theme.typo.caption_12};
+  color: ${({ theme }) => theme.colors.neutral[700]};
+`
+const Text = styled(BaseText)`
   flex: 1;
   text-underline-offset: 2px;
 `
@@ -83,7 +88,7 @@ export function Footer() {
       </TextContainer>
       <SocialLink href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">
         <GithubIcon src="/icons/github.svg" alt="GitHub" />
-        Github
+        <BaseText>Github</BaseText>
       </SocialLink>
     </StyledFooter>
   )
