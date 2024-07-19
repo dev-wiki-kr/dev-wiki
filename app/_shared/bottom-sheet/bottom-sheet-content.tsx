@@ -38,7 +38,7 @@ const slideOut = keyframes`
   }
 `
 
-const Dimmer = styled(FloatingOverlay).withConfig({
+const Dimmed = styled(FloatingOverlay).withConfig({
   shouldForwardProp: (prop) => !['isOpen'].includes(prop),
 })<{ isOpen: boolean }>`
   background-color: rgba(0, 0, 0, 0.8);
@@ -58,7 +58,7 @@ const Content = styled.div.withConfig({
   left: 0;
   z-index: 50;
 
-  background-color: white;
+  background-color: ${({ theme }) => theme.colors.neutral[0]};
 
   height: 80vh;
 
@@ -104,7 +104,7 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
 
     return (
       <FloatingPortal>
-        <Dimmer ref={dimmerRef} isOpen={floatingContext.open} lockScroll>
+        <Dimmed ref={dimmerRef} isOpen={floatingContext.open} lockScroll>
           <FloatingFocusManager context={floatingContext}>
             <Content
               ref={ref}
@@ -116,7 +116,7 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
               {props.children}
             </Content>
           </FloatingFocusManager>
-        </Dimmer>
+        </Dimmed>
       </FloatingPortal>
     )
   },

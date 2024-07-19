@@ -30,13 +30,13 @@ const StyledText = styled.p`
   font-size: 16px;
   line-height: 1.5;
   font-weight: 400;
-  color: #555555;
+  color: ${({ theme }) => theme.colors.neutral[900]};
 
   text-align: center;
 `
 
 const StyledLink = styled(Link)`
-  border: 1px solid #007cee;
+  border: 1px solid ${({ theme }) => theme.colors.blue[600]};
   border-radius: 100px;
   padding: 8px 24px;
 
@@ -44,15 +44,15 @@ const StyledLink = styled(Link)`
   font-weight: 400;
   line-height: 1.5;
 
-  color: #222222;
+  color: ${({ theme }) => theme.colors.neutral[900]};
 
   & > em {
     font-style: normal;
-    color: #007cee;
+    color: ${({ theme }) => theme.colors.blue[600]};
   }
 
   &:hover {
-    background-color: #f0f8ff;
+    background-color: ${({ theme }) => theme.colors.blue[50]};
   }
 
   transition: background-color 0.15s cubic-bezier(0.4, 0, 0.2, 1);

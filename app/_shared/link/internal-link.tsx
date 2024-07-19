@@ -6,7 +6,7 @@ interface InternalLinkProps {
 }
 
 const StyledLink = styled.a`
-  color: #007cee;
+  color: ${({ theme }) => theme.colors.blue[600]};
 `
 
 export function InternalLink({ href, children, ...props }: InternalLinkProps) {
