@@ -47,7 +47,13 @@ const Input = styled.input`
   &:focus {
     outline: none;
   }
-  font-size: 16px;
+
+  ${({ theme }) => theme.typo.body2_16};
+  color: ${({ theme }) => theme.colors.neutral[900]};
+
+  &::-webkit-input-placeholder {
+    color: ${({ theme }) => theme.colors.neutral[300]};
+  }
 `
 
 const SearchIcon = styled.img`
