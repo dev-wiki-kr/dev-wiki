@@ -10,6 +10,8 @@ import localFont from 'next/font/local'
 import { Footer } from './_components/layout/footer'
 import { SearchContainerPostionProvider } from './_components/search/context'
 import { HeaderSearch } from './_components/search/header-search/header-search'
+import { ThemeProvider } from 'styled-components'
+import { theme } from './_styles/theme'
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -70,12 +72,14 @@ export default function RootLayout({ children }: LayoutProps) {
         <QueryClientProvider client={client}>
           <SearchContainerPostionProvider>
             <StyledComponentsRegistry>
-              <GlobalStyle />
-              <Header>
-                <HeaderSearch />
-              </Header>
-              <div id="wrapper">{children}</div>
-              <Footer />
+              <ThemeProvider theme={theme}>
+                <GlobalStyle />
+                <Header>
+                  <HeaderSearch />
+                </Header>
+                <div id="wrapper">{children}</div>
+                <Footer />
+              </ThemeProvider>
             </StyledComponentsRegistry>
           </SearchContainerPostionProvider>
         </QueryClientProvider>
