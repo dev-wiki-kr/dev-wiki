@@ -26,7 +26,9 @@ const Content = styled.div`
 
   background-color: ${({ theme }) => theme.colors.neutral[0]};
 
-  height: 80vh;
+  max-height: 80dvh;
+  min-height: 5dvh;
+  height: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   transition: transform cubic-bezier(0.32, 0.72, 0, 1);
