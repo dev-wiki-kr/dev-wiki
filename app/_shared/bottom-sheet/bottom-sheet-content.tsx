@@ -5,12 +5,13 @@ import {
   useMergeRefs,
   useTransitionStyles,
 } from '@floating-ui/react'
-import { HTMLProps, forwardRef } from 'react'
+import { CSSProperties, HTMLProps, forwardRef } from 'react'
 import { useBottomSheetContext } from './context'
 import styled from 'styled-components'
+import { useKeyboardAwareView } from '../../hooks/use-keyboard-aware-view'
 
 const Dimmed = styled(FloatingOverlay)`
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.4);
   display: grid;
   justify-items: center;
   z-index: 50;
@@ -25,13 +26,13 @@ const Content = styled.div`
   z-index: 50;
 
   background-color: ${({ theme }) => theme.colors.neutral[0]};
-
+  height: 80vh;
   max-height: 80dvh;
   min-height: 5dvh;
-  height: 100%;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   transition: transform cubic-bezier(0.32, 0.72, 0, 1);
+  overscroll-behavior: none;
 `
 
 export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
@@ -72,17 +73,25 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
 
     ref = useMergeRefs([context.refs.setFloating, ref])
 
+    const { isKeyboardOpen, viewportHeight, keyboardHeight } = useKeyboardAwareView()
+
+    const bottomSheetStyle: CSSProperties = {
+      height: isKeyboardOpen ? `${viewportHeight * 0.8}px` : '80vh',
+      bottom: isKeyboardOpen ? `${keyboardHeight}px` : '0',
+    }
+
     if (!isDimmerMounted || !isContentMounted) {
       return null
     }
 
+    console.log(isKeyboardOpen, viewportHeight)
     return (
       <FloatingPortal>
         <Dimmed style={dimmerStyles} lockScroll />
-        <FloatingFocusManager context={floatingContext}>
+        <FloatingFocusManager context={floatingContext} initialFocus={-1}>
           <Content
             ref={ref}
-            style={contentStyles}
+            style={{ ...contentStyles, ...bottomSheetStyle }}
             aria-labelledby={context.labelId}
             aria-describedby={context.descriptionId}
             {...context.getFloatingProps(props)}
