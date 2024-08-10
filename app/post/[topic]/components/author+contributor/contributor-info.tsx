@@ -1,3 +1,5 @@
+'use client'
+
 import styled from 'styled-components'
 
 const Container = styled.div`
@@ -5,6 +7,7 @@ const Container = styled.div`
   height: 40px;
   display: flex;
   align-items: center;
+  margin-bottom: 20px;
 `
 
 const UserImage = styled.img`
@@ -18,18 +21,6 @@ const UserId = styled.p`
   margin: 0px 12px;
 `
 
-const AuthorTag = styled.div`
-  width: 70px;
-  height: 25px;
-  border-radius: 80px;
-  background-color: #007cee;
-  font-size: 12px;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
-
 const ContributorTag = styled.div`
   width: 70px;
   height: 25px;
@@ -38,18 +29,16 @@ const ContributorTag = styled.div`
   font-size: 12px;
   color: #ffffff;
 `
-interface AuthorInfoInterface {
-  tag: string
+interface ContributorInfoInterface {
   src: string
   username: string
 }
 
-export function AuthorInfo({ tag, src, username }: AuthorInfoInterface) {
+export function ContributorInfo({ src, username }: ContributorInfoInterface) {
   return (
     <Container>
-      <UserImage src={`https://avatars.githubusercontent.com/u/${src}`} />
+      <UserImage src={`${src}`} />
       <UserId>{username}</UserId>
-      {tag === 'author' ? <AuthorTag>최초 작성자</AuthorTag> : null}
     </Container>
   )
 }

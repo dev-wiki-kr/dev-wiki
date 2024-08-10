@@ -15,9 +15,8 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Primary: Story = {
-  render: () => <AuthorInfo tag="author" src="chduhwan" username="chaduhwan" />,
+  render: () => <AuthorInfo src="chduhwan" username="chaduhwan" />,
   args: {
-    tag: 'author',
     src: 'chaduhwan',
     username: 'chadhwan',
   },
