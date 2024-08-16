@@ -5,8 +5,6 @@ import { Container } from './components/container'
 import { PostBody } from './components/post-body'
 import { flattenMarkdown, parseMarkdown } from '../../_engine/parse-accordion'
 import { Author } from './components/author+contributor/author'
-import { AuthorInfo } from './components/author+contributor/author-info'
-import { useEffect } from 'react'
 
 export async function generateStaticParams() {
   const data = await getAllPostTitle()
