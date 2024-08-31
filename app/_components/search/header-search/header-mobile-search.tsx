@@ -1,4 +1,6 @@
 import styled from 'styled-components'
+import { SearchResultPopover } from '../search-result-popover/search-result-popover'
+import { useState } from 'react'
 
 const SearchIcon = styled.img`
   width: 24px;
@@ -18,12 +20,32 @@ const Container = styled.button`
 
 interface HeaderMobileSearchProps {
   onClick: () => void
+  isModalOpen: boolean
+  onToggleModal: () => void
 }
 
-export function HeaderMobileSearch({ onClick }: HeaderMobileSearchProps) {
+export function HeaderMobileSearch({
+  onClick,
+  isModalOpen,
+  onToggleModal,
+}: HeaderMobileSearchProps) {
+  const [keyword, setKeyword] = useState('')
+
+  const handleChangeKeyword = (keyword: string) => {
+    setKeyword(keyword)
+  }
+
   return (
-    <Container onClick={onClick}>
-      <SearchIcon src="/images/search-icon.svg" />
-    </Container>
+    <>
+      <Container onClick={onClick}>
+        <SearchIcon src="/images/search-icon.svg" />
+      </Container>
+      <SearchResultPopover
+        isOpen={isModalOpen}
+        handleModal={onToggleModal}
+        keyword={keyword}
+        onChangeKeyword={handleChangeKeyword}
+      />
+    </>
   )
 }
