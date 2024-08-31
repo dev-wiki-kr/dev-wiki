@@ -113,12 +113,17 @@ const Input = styled.input`
   margin: 8px 0px;
   margin-right: 16px;
   border: none;
-  &:focus {
-    outline: none;
-  }
 
   ${({ theme }) => theme.typo.body2_16};
   color: ${({ theme }) => theme.colors.neutral[900]};
+
+  &::-webkit-input-placeholder {
+    color: ${({ theme }) => theme.colors.neutral[300]};
+  }
+
+  &:focus {
+    outline: none;
+  }
 `
 
 const SearchIcon = styled.img`
@@ -174,9 +179,7 @@ export function SearchResult({
               )}
             </SearchContainer>
           </BottomSheetHeader>
-          <BottomSheetBody>
-            <BottomSheetDescription>{children}</BottomSheetDescription>
-          </BottomSheetBody>
+          <BottomSheetBody>{children}</BottomSheetBody>
         </BottomSheetContent>
       </BottomSheet>
     )
