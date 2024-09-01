@@ -11,6 +11,7 @@ const Heading = css`
   display: flex;
   align-items: center;
   gap: 8px;
+  line-height: 1.2;
 
   & > a.anchor {
     color: ${({ theme }) => theme.colors.blue[600]};
