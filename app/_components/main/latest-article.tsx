@@ -27,7 +27,6 @@ const StyledDocumentContainer = styled.div`
 
 const StyledDocumentLink = styled(Link)`
   width: 198px;
-  height: 24px;
   margin-bottom: 10px;
   display: flex;
   align-items: center;
