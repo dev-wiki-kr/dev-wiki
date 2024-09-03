@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 
   const post = await getPostByTitle(params.topic)
 
-  const firstContent = parseMarkdown(post?.content || '')[0].content
+  const firstContent = parseMarkdown(post?.content || '')[0]?.content
 
   return {
     title: `${params.topic} - 데브위키`,
