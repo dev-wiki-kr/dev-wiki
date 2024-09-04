@@ -2,7 +2,7 @@ import type { PropsWithChildren } from 'react'
 import { Container } from './components/container'
 import { Metadata } from 'next'
 import { getPostByTitle } from '../../_service/post'
-import { parseMarkdown } from '../../_engine/parse-accordion'
+import { parseMarkdown, parseMarkdownTitle } from '../../_engine/parse-accordion'
 
 type GenerateMetadataProps = {
   params: { topic: string }
@@ -13,10 +13,12 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
 
   const post = await getPostByTitle(params.topic)
 
+  const title = parseMarkdownTitle(post?.content || '').replace('# ', '')
+
   const firstContent = parseMarkdown(post?.content || '')[0]?.content
 
   return {
-    title: `${params.topic} - 데브위키`,
+    title: `${title} - 데브위키`,
     description: firstContent,
     openGraph: {
       title: `${params.topic} - 데브위키`,
