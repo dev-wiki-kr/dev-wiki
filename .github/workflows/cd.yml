@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - dev
 
 jobs:
   deploy:
@@ -23,11 +24,23 @@ jobs:
           npx @dev-wiki-kr/gha-tools@latest inject-env ./envs --env=production
           mv .env.service .env.production
 
+      - name: extract envs
+        run: |
+          if [ ${{ github.ref }} = 'refs/heads/main' ]; then
+            echo "AWS_HOST=${{ secrets.AWS_EC2_HOST }}" >> $GITHUB_ENV
+            echo "AWS_USER=${{ secrets.AWS_EC2_USER }}" >> $GITHUB_ENV
+          elif [ ${{ github.ref }} = 'refs/heads/dev' ]; then
+            echo "AWS_HOST=${{ secrets.DEV_AWS_EC2_HOST }}" >> $GITHUB_ENV
+            echo "AWS_USER=${{ secrets.DEV_AWS_EC2_USER }}" >> $GITHUB_ENV
+          else
+            exit 1
+          fi
+
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v0.1.9
         with:
-          host: ${{ secrets.AWS_EC2_HOST }}
-          username: ${{ secrets.AWS_EC2_USER }}
+          host: ${{ env.AWS_HOST }}
+          username: ${{ env.AWS_USER }}
           key: ${{ secrets.AWS_EC2_KEY }}
           port: 22
           script: |
