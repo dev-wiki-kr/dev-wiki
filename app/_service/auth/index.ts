@@ -21,7 +21,7 @@ function isAuthError(userInfoResponse: UserInfoResponse): userInfoResponse is Us
 export async function getUserInfo() {
   try {
     //TODO: 추후에 환경설정 추가후 same-site로 변경예정
-    const res = await fetch(`https://devwiki.co.kr/wiki-api/user`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/user`, {
       credentials: 'include',
     })
 
@@ -41,7 +41,7 @@ export async function getUserInfo() {
 export async function getUserInfoByUserName(userName: string) {
   try {
     //TODO: 추후에 환경설정 추가후 same-site로 변경예정
-    const res = await fetch(`https://devwiki.co.kr/wiki-api/user/${userName}`)
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/user/${userName}`)
 
     const data = (await res.json()) as UserInfoResponse
 

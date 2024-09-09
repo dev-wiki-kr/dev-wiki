@@ -35,7 +35,7 @@ function isPostGetError(postResponse: PostResponse): postResponse is PostError {
 export async function getPostByTitle(title: string) {
   try {
     //TODO: env 처리 추가
-    const res = await fetch(`https://devwiki.co.kr/wiki-api/post/${title}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/post/${title}`, {
       next: { revalidate: 86400 },
     })
 
@@ -57,7 +57,7 @@ type AllTitleResponse = { shortTitle: string }[]
 export async function getAllPostTitle() {
   try {
     //TODO: env 처리 추가
-    const res = await fetch(`https://devwiki.co.kr/wiki-api/post/titles`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/post/titles`, {
       next: { revalidate: 86400 },
     })
 

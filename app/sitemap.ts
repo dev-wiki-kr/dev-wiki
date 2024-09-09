@@ -11,7 +11,7 @@ export default async function sitemap() {
       const post = await getPostByTitle(shortTitle)
 
       return {
-        url: `https://devwiki.co.kr/post/${shortTitle}`,
+        url: `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/post/${shortTitle}`,
         lastModified: post?.updatedAt || post?.createdAt,
       }
     }),
