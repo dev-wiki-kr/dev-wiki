@@ -5,9 +5,12 @@ export interface LatestArticleResponse {
 
 export async function getLatestArticle() {
   try {
-    const res = await fetch(`https://devwiki.co.kr/wiki-api/post/latest?count=10`, {
-      next: { revalidate: 6000 },
-    })
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/post/latest?count=10`,
+      {
+        next: { revalidate: 6000 },
+      },
+    )
 
     const data = await res.json()
 

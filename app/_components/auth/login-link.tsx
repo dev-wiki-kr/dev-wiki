@@ -10,5 +10,5 @@ const Link = styled.a`
 `
 
 export function LoginLink() {
-  return <Link href="https://devwiki.co.kr/wiki-api/oauth">로그인</Link>
+  return <Link href={`${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/oauth`}>로그인</Link>
 }

@@ -12,7 +12,9 @@ export async function getSearchAutocomplete(keyword: string) {
     if (!keyword) {
       return []
     }
-    const res = await fetch(`https://devwiki.co.kr/wiki-api/search/autocomplete?q=${keyword}`)
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_WEB_BASE_URL}/wiki-api/search/autocomplete?q=${keyword}`,
+    )
 
     const data = (await res.json()) as SearchAutocompleteResponse[]
 
