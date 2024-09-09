@@ -14,6 +14,7 @@ export const GlobalStyle = createGlobalStyle`
         -moz-text-size-adjust: none;
         -webkit-text-size-adjust: none;
         text-size-adjust: none;
+        scroll-behavior: smooth;
     }
 
     /* 기본 여백을 제거하여 작성된 CSS를 더 잘 제어할 수 있습니다. */
@@ -27,6 +28,7 @@ export const GlobalStyle = createGlobalStyle`
     blockquote,
     dl,
     dd {
+        margin-block-start: 0;
         margin-block-end: 0;
     }
 
@@ -40,6 +42,7 @@ export const GlobalStyle = createGlobalStyle`
     body {
         min-height: 100vh;
         line-height: 1.5;
+        margin: 0;
     }
 
     /* 제목 요소와 상호작용하는 요소에 대해 line-height를 더 짧게 설정합니다. */
@@ -91,4 +94,62 @@ export const GlobalStyle = createGlobalStyle`
     :target {
         scroll-margin-block: 5ex;
     }
+
+    /* Foote를 하단에 고정시키기 위해 (Root)Layout.tsx에서 Wrapper Div로 컨텐츠를 감쌌습니다. */
+    #wrapper {
+        height: auto;
+        min-height: calc(100vh - 440px);
+    }
+
+    /* 버튼의 기본 스타일을 제거합니다. */
+    button {
+        margin: 0;
+        padding: 0;
+        background:none;
+        border:0;
+        outline: none;
+        cursor:pointer;
+    }
+    
+    ol {
+        margin: 0;
+        padding: 0;
+    }
+
+    blockquote {
+        padding-left: 1em;
+        border-left: 4px rgb(141, 150, 160) solid;
+        color: rgb(141, 150, 160);
+        margin: 20px;
+    }
+
+    table {
+        max-width: 100%;
+        width: max-content;
+        overflow: auto;
+        display: block;
+        padding: 0;
+        border-collapse: collapse;
+    }
+
+    td, 
+    th {
+        border: 1px solid #d0d7de;
+        padding: 6px 10px;
+        border-collapse: collapse;
+    }
+
+    table tr:nth-child(2n) { 
+        background-color: #f6f8fa;
+     }
+
+    ul {
+        padding-left: 30px;
+    }
+
+    p {
+        margin-block: revert;
+    }
+
+    
 `

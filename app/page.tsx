@@ -1,5 +1,10 @@
-import { LinkToTest } from './_components/link-to-test'
+import { LatestArticleWrapper } from './_components/main/latest-article-wrapper'
+import { MainPage } from './_components/main/main-page'
 
 export default function Home() {
-  return <LinkToTest />
+  return (
+    <MainPage>
+      <LatestArticleWrapper />
+    </MainPage>
+  )
 }
