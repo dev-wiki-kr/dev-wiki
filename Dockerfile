@@ -5,6 +5,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 COPY package.json pnpm-lock.yaml ./
+COPY ./.env.production ./
 
 RUN pnpm install
 
@@ -15,7 +16,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 COPY --from=dependencies /app/node_modules ./node_modules
-
+COPY --from=dependencies /app/.env.production ./.env.production
 COPY . .
 
 RUN pnpm build
@@ -32,6 +33,7 @@ RUN adduser --system --uid 1001 nextjs
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 
+COPY --from=builder /app/.env.production ./.env.production
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone/ ./
 COPY --from=builder --chown=nextjs:nodejs /app/public/ ./public/
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
