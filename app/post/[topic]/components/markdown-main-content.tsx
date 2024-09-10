@@ -37,7 +37,7 @@ const components = {
     )
   },
   a({ href, children }: { href: string; children: React.ReactNode }) {
-    if (href.includes('https://devwiki.co.kr')) {
+    if (href.includes(`${process.env.NEXT_PUBLIC_WEB_BASE_URL}`)) {
       return <InternalLink href={href}>{children}</InternalLink>
     }
 
