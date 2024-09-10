@@ -37,7 +37,8 @@ jobs:
             echo "AWS_USER=${{ secrets.DEV_AWS_EC2_USER }}" >> $GITHUB_ENV
             echo "AWS_KEY<<EOF" >> $GITHUB_ENV
             echo "${{ secrets.DEV_AWS_EC2_KEY }}" >> $GITHUB_ENV
-            echo "EOF" >> $GITHUB_ENV               else
+            echo "EOF" >> $GITHUB_ENV               
+          else
             exit 1
           fi
 
