@@ -45,7 +45,7 @@ jobs:
           fi
 
       - name: Deploy to EC2
-        uses: appleboy/ssh-action@latest
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ env.AWS_HOST }}
           username: ${{ env.AWS_USER }}
