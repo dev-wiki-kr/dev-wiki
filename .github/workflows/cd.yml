@@ -29,12 +29,15 @@ jobs:
           if [ ${{ github.ref }} = 'refs/heads/main' ]; then
             echo "AWS_HOST=${{ secrets.AWS_EC2_HOST }}" >> $GITHUB_ENV
             echo "AWS_USER=${{ secrets.AWS_EC2_USER }}" >> $GITHUB_ENV
-            echo "AWS_KEY=${{ secrets.AWS_EC2_KEY }}" >> $GITHUB_ENV
+            echo "AWS_KEY<<EOF" >> $GITHUB_ENV
+            echo "${{ secrets.AWS_EC2_KEY }}" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV     
           elif [ ${{ github.ref }} = 'refs/heads/dev' ]; then
             echo "AWS_HOST=${{ secrets.DEV_AWS_EC2_HOST }}" >> $GITHUB_ENV
             echo "AWS_USER=${{ secrets.DEV_AWS_EC2_USER }}" >> $GITHUB_ENV
-            echo "AWS_KEY=${{ secrets.DEV_AWS_EC2_KEY }}" >> $GITHUB_ENV
-          else
+            echo "AWS_KEY<<EOF" >> $GITHUB_ENV
+            echo "${{ secrets.DEV_AWS_EC2_KEY }}" >> $GITHUB_ENV
+            echo "EOF" >> $GITHUB_ENV               else
             exit 1
           fi
 
