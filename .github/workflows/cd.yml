@@ -19,11 +19,6 @@ jobs:
           echo "@dev-wiki-kr:registry=https://npm.pkg.github.com"  >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> .npmrc
 
-      - name: Export organization environment variables
-        run: |
-          npx @dev-wiki-kr/gha-tools@latest inject-env ./envs --env=production
-          mv .env.service .env.production
-
       - name: extract envs
         run: |
           if [ ${{ github.ref }} = 'refs/heads/main' ]; then
@@ -43,6 +38,12 @@ jobs:
           else
             exit 1
           fi
+
+      - name: Export organization environment variables
+        run: |
+          npx @dev-wiki-kr/gha-tools@latest inject-env ./envs --env=production
+          mv .env.service .env.production
+          cat .env.production
 
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
