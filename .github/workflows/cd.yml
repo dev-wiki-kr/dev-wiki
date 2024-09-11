@@ -23,6 +23,7 @@ jobs:
         run: |
           if [ ${{ github.ref }} = 'refs/heads/main' ]; then
             echo "BRANCH=main" >> $GITHUB_ENV
+            echo "ENVIROMENT=production" >> $GITHUB_ENV
             echo "AWS_HOST=${{ secrets.AWS_EC2_HOST }}" >> $GITHUB_ENV
             echo "AWS_USER=${{ secrets.AWS_EC2_USER }}" >> $GITHUB_ENV
             echo "AWS_KEY<<EOF" >> $GITHUB_ENV
@@ -30,6 +31,7 @@ jobs:
             echo "EOF" >> $GITHUB_ENV     
           elif [ ${{ github.ref }} = 'refs/heads/dev' ]; then
             echo "BRANCH=dev" >> $GITHUB_ENV
+            echo "ENVIROMENT=development" >> $GITHUB_ENV
             echo "AWS_HOST=${{ secrets.DEV_AWS_EC2_HOST }}" >> $GITHUB_ENV
             echo "AWS_USER=${{ secrets.DEV_AWS_EC2_USER }}" >> $GITHUB_ENV
             echo "AWS_KEY<<EOF" >> $GITHUB_ENV
@@ -53,4 +55,4 @@ jobs:
           key: ${{ env.AWS_KEY }}
           port: 22
           script: |
-            git pull origin ${{ env.BRANCH }} && docker compose down && docker compose up -d --build
+            git pull origin ${{ env.BRANCH }} && docker compose down && mv ./envs/.env.${{ env.ENVIROMENT }} .env.production && docker compose up -d --build
