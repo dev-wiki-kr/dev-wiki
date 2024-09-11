@@ -55,4 +55,4 @@ jobs:
           key: ${{ env.AWS_KEY }}
           port: 22
           script: |
-            git pull origin ${{ env.BRANCH }} && docker compose down && mv ./envs/.env.${{ env.ENVIROMENT }} .env.production && docker compose up -d --build
+            git pull origin ${{ env.BRANCH }} && docker compose down && docker compose up -d --build
