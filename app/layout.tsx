@@ -36,6 +36,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  icons: {
+    icon: 'https://devwiki.co.kr/icon.ico',
+  },
   keywords: ['Devwiki'],
   alternates: {
     canonical: 'https://devwiki.co.kr',
