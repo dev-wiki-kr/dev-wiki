@@ -39,10 +39,6 @@ interface ContributorInfoInterface {
 }
 
 export function Author({ authorData, contributorData }: AuthorInterface) {
-  if (!authorData) {
-    return null
-  }
-
   const showAll = contributorData.length > 6
   const displayedContributors = showAll ? contributorData.slice(0, 5) : contributorData
   const showAllContrubutors = showAll ? contributorData.slice(5) : null
@@ -51,6 +47,10 @@ export function Author({ authorData, contributorData }: AuthorInterface) {
 
   const handleOpen = () => {
     setOpen(!isOpen)
+  }
+
+  if (!authorData) {
+    return null
   }
 
   return (
