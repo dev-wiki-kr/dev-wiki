@@ -38,7 +38,7 @@ export default async function Post({ params: { topic } }: TopicProps) {
         <TocSide tableOfContents={tableOfContents} />
         <PostBody source={post.content} />
       </article>
-      <Author authorData={author!} contributorData={contributors} />
+      {author && <Author authorData={author} contributorData={contributors} />}
     </Container>
   )
 }
