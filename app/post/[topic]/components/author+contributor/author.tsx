@@ -39,20 +39,26 @@ interface ContributorInfoInterface {
 }
 
 export function Author({ authorData, contributorData }: AuthorInterface) {
+  if (!authorData) {
+    return null
+  }
+
   const showAll = contributorData.length > 6
   const displayedContributors = showAll ? contributorData.slice(0, 5) : contributorData
   const showAllContrubutors = showAll ? contributorData.slice(5) : null
 
   const [isOpen, setOpen] = useState(false)
-  function handleOpen() {
+
+  const handleOpen = () => {
     setOpen(!isOpen)
   }
+
   return (
     <Container>
       <hr />
       <InfoMessage>작성자 및 기여자</InfoMessage>
       <AuthorContainer>
-        <AuthorInfo src={authorData!.avartarUrl!} username={authorData.username!} />
+        <AuthorInfo src={authorData.avartarUrl} username={authorData.username} />
         {displayedContributors.map((contributor, index) => (
           <ContributorInfo
             src={contributor.avartarUrl}
