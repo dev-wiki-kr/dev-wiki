@@ -4,7 +4,7 @@ import { TocSide } from '../../_shared/toc'
 import { Container } from './components/container'
 import { PostBody } from './components/post-body'
 import { flattenMarkdown, parseMarkdown } from '../../_engine/parse-accordion'
-import { Author } from './components/author+contributor/author'
+import { Author } from './components/author'
 
 export async function generateStaticParams() {
   const data = await getAllPostTitle()
