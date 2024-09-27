@@ -32,12 +32,12 @@ const AuthorTag = styled.div`
   align-items: center;
   justify-content: center;
 `
-interface AuthorInfoInterface {
+interface AuthorInfoProps {
   src: string
   username: string
 }
 
-export function AuthorInfo({ src, username }: AuthorInfoInterface) {
+export function AuthorInfo({ src, username }: AuthorInfoProps) {
   return (
     <Container>
       <UserImage src={`${src}`} />
