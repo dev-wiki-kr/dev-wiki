@@ -9,7 +9,7 @@ export function useModal() {
   const handleModal = () => {
     setIsOpen((prevState) => !prevState)
     if (!isOpen) {
-      router.push(`${pathname}#modal`, { scroll: false })
+      router.push(`${pathname}#open`, { scroll: false })
     } else {
       router.push(`${pathname}`, { scroll: true })
     }
@@ -17,7 +17,7 @@ export function useModal() {
 
   useEffect(() => {
     const handleHashChange = () => {
-      if (window.location.hash === '#modal') {
+      if (window.location.hash === '#open') {
         setIsOpen(true)
       } else {
         setIsOpen(false)
