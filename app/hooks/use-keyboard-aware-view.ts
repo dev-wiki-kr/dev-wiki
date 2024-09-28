@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react'
+import { isIOSClient, isMobileClient } from '../_util/platform'
 
 interface KeyboardAwareViewInfo {
   isKeyboardOpen: boolean
   keyboardHeight: number
   viewportHeight: number
 }
-
-// FIXME: 더 다양한 기기에 대응할 수 있어야함
-const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
-const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
 
 export function useKeyboardAwareView(): KeyboardAwareViewInfo {
   const [keyboardInfo, setKeyboardInfo] = useState<KeyboardAwareViewInfo>({
@@ -18,7 +15,7 @@ export function useKeyboardAwareView(): KeyboardAwareViewInfo {
   })
 
   useEffect(() => {
-    if (!isMobile || !window.visualViewport) {
+    if (!isMobileClient() || !window.visualViewport) {
       return
     }
 
@@ -52,7 +49,7 @@ export function useKeyboardAwareView(): KeyboardAwareViewInfo {
 
     window.visualViewport.addEventListener('resize', handleResize)
 
-    if (isIOS) {
+    if (isIOSClient()) {
       window.addEventListener('scroll', handleScroll)
     } else {
       window.visualViewport.addEventListener('scroll', handleScroll)
@@ -60,7 +57,7 @@ export function useKeyboardAwareView(): KeyboardAwareViewInfo {
 
     return () => {
       window.visualViewport!.removeEventListener('resize', handleResize)
-      if (isIOS) {
+      if (isIOSClient()) {
         window.removeEventListener('scroll', handleScroll)
       } else {
         window.visualViewport!.removeEventListener('scroll', handleScroll)
