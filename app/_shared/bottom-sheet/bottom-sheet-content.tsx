@@ -71,7 +71,7 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
       },
     )
 
-    ref = useMergeRefs([context.refs.setFloating, ref])
+    const bottomSheetRef = useMergeRefs([context.refs.setFloating, ref])
 
     const { isKeyboardOpen, viewportHeight, keyboardHeight } = useKeyboardAwareView()
 
@@ -84,13 +84,12 @@ export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivEl
       return null
     }
 
-    console.log(isKeyboardOpen, viewportHeight)
     return (
       <FloatingPortal>
         <Dimmed style={dimmerStyles} lockScroll />
         <FloatingFocusManager context={floatingContext} initialFocus={-1}>
           <Content
-            ref={ref}
+            ref={bottomSheetRef}
             style={{ ...contentStyles, ...bottomSheetStyle }}
             aria-labelledby={context.labelId}
             aria-describedby={context.descriptionId}
