@@ -1,7 +1,15 @@
-import { useEditor, EditorContent, ReactNodeViewRenderer, Extensions, Node } from '@tiptap/react'
+import {
+  useEditor,
+  EditorContent,
+  ReactNodeViewRenderer,
+  Extensions,
+  Node,
+  Extension,
+} from '@tiptap/react'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight'
 import { CodeBlock } from './code-block'
+import History from '@tiptap/extension-history'
 
 import StarterKit from '@tiptap/starter-kit'
 import './code-block-style.css'
@@ -20,6 +28,7 @@ const extensions: Extensions = [
       keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
     },
   }),
+  History as Extension,
   CodeBlockLowlight.extend({
     addNodeView() {
       return ReactNodeViewRenderer(CodeBlock)
