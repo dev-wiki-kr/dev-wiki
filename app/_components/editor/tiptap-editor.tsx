@@ -1,9 +1,15 @@
-import { useEditor, EditorContent, EditorProvider, useCurrentEditor } from '@tiptap/react'
+import { useEditor, EditorContent, ReactNodeViewRenderer, Extensions, Node } from '@tiptap/react'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { all, createLowlight } from 'lowlight'
+import { CodeBlock } from './code-block'
 
 import StarterKit from '@tiptap/starter-kit'
+import './code-block-style.css'
+
+const lowlight = createLowlight(all)
 
 // define your extension array
-const extensions = [
+const extensions: Extensions = [
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
@@ -14,6 +20,11 @@ const extensions = [
       keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
     },
   }),
+  CodeBlockLowlight.extend({
+    addNodeView() {
+      return ReactNodeViewRenderer(CodeBlock)
+    },
+  }).configure({ lowlight }) as Node,
 ]
 // 제출형식 -> https://tiptap.dev/docs/guides/output-json-html
 // https://tiptap.dev/docs/examples/advanced/syntax-highlighting -> code syntax highlighting (code-block-lowlight)
@@ -42,11 +53,14 @@ const extensions = [
 const content = '<p>Hello World!</p>'
 
 export const Tiptap = () => {
-  const { editor } = useCurrentEditor()
+  const editor = useEditor({
+    extensions,
+    content,
+  })
 
   return (
     <>
-      <EditorProvider extensions={extensions} content={content}></EditorProvider>
+      <EditorContent editor={editor} width={1200}></EditorContent>
     </>
   )
 }
