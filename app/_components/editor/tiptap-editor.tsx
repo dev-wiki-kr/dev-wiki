@@ -3,10 +3,12 @@ import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight'
 import { CodeBlock } from './code-block'
 import Placeholder from '@tiptap/extension-placeholder'
+import Link from '@tiptap/extension-link'
 
 import StarterKit from '@tiptap/starter-kit'
 import './code-block-style.css'
 import './placeholder.css'
+import { useCallback } from 'react'
 
 const lowlight = createLowlight(all)
 
@@ -28,6 +30,10 @@ const extensions = [
     emptyNodeClass: 'is-empty',
     showOnlyWhenEditable: true,
   }),
+  Link.configure({
+    defaultProtocol: 'https',
+    protocols: ['https'],
+  }),
   CodeBlockLowlight.extend({
     addNodeView() {
       return ReactNodeViewRenderer(CodeBlock)
@@ -40,7 +46,6 @@ const extensions = [
 // @tiptap-pro/extension-file-handler -> 파일 드래그해서 업로드
 // @tiptap-pro/extension-table-of-contents => Toc
 // Link
-// @tiptap/extension-history
 // @tiptap/extension-placeholder
 /**
  * @tiptap/extension-table
@@ -66,8 +71,41 @@ export const Tiptap = () => {
     content,
   })
 
+  if (editor === null) {
+    return null
+  }
+
+  const handleSetLink = useCallback(() => {
+    const previousUrl = editor.getAttributes('link').href
+    const url = window.prompt('URL', previousUrl)
+
+    // cancelled
+    if (url === null) {
+      return
+    }
+
+    // empty
+    if (url === '') {
+      editor.chain().focus().extendMarkRange('link').unsetLink().run()
+
+      return
+    }
+
+    // update link
+    editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
+  }, [editor])
+
   return (
     <>
+      <button onClick={handleSetLink} className={editor.isActive('link') ? 'is-active' : ''}>
+        Set link
+      </button>
+      <button
+        onClick={() => editor.chain().focus().unsetLink().run()}
+        disabled={!editor.isActive('link')}
+      >
+        Unset link
+      </button>
       <EditorContent editor={editor} width={1200}></EditorContent>
     </>
   )

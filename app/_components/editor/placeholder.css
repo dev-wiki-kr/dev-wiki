@@ -6,4 +6,14 @@
     height: 0;
     pointer-events: none;
   }
+
+  /* link */
+  a {
+    color: #6c5ce7;
+    cursor: pointer;
+
+    &:hover {
+      color: var(#2c246d);
+    }
+  }
 }
