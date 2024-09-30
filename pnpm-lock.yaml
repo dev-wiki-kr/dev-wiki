@@ -29,7 +29,7 @@ dependencies:
   '@tiptap/extension-code-block-lowlight':
     specifier: ^2.8.0
     version: 2.8.0(@tiptap/core@2.8.0)(@tiptap/extension-code-block@2.8.0)(@tiptap/pm@2.8.0)(highlight.js@11.9.0)(lowlight@3.1.0)
-  '@tiptap/extension-history':
+  '@tiptap/extension-placeholder':
     specifier: ^2.8.0
     version: 2.8.0(@tiptap/core@2.8.0)(@tiptap/pm@2.8.0)
   '@tiptap/pm':
@@ -3264,6 +3264,16 @@ packages:
       '@tiptap/core': ^2.7.0
     dependencies:
       '@tiptap/core': 2.8.0(@tiptap/pm@2.8.0)
+    dev: false
+
+  /@tiptap/extension-placeholder@2.8.0(@tiptap/core@2.8.0)(@tiptap/pm@2.8.0):
+    resolution: {integrity: sha512-BMqv/C9Tcjd7L1/OphUAJTZhWfpWs0rTQJ0bs3RRGsC8L+K20Fg+li45vw7M0teojpfrw57zwJogJd/m23Zr1Q==}
+    peerDependencies:
+      '@tiptap/core': ^2.7.0
+      '@tiptap/pm': ^2.7.0
+    dependencies:
+      '@tiptap/core': 2.8.0(@tiptap/pm@2.8.0)
+      '@tiptap/pm': 2.8.0
     dev: false
 
   /@tiptap/extension-strike@2.8.0(@tiptap/core@2.8.0):

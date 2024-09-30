@@ -1,23 +1,17 @@
-import {
-  useEditor,
-  EditorContent,
-  ReactNodeViewRenderer,
-  Extensions,
-  Node,
-  Extension,
-} from '@tiptap/react'
+import { useEditor, EditorContent, ReactNodeViewRenderer, Extensions, Node } from '@tiptap/react'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight'
 import { CodeBlock } from './code-block'
-import History from '@tiptap/extension-history'
+import Placeholder from '@tiptap/extension-placeholder'
 
 import StarterKit from '@tiptap/starter-kit'
 import './code-block-style.css'
+import './placeholder.css'
 
 const lowlight = createLowlight(all)
 
 // define your extension array
-const extensions: Extensions = [
+const extensions = [
   StarterKit.configure({
     bulletList: {
       keepMarks: true,
@@ -28,7 +22,12 @@ const extensions: Extensions = [
       keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
     },
   }),
-  History as Extension,
+  Placeholder.configure({
+    placeholder: '글을 작성해주세요.',
+    emptyEditorClass: 'is-editor-empty',
+    emptyNodeClass: 'is-empty',
+    showOnlyWhenEditable: true,
+  }),
   CodeBlockLowlight.extend({
     addNodeView() {
       return ReactNodeViewRenderer(CodeBlock)
@@ -63,7 +62,7 @@ const content = '<p>Hello World!</p>'
 
 export const Tiptap = () => {
   const editor = useEditor({
-    extensions,
+    extensions: extensions as Extensions,
     content,
   })
 
