@@ -1,6 +1,16 @@
 .tiptap {
+  width: 1200px;
+
+  min-height: 25rem;
+  caret-color: #6c5ce7;
+  margin: 1.5rem;
+
   :first-child {
     margin-top: 0;
+  }
+
+  &:focus {
+    outline: none;
   }
 
   pre {
