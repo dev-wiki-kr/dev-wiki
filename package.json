@@ -29,6 +29,7 @@
     "@tiptap/pm": "^2.8.0",
     "@tiptap/react": "^2.8.0",
     "@tiptap/starter-kit": "^2.8.0",
+    "@tiptap/suggestion": "^2.8.0",
     "@types/mdx": "^2.0.13",
     "@types/react-syntax-highlighter": "^15.5.13",
     "github-slugger": "^2.0.0",
@@ -36,6 +37,7 @@
     "hast-util-heading-rank": "^3.0.0",
     "lodash-es": "^4.17.21",
     "lowlight": "^3.1.0",
+    "lucide-react": "^0.447.0",
     "next": "14.2.3",
     "next-mdx-remote": "^5.0.0",
     "react": "^18",
@@ -48,6 +50,7 @@
     "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "styled-components": "^6.1.9",
+    "tippy.js": "^6.3.7",
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {

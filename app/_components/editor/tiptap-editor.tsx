@@ -14,6 +14,7 @@ import './placeholder.css'
 import { useCallback, useEffect, useRef } from 'react'
 import TableColumnMenu from './table-menu'
 import { TableCell, tableCellPluginKey } from './table-cell'
+import SlashCommand from './slash-command'
 
 const lowlight = createLowlight(all)
 
@@ -48,6 +49,7 @@ const extensions = [
       return ReactNodeViewRenderer(CodeBlock)
     },
   }).configure({ lowlight }),
+  SlashCommand,
 ]
 // 제출형식 -> https://tiptap.dev/docs/guides/output-json-html
 // https://tiptap.dev/docs/examples/advanced/syntax-highlighting -> code syntax highlighting (code-block-lowlight)
