@@ -1,4 +1,10 @@
-import { useEditor, EditorContent, ReactNodeViewRenderer, Extensions } from '@tiptap/react'
+import {
+  useEditor,
+  EditorContent,
+  ReactNodeViewRenderer,
+  Extensions,
+  BubbleMenu,
+} from '@tiptap/react'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight'
 import { CodeBlock } from './code-block'
@@ -7,6 +13,7 @@ import Link from '@tiptap/extension-link'
 import Table from '@tiptap/extension-table'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
+import Underline from '@tiptap/extension-underline'
 
 import StarterKit from '@tiptap/starter-kit'
 import './code-block-style.css'
@@ -15,6 +22,7 @@ import { useCallback, useEffect, useRef } from 'react'
 import TableColumnMenu from './table-menu'
 import { TableCell, tableCellPluginKey } from './table-cell'
 import SlashCommand from './slash-command'
+import { TextDragMenu } from './text-drag-menu/text-drag-menu'
 
 const lowlight = createLowlight(all)
 
@@ -44,6 +52,7 @@ const extensions = [
   TableRow,
   TableHeader,
   TableCell,
+  Underline,
   CodeBlockLowlight.extend({
     addNodeView() {
       return ReactNodeViewRenderer(CodeBlock)
@@ -145,6 +154,7 @@ export const Tiptap = () => {
       <button onClick={() => editor.chain().focus()}>Add row after</button>
 
       <div ref={editorRef}>
+        <TextDragMenu editor={editor} />
         <EditorContent editor={editor} width={1200}></EditorContent>
         <TableColumnMenu editor={editor} appendTo={editorRef} />
       </div>
@@ -155,6 +165,7 @@ export const Tiptap = () => {
 // 1. table column 부여 방식 처리
 // 2. / command 처리
 // 3. text menu 처리
+// 4. reference menu 처리
 // 3. drap handle 처리
 // 4. file handler 처리
 // 5. table of contents 처리
