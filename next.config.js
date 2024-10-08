@@ -16,6 +16,7 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  compress: false,
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
   async redirects() {
     return [
