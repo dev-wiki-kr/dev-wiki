@@ -9,3 +9,7 @@ export function isMobileClient() {
     navigator.userAgent,
   )
 }
+
+export function isIOSClient() {
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent)
+}

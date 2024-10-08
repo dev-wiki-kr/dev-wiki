@@ -1,7 +1,7 @@
 'use client'
 
 import { css, styled } from 'styled-components'
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useModal } from '../../../_shared/modal/useModal'
 import { media } from '../../../_styles/media'
 import { useSearchContainerPosition } from '../context'
@@ -85,6 +85,12 @@ export function MainSearch() {
   const handleChangeKeyword = (keyword: string) => {
     setKeyword(keyword)
   }
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.blur()
+    }
+  }, [isOpen])
 
   return (
     <Container>

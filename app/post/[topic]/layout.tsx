@@ -91,14 +91,14 @@ export default async function PostLayout({
     // dependencies: '',
     proficiencyLevel: 'Beginner',
     headline: `${post?.title}`,
-    url: `https://devwiki.co.kr/wiki/${post?.shortTitle}`,
+    url: `https://devwiki.co.kr/post/${post?.shortTitle}`,
     datePublished: `${post?.createdAt}`,
     dateModified: `${post?.updatedAt}`,
     /** 글의 태그로 보이며 추후에 추가된 경우 살리기 */
     // keywords: 'Dev',
     /** api 속성에서 description을 받을 수 있게 추가 */
     description: `${post?.content.slice(0, 70)}`,
-    mainEntityOfPage: `https://devwiki.co.kr/wiki/${post?.shortTitle}`,
+    mainEntityOfPage: `https://devwiki.co.kr/post/${post?.shortTitle}`,
   }
 
   return (

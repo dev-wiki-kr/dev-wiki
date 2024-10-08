@@ -3,55 +3,22 @@ import {
   FloatingOverlay,
   FloatingFocusManager,
   useMergeRefs,
+  useTransitionStyles,
 } from '@floating-ui/react'
-import { HTMLProps, forwardRef, useEffect, useRef, useState } from 'react'
+import { CSSProperties, HTMLProps, forwardRef } from 'react'
 import { useBottomSheetContext } from './context'
-import { styled, keyframes } from 'styled-components'
+import styled from 'styled-components'
+import { useKeyboardAwareView } from '../../hooks/use-keyboard-aware-view'
 
-const enter = keyframes`
-  0% {
-  opacity: 1;
-  }
-`
-
-const exit = keyframes`
-  to {
-    opacity: 0;
-  }
-`
-
-const slideIn = keyframes`
-  from {
-    transform: translate3d(0, 100%, 0);
-  }
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-`
-
-const slideOut = keyframes`
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-  to {
-    transform: translate3d(0, 120%, 0);
-  }
-`
-
-const Dimmed = styled(FloatingOverlay).withConfig({
-  shouldForwardProp: (prop) => !['isOpen'].includes(prop),
-})<{ isOpen: boolean }>`
-  background-color: rgba(0, 0, 0, 0.8);
+const Dimmed = styled(FloatingOverlay)`
+  background-color: rgba(0, 0, 0, 0.4);
   display: grid;
   justify-items: center;
   z-index: 50;
-
-  animation: ${({ isOpen }) => (isOpen ? enter : exit)} 0.15s forwards;
+  transition: opacity cubic-bezier(0.32, 0.72, 0, 1);
 `
 
-const Content = styled.div.withConfig({
-  shouldForwardProp: (prop) => !['isOpen'].includes(prop),
-})<{ isOpen: boolean }>`
+const Content = styled.div`
   position: fixed;
   bottom: 0;
   right: 0;
@@ -59,64 +26,78 @@ const Content = styled.div.withConfig({
   z-index: 50;
 
   background-color: ${({ theme }) => theme.colors.neutral[0]};
-
   height: 80vh;
-
+  max-height: 80dvh;
+  min-height: 5dvh;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-
-  animation: ${({ isOpen }) => (isOpen ? slideIn : slideOut)} 0.5s cubic-bezier(0.32, 0.72, 0, 1)
-    forwards;
+  transition: transform cubic-bezier(0.32, 0.72, 0, 1);
+  overscroll-behavior: none;
 `
 
 export const BottomSheetContent = forwardRef<HTMLDivElement, HTMLProps<HTMLDivElement>>(
   function BottomSheetContent(props, ref) {
     const { context: floatingContext, ...context } = useBottomSheetContext()
-    const contentRef = useRef<HTMLDivElement>(null)
-    const dimmerRef = useRef<HTMLDivElement>(null)
-    const [isMounted, setMounted] = useState(false)
 
-    ref = useMergeRefs([context.refs.setFloating, ref, contentRef]) // ref 병합
+    const { isMounted: isDimmerMounted, styles: dimmerStyles } = useTransitionStyles(
+      floatingContext,
+      {
+        duration: 400,
+        initial: {
+          opacity: 0,
+        },
+        open: {
+          opacity: 1,
+        },
+        close: {
+          opacity: 0,
+        },
+      },
+    )
 
-    useEffect(() => {
-      if (floatingContext.open) {
-        setMounted(true)
-      } else if (contentRef.current) {
-        const handleAnimationEnd = () => {
-          setMounted(false)
-        }
+    const { isMounted: isContentMounted, styles: contentStyles } = useTransitionStyles(
+      floatingContext,
+      {
+        duration: 500,
+        initial: {
+          transform: 'translate3d(0, 100%, 0)',
+        },
+        open: {
+          transform: 'translate3d(0, 0, 0)',
+        },
+        close: {
+          transform: 'translate3d(0, 100%, 0)',
+        },
+      },
+    )
 
-        const contentElement = contentRef.current
+    const bottomSheetRef = useMergeRefs([context.refs.setFloating, ref])
 
-        contentElement?.addEventListener('animationend', handleAnimationEnd)
+    const { isKeyboardOpen, viewportHeight, keyboardHeight } = useKeyboardAwareView()
 
-        return () => {
-          if (handleAnimationEnd && contentElement) {
-            contentElement.removeEventListener('animationend', handleAnimationEnd)
-          }
-        }
-      }
-    }, [floatingContext.open])
+    const bottomSheetStyle: CSSProperties = {
+      height: isKeyboardOpen ? `${viewportHeight * 0.8}px` : '80vh',
+      bottom: isKeyboardOpen ? `${keyboardHeight}px` : '0',
+    }
 
-    if (!isMounted) {
+    if (!isDimmerMounted || !isContentMounted) {
       return null
     }
 
     return (
       <FloatingPortal>
-        <Dimmed ref={dimmerRef} isOpen={floatingContext.open} lockScroll>
-          <FloatingFocusManager context={floatingContext}>
-            <Content
-              ref={ref}
-              aria-labelledby={context.labelId}
-              aria-describedby={context.descriptionId}
-              isOpen={floatingContext.open}
-              {...context.getFloatingProps(props)}
-            >
-              {props.children}
-            </Content>
-          </FloatingFocusManager>
-        </Dimmed>
+        <Dimmed style={dimmerStyles} lockScroll />
+        <FloatingFocusManager context={floatingContext} initialFocus={-1}>
+          <Content
+            ref={bottomSheetRef}
+            style={{ ...contentStyles, ...bottomSheetStyle }}
+            aria-labelledby={context.labelId}
+            aria-describedby={context.descriptionId}
+            {...context.getFloatingProps(props)}
+          >
+            {props.children}
+          </Content>
+        </FloatingFocusManager>
       </FloatingPortal>
     )
   },
