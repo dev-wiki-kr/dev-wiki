@@ -23,6 +23,7 @@ import TableColumnMenu from './table-menu'
 import { TableCell, tableCellPluginKey } from './table-cell'
 import SlashCommand from './slash-command'
 import { TextDragMenu } from './text-drag-menu/text-drag-menu'
+import { DraggableContentMenu } from './draggable-content-menu/draggable-content-menu'
 
 const lowlight = createLowlight(all)
 
@@ -39,10 +40,11 @@ const extensions = [
     },
   }),
   Placeholder.configure({
-    placeholder: '글을 작성해주세요.',
+    placeholder: '텍스트를 입력하거나 / 커맨드를 입력하세요',
     emptyEditorClass: 'is-editor-empty',
     emptyNodeClass: 'is-empty',
     showOnlyWhenEditable: true,
+    showOnlyCurrent: true,
   }),
   Link.configure({
     defaultProtocol: 'https',
@@ -155,7 +157,8 @@ export const Tiptap = () => {
 
       <div ref={editorRef}>
         <TextDragMenu editor={editor} />
-        <EditorContent editor={editor} width={1200}></EditorContent>
+        <EditorContent editor={editor} width={500}></EditorContent>
+        <DraggableContentMenu editor={editor} />
         <TableColumnMenu editor={editor} appendTo={editorRef} />
       </div>
     </>

@@ -58,7 +58,7 @@ export function TextDragMenu({ editor }: TextDragMenuProps) {
           }}
           shouldShow={states.shouldShow}
           pluginKey="textMenu"
-          updateDelay={100}
+          updateDelay={500}
         >
           <div className="bubble-menu">
             <MenuButton

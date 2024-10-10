@@ -1,9 +1,12 @@
 .tiptap {
-  width: 1200px;
+  width: 500px;
 
   min-height: 25rem;
   caret-color: #6c5ce7;
   margin: 1.5rem;
+
+  /** padding을 잡아줘야 drag handle의 영역 잡기 가능*/
+  padding: 2rem;
 
   :first-child {
     margin-top: 0;
