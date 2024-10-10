@@ -18,6 +18,8 @@ jobs:
         run: |
           echo "@dev-wiki-kr:registry=https://npm.pkg.github.com"  >> .npmrc
           echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" >> .npmrc
+          echo "@tiptap-pro:registry=https://registry.tiptap.dev/" >> .npmrc
+          echo "//registry.tiptap.dev/:_authToken=${{ secrets.TIPTAP_TOKEN }}" >> .npmrc
 
       - name: extract envs
         run: |
