@@ -17,8 +17,6 @@ export const useData = () => {
     [setCurrentNodePos, setCurrentNode],
   )
 
-  console.log(currentNode)
-
   return {
     currentNode,
     currentNodePos,

@@ -183,7 +183,7 @@ export const Tiptap = () => {
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
   }
 
-  const handleTableSetting = () => {
+  const handleTableSetting = useCallback(() => {
     if (editor === null) {
       return
     }
@@ -198,11 +198,11 @@ export const Tiptap = () => {
 
       editorInstance.view.dispatch(transaction)
     })
-  }
+  }, [editor])
 
   useEffect(() => {
     handleTableSetting()
-  }, [])
+  }, [editor])
 
   if (editor === null) {
     return null
