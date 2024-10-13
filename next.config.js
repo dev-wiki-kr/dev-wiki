@@ -17,6 +17,16 @@ const nextConfig = {
     styledComponents: true,
   },
   pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+  async rewrites() {
+    console.log('Rewrites configuration loaded')
+
+    return [
+      {
+        source: '/wiki-api/uploads',
+        destination: 'https://test.devwiki.co.kr/wiki-api/uploads',
+      },
+    ]
+  },
   async redirects() {
     return [
       // www to non-www redirect

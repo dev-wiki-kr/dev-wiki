@@ -1,3 +1,5 @@
+'use client'
+
 import {
   useEditor,
   EditorContent,
@@ -14,6 +16,8 @@ import Table from '@tiptap/extension-table'
 import TableHeader from '@tiptap/extension-table-header'
 import TableRow from '@tiptap/extension-table-row'
 import Underline from '@tiptap/extension-underline'
+import Image from '@tiptap/extension-image'
+import FileHandler from '@tiptap-pro/extension-file-handler'
 
 import StarterKit from '@tiptap/starter-kit'
 import './code-block-style.css'
@@ -24,6 +28,7 @@ import { TableCell, tableCellPluginKey } from './table-cell'
 import SlashCommand from './slash-command'
 import { TextDragMenu } from './text-drag-menu/text-drag-menu'
 import { DraggableContentMenu } from './draggable-content-menu/draggable-content-menu'
+import { uploadImage } from '../../_service/editor'
 
 const lowlight = createLowlight(all)
 
@@ -55,12 +60,72 @@ const extensions = [
   TableHeader,
   TableCell,
   Underline,
+  Image,
   CodeBlockLowlight.extend({
     addNodeView() {
       return ReactNodeViewRenderer(CodeBlock)
     },
   }).configure({ lowlight }),
   SlashCommand,
+  Image,
+  FileHandler.configure({
+    allowedMimeTypes: [
+      'image/png',
+      'image/jpeg',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml',
+      'image/jpg',
+      'image/avif',
+    ],
+    onDrop: (currentEditor, files, pos) => {
+      const setImage = async (file: File) => {
+        const image = await uploadImage({ file })
+
+        currentEditor
+          .chain()
+          .insertContentAt(pos, {
+            type: 'image',
+            attrs: {
+              src: image.cloudFrontUrl,
+            },
+          })
+          .focus()
+          .run()
+      }
+
+      files.forEach((file) => {
+        setImage(file)
+      })
+    },
+    onPaste: (currentEditor, files, htmlContent) => {
+      const setImage = async (file: File) => {
+        const image = await uploadImage({ file })
+
+        currentEditor
+          .chain()
+          .insertContentAt(currentEditor.state.selection.anchor, {
+            type: 'image',
+            attrs: {
+              src: image.cloudFrontUrl,
+            },
+          })
+          .focus()
+          .run()
+      }
+
+      files.forEach((file) => {
+        if (htmlContent) {
+          // if there is htmlContent, stop manual insertion & let other extensions handle insertion via inputRule
+          // you could extract the pasted file from this url string and upload it to a server for example
+          console.log(htmlContent) // eslint-disable-line no-console
+          return false
+        }
+
+        setImage(file)
+      })
+    },
+  }),
 ]
 // 제출형식 -> https://tiptap.dev/docs/guides/output-json-html
 // https://tiptap.dev/docs/examples/advanced/syntax-highlighting -> code syntax highlighting (code-block-lowlight)
@@ -94,11 +159,11 @@ export const Tiptap = () => {
     content,
   })
 
-  if (editor === null) {
-    return null
-  }
+  const handleSetLink = () => {
+    if (editor === null) {
+      return
+    }
 
-  const handleSetLink = useCallback(() => {
     const previousUrl = editor.getAttributes('link').href
     const url = window.prompt('URL', previousUrl)
 
@@ -116,9 +181,13 @@ export const Tiptap = () => {
 
     // update link
     editor.chain().focus().extendMarkRange('link').setLink({ href: url }).run()
-  }, [editor])
+  }
 
   const handleTableSetting = () => {
+    if (editor === null) {
+      return
+    }
+
     editor.on('selectionUpdate', ({ editor: editorInstance }) => {
       const pos = editorInstance.view.state.selection.$head.pos
 
@@ -134,6 +203,10 @@ export const Tiptap = () => {
   useEffect(() => {
     handleTableSetting()
   }, [])
+
+  if (editor === null) {
+    return null
+  }
 
   return (
     <>
@@ -165,12 +238,12 @@ export const Tiptap = () => {
   )
 }
 
-// 1. table column 부여 방식 처리
-// 2. / command 처리
-// 3. text menu 처리
+// 1. table column 부여 방식 처리 x
+// 2. / command 처리 x
+// 3. text menu 처리 x
 // 4. reference menu 처리
-// 3. drap handle 처리
-// 4. file handler 처리
+// 3. drag handle 처리 x
+// 4. file handler 처리 - 진행중
 // 5. table of contents 처리
 // 6. custom h1, h2 처리
 // 7. trailing node 처리
