@@ -29,6 +29,7 @@ import SlashCommand from './slash-command'
 import { TextDragMenu } from './text-drag-menu/text-drag-menu'
 import { DraggableContentMenu } from './draggable-content-menu/draggable-content-menu'
 import { uploadImage } from '../../_service/editor'
+import { TrailingNode } from './trailing-node'
 
 const lowlight = createLowlight(all)
 
@@ -68,6 +69,7 @@ const extensions = [
   }).configure({ lowlight }),
   SlashCommand,
   Image,
+  TrailingNode,
   FileHandler.configure({
     allowedMimeTypes: [
       'image/png',
