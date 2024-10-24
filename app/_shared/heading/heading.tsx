@@ -28,6 +28,7 @@ const Heading = css`
 export const H1 = styled.h1`
   ${Heading};
   font-size: 48px;
+  padding: 12px 0;
 
   ${media.phone`
    font-size: 32px;
@@ -36,6 +37,7 @@ export const H1 = styled.h1`
 export const H2 = styled.h2`
   ${Heading};
   font-size: 24px;
+  padding: 8px 0;
 
   ${media.phone`
    font-size: 22px;
@@ -44,6 +46,7 @@ export const H2 = styled.h2`
 export const H3 = styled.h3`
   ${Heading};
   font-size: 20px;
+  padding: 6px 0;
 
   ${media.phone`
    font-size: 18px;
@@ -52,6 +55,7 @@ export const H3 = styled.h3`
 export const H4 = styled.h4`
   ${Heading};
   font-size: 20px;
+  padding: 4px 0;
 
   ${media.phone`
    font-size: 18px;
@@ -60,6 +64,7 @@ export const H4 = styled.h4`
 export const H5 = styled.h5`
   ${Heading}
   font-size: 20px;
+  padding: 2px 0;
 
   ${media.phone`
    font-size: 18px;
