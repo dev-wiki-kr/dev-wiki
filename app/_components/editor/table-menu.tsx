@@ -31,7 +31,6 @@ const Button = styled.button`
 export const TableColumnMenu = ({ editor, appendTo }): JSX.Element => {
   const shouldShow = ({ view, state, from }) => {
     const pluginState = tableCellPluginKey.getState(editor.state)
-    console.log({ pluginState })
 
     return pluginState?.showBubbleMenu || false
   }

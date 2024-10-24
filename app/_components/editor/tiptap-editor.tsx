@@ -6,6 +6,7 @@ import {
   ReactNodeViewRenderer,
   Extensions,
   BubbleMenu,
+  Editor,
 } from '@tiptap/react'
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight'
@@ -30,8 +31,30 @@ import { TextDragMenu } from './text-drag-menu/text-drag-menu'
 import { DraggableContentMenu } from './draggable-content-menu/draggable-content-menu'
 import { uploadImage } from '../../_service/editor'
 import { TrailingNode } from './trailing-node'
+import Heading from '@tiptap/extension-heading'
+import { HeadingComponent } from './custom-heading'
 
 const lowlight = createLowlight(all)
+
+function calculateHeadingNumbers(doc: Editor['state']['doc']) {
+  const numbers: number[] = [] // 각 레벨의 번호를 저장
+  const headingNodes: { node: any; tag: string }[] = [] // 노드와 태그 저장
+
+  doc.forEach((node) => {
+    if (node.type.name === 'heading') {
+      const level = node.attrs.level
+      // 해당 레벨의 번호 계산 및 저장
+      numbers[level - 1] = (numbers[level - 1] || 0) + 1
+      // 하위 레벨 초기화
+      numbers.fill(0, level)
+      // 번호 형식을 생성 ("1", "1.1", "1.1.1")
+      const tag = numbers.slice(0, level).join('.')
+      headingNodes.push({ node, tag })
+    }
+  })
+
+  return headingNodes
+}
 
 // define your extension array
 const extensions = [
@@ -44,6 +67,7 @@ const extensions = [
       keepMarks: true,
       keepAttributes: false, // TODO : Making this as `false` becase marks are not preserved when I try to preserve attrs, awaiting a bit of help
     },
+    heading: false,
   }),
   Placeholder.configure({
     placeholder: '텍스트를 입력하거나 / 커맨드를 입력하세요',
@@ -70,6 +94,11 @@ const extensions = [
   SlashCommand,
   Image,
   TrailingNode,
+  Heading.extend({
+    addNodeView() {
+      return ReactNodeViewRenderer(HeadingComponent)
+    },
+  }),
   FileHandler.configure({
     allowedMimeTypes: [
       'image/png',
@@ -159,6 +188,7 @@ export const Tiptap = () => {
   const editor = useEditor({
     extensions: extensions as Extensions,
     content,
+    immediatelyRender: false,
   })
 
   const handleSetLink = () => {
@@ -229,6 +259,13 @@ export const Tiptap = () => {
         set table
       </button>
       <button onClick={() => editor.chain().focus()}>Add row after</button>
+      <button
+        onClick={() => {
+          console.log(editor.getJSON())
+        }}
+      >
+        getJSON
+      </button>
 
       <div ref={editorRef}>
         <TextDragMenu editor={editor} />
@@ -245,8 +282,8 @@ export const Tiptap = () => {
 // 3. text menu 처리 x
 // 4. reference menu 처리
 // 3. drag handle 처리 x
-// 4. file handler 처리 - 진행중
+// 4. file handler 처리 - x
 // 5. table of contents 처리
 // 6. custom h1, h2 처리
-// 7. trailing node 처리
+// 7. trailing node 처리 - x
 // 8. custom link 처리

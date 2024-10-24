@@ -10,7 +10,7 @@ const withMDX = mdx({
 })
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   swcMinify: true,
   output: 'standalone',
   compiler: {
